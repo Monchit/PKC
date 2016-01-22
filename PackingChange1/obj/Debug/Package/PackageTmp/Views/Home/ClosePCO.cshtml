@@ -1,0 +1,266 @@
+﻿@{
+    ViewBag.Title = "Close";
+}
+<style type="text/css">
+    /*fix jTable*/
+    span.jtable-goto-page select, span.jtable-page-size-change select {
+        height: 25px;
+        width: 60px;
+        padding: 2px 2px;
+        margin-bottom:auto;
+    }
+    div.jtable-main-container table.jtable thead th {
+        text-align: center;
+    }
+    div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+        text-align: center;
+    }
+    .rowComp {
+        background-color:#99f9b9 !important;
+        color:#323232 !important;
+    }
+    .rowCanc {
+        background-color: #fff3b7 !important;
+        color: #323232 !important;
+    }
+    .rowRej {
+        background-color: #f88B8B !important;
+        color: #ffffff !important;
+    }
+    .jtable-row-selected {
+        background-color: #cccccc !important;
+        color: #000000 !important;
+    }
+</style>
+@section scripts {
+    <script type="text/javascript">
+        function DisableTab(status) {
+            //0 and 11 always show
+            for (var i = 0; i < 11; i++) {
+                $("#tabstrip li:eq(" + i + ")").show();
+            }
+            switch (status) {
+                case 1: $("#tabstrip li:eq(2)").hide();
+                case 2: $("#tabstrip li:eq(3)").hide();
+                case 3:
+                case 4:
+                case 5: $("#tabstrip li:eq(4)").hide();
+                case 6: $("#tabstrip li:eq(5)").hide();
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                case 13: $("#tabstrip li:eq(6)").hide();
+            }
+        }
+        $(document).ready(function () {
+            var obj = new Object();
+            $('#jTableClose').jtable({
+                title: 'Packing Change',
+                paging: true, //Enable paging
+                pageSize: 10, //Set page size (default: 10)
+                sorting: true, //Enable sorting
+                selecting: true, //Enable selecting
+                multiselect: false, //Allow multiple selecting
+                defaultSorting: 'id', //Set default sorting
+                actions: {
+                    listAction: '@Url.Action("PCOCloseList","Home")'
+                },
+                recordsLoaded: function (event, data) {
+                    $("table.jtable").children().eq(1).children().each(function () {
+                        if ($(this).children().eq(4).text() == "Completed") {
+                            $(this).addClass("rowComp");
+                        }
+                        else if ($(this).children().eq(4).text() == "Cancelled") {
+                            $(this).addClass("rowCanc");
+                        }
+                        else if ($(this).children().eq(4).text() == "Rejected") {
+                            $(this).addClass("rowRej");
+                        }
+                    });
+                },
+                fields: {
+                    gpcode: { title: 'GroupCode', list: false },
+                    year: { title: 'Year', list: false },
+                    runno: { title: 'RunNo.', list: false },
+                    id: { title: 'Control No.', key: true, width: '18%', visibility: 'fixed' },
+                    change_detail: { title: 'Change detail', width: '36%' },
+                    issue_group: { title: 'Issue group', width: '18%', options: '@Url.Action("GetTNCGroupList","Home")' },
+                    lv_id: { title: 'User Lv.', width: '9%', options: '@Url.Action("GetULvList","Home")' },
+                    maxstatus: { title: 'Status', width: '9%', options: '@Url.Action("GetStatusList","Home")' },
+                    print: {
+                        title: 'Print', width: '5%',
+                        display: function (data) {
+                            return $('<a href="@Url.Action("PrintPDF")?gpcode=' + data.record.gpcode + '&year=' + data.record.year +'&runno=' +data.record.runno +'" target="_blank"><i class="icon-print"></i></a>');
+                        }
+                    },
+                    printitem: {
+                        title: 'Item', width: '5%',
+                        display: function (data) {
+                            return $('<a href="@Url.Action("PrintItem")?gpcode=' + data.record.gpcode + '&year=' + data.record.year + '&runno=' + data.record.runno + '" target="_blank"><i class="icon-print"></i></a>');
+                        }
+                    }
+                },
+                //Register to selectionChanged event to hanlde events
+                selectionChanged: function () {
+                    //Get all selected rows
+                    var $selectedRows = $('#jTableClose').jtable('selectedRows');
+                    if ($selectedRows.length > 0) {
+                        $selectedRows.each(function () {
+                            var record = $(this).data('record');
+
+                            obj.gpcode = record.gpcode;
+                            obj.year = record.year;
+                            obj.runno = record.runno;
+
+                            DisableTab(record.maxstatus);
+                            $("#mainDetail").show();
+                            $('#tabstrip a:first').tab('show');
+
+                            var remote = "@Url.Action("_TabMain")";
+                            $.get(remote, obj, function (data) {
+                                $("#_TabMain").html(data);
+                                return false;
+                            });
+
+                            var attremote = "@Url.Action("_TabAtt")";
+                            $.get(attremote, obj, function (data) {
+                                $("#_TabAtt").html(data);
+                                return false;
+                            });
+                        });
+                    }
+                }
+            });
+
+            $("#mainDetail").hide();
+
+            //Re-load records when user click 'load records' button.
+            $('#btSearch').click(function (e) {
+                e.preventDefault();
+                $('#jTableClose').jtable('load', {
+                    id: $('#txt_controlno').val(),
+                    detail: $('#txt_detail').val(),
+                    group: $('#txt_group').val(),
+                    status: $('#txt_status').val(),
+                    //item: $('#txt_item').val(),
+                    lv: $('#txt_lv').val()
+                });
+            });
+
+            $('#tabstrip a').click(function (e) {
+                e.preventDefault();
+                var tabID = $(this).attr("href").substr(1);
+                var path = "@Url.Action("tabID", "Home")";
+                path = path.replace("tabID", tabID);
+                $.ajax({
+                    //url: "/Home/" + tabID,
+                    url: path,
+                    data: obj,
+                    cache: false,
+                    type: "get",
+                    dataType: "html",
+                    success: function (result) {
+                        $("#" + tabID).html(result);
+                    }
+                });
+                $(this).tab('show');
+            });
+
+            //Load all records when page is first shown
+            $('#btSearch').click();
+        });
+    </script>
+}
+
+<table class="table table-condensed" style="width:auto;">
+    <thead>
+        <tr>
+            <th>Control no.</th>
+            <th>Item code</th>
+            <th>Change detail</th>
+            <th>Issued group</th>
+            <th>User Lv.</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="text" name="txt_controlno" id="txt_controlno" class="span2" placeholder="Control no." /></td>
+            <td><input type="text" name="txt_item" id="txt_item" class="span2" placeholder="Item code" /></td>
+            <td><input type="text" name="txt_detail" id="txt_detail" class="span3" placeholder="Change detail" /></td>
+            <td>
+                <select id="txt_group" name="txt_group" class="span2">
+                    <option selected="selected" value="">All Group</option>
+                    @foreach (var item in ViewBag.SelectGroup)
+                    {
+                    <option value="@item.id">@item.group_name</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <select id="txt_lv" name="txt_lv" class="span2">
+                    <option selected="selected" value="">All Level</option>
+                    @foreach (var item in ViewBag.SelectULv)
+                    {
+                    <option value="@item.lv_id">@item.lv_name</option>
+                    }
+                </select>
+            </td>
+            <td><select id="txt_status" name="txt_status" class="span2">
+                    <option selected="selected" value="">All Status</option>
+                    @foreach (var item in ViewBag.SelectStatus)
+                    {
+                    <option value="@item.status_id">@item.status_name</option>
+                    }
+                </select>
+            </td>
+            <td><button type="submit" id="btSearch" class="btn btn-primary"><i class="icon-search icon-white"></i> Search</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="jTableClose"></div>
+
+<div id="dialogDetail" title="Detail"></div>
+
+<br />
+<div id="mainDetail" class="row-fluid">
+    <div class="span9">
+        <!-- Tab Buttons -->
+        <ul id="tabstrip" class="nav nav-tabs" role="tablist">
+            <li><a href="#_TabMain">Requester</a></li>
+            <li><a href="#_TabItemList">Item List</a></li>
+            <li><a href="#_TabQA">QA Review</a></li>
+            <li><a href="#_TabConcern">Concern</a></li>
+            <li><a href="#_TabSLCS">Sales/CS</a></li>
+            <li><a href="#_TabPack">QA Packing STD.</a></li>
+            @*<li><a href="#_TabCS">CS</a></li>
+            <li><a href="#_TabLog">Logistics</a></li>
+            <li><a href="#_TabRec">QC Receiving</a></li>
+            <li><a href="#_TabPln">Planning</a></li>*@
+            <li><a href="#_TabCls">QA Close</a></li>
+            <li><a href="#_TabFB">Feedback</a></li>
+        </ul>
+
+        <!-- Tab Content Containers -->
+        <div class="tab-content" id="tabContent">
+            <div class="tab-pane" id="_TabMain"></div>
+            <div class="tab-pane" id="_TabItemList"></div>
+            <div class="tab-pane" id="_TabQA"></div>
+            <div class="tab-pane" id="_TabConcern"></div>
+            <div class="tab-pane" id="_TabSLCS"></div>
+            <div class="tab-pane" id="_TabPack"></div>
+            @*<div class="tab-pane" id="_TabCS"></div>
+            <div class="tab-pane" id="_TabLog"></div>
+            <div class="tab-pane" id="_TabRec"></div>
+            <div class="tab-pane" id="_TabPln"></div>*@
+            <div class="tab-pane" id="_TabCls"></div>
+            <div class="tab-pane" id="_TabFB"></div>
+        </div>
+    </div>
+    <div class="span3" id="_TabAtt"></div>
+</div>

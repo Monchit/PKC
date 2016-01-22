@@ -1,0 +1,45 @@
+﻿@model IEnumerable<PackingChange1.Models.td_files>
+
+<table class="table table-bordered table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>Attach files</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td><a href="@Url.Content(item.path + item.filename)" target="_blank">@item.filename</a></td>
+            <td>@item.upload_dt.ToString("dd/MM/yyyy")</td>
+        </tr> 
+        }
+    </tbody>
+</table>
+
+@if(ViewBag.IsIssuer){
+    <form action="@Url.Action("IssuerAddFiles")" method="post" enctype="multipart/form-data">
+        @Html.Partial("_SectionAtt")
+        <input type="hidden" id="hdgc" name="hdgc" value="@ViewBag.AttGC" />
+        <input type="hidden" id="hdyy" name="hdyy" value="@ViewBag.AttYY" />
+        <input type="hidden" id="hdrn" name="hdrn" value="@ViewBag.AttRN" />
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+    
+    if (ViewBag.AttClose)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.validate({ form: '#formCancel' });
+            });
+        </script>
+        <form id="formCancel" name="formCancel" action="@Url.Action("CancelAction")" method="post">
+            <span>Reason for Cancellation :<button class="btn btn-danger pull-right"><i class="icon-remove-circle icon-white"></i> Cancel</button></span>
+            <textarea rows="5" id="txaRS" name="txaRS" class="span12" data-validation="required"></textarea>
+            <input type="hidden" id="ccgc" name="ccgc" value="@ViewBag.AttGC" />
+            <input type="hidden" id="ccyy" name="ccyy" value="@ViewBag.AttYY" />
+            <input type="hidden" id="ccrn" name="ccrn" value="@ViewBag.AttRN" />
+        </form>
+    }
+}

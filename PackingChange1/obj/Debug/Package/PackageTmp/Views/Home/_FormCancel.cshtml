@@ -1,0 +1,16 @@
+﻿
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+
+<form id="IssCancel" name="IssCancel" action="@Url.Action("IssuerCancelAction")" method="post" class="form-horizontal">
+    <!-- Text input-->
+    <div class="control-group" id="divText">
+      <label class="control-label" for="txaCM" id="lbText">Reason for Cancellation : </label>
+      <div class="controls">
+        <textarea rows="4" id="txaCM" name="txaCM" class="input-xlarge" data-validation="required"></textarea>
+      </div>
+    </div>
+</form>

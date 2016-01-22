@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Concern Type Management";
+}
+<style type="text/css">
+    /*fix jTable*/
+    span.jtable-goto-page select, span.jtable-page-size-change select {
+        height: 25px;
+        width: 60px;
+        padding: 2px 2px;
+        margin-bottom:auto;
+    }
+    div.jtable-main-container table.jtable thead th {
+        text-align: center;
+    }
+    div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jTableConcernType').jtable({
+            title: 'Concern Type Master',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'concern_group_id', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("ConcernTypeList","Master")',
+                deleteAction: '@Url.Action("DeleteConcernType","Master")',
+                @*updateAction: '@Url.Action("UpdateConcernType","Master")',*@
+                createAction: '@Url.Action("CreateConcernType","Master")'
+            },
+            fields: {
+                concern_group_id: { title: 'Id', key: true, create: false, edit: false, width: '35%' },
+                concern_group_name: { title: 'Name', create: true, edit: false, width: '65%' }
+            }
+        });
+        //Load student list from server
+        $('#jTableConcernType').jtable('load');
+
+    });
+</script>
+
+<div id="jTableConcernType"></div>

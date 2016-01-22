@@ -1,0 +1,2374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PackingChangeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="PackingChangeModelStoreContainer">
+          <EntitySet Name="td_feedback" EntityType="PackingChangeModel.Store.td_feedback" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="td_files" EntityType="PackingChangeModel.Store.td_files" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="td_impact_plant" EntityType="PackingChangeModel.Store.td_impact_plant" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="td_item_list" EntityType="PackingChangeModel.Store.td_item_list" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="td_main_data" EntityType="PackingChangeModel.Store.td_main_data" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="td_pack_std" EntityType="PackingChangeModel.Store.td_pack_std" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="td_salecs" EntityType="PackingChangeModel.Store.td_salecs" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="td_tell" EntityType="PackingChangeModel.Store.td_tell" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="td_temp_concern" EntityType="PackingChangeModel.Store.td_temp_concern" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="td_transaction" EntityType="PackingChangeModel.Store.td_transaction" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tm_action" EntityType="PackingChangeModel.Store.tm_action" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tm_concern_group" EntityType="PackingChangeModel.Store.tm_concern_group" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tm_init_tag" EntityType="PackingChangeModel.Store.tm_init_tag" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tm_plant" EntityType="PackingChangeModel.Store.tm_plant" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tm_status" EntityType="PackingChangeModel.Store.tm_status" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tm_sys_concern_group" EntityType="PackingChangeModel.Store.tm_sys_concern_group" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tm_sys_group" EntityType="PackingChangeModel.Store.tm_sys_group" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tm_sys_group_user" EntityType="PackingChangeModel.Store.tm_sys_group_user" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tm_sys_user" EntityType="PackingChangeModel.Store.tm_sys_user" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tm_sys_utype" EntityType="PackingChangeModel.Store.tm_sys_utype" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tm_user_level" EntityType="PackingChangeModel.Store.tm_user_level" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="V_ConcernGroup" EntityType="PackingChangeModel.Store.V_ConcernGroup" store:Type="Views" store:Schema="dbo" store:Name="V_ConcernGroup">
+            <DefiningQuery>SELECT 
+      [V_ConcernGroup].[group_id] AS [group_id], 
+      [V_ConcernGroup].[group_name] AS [group_name], 
+      [V_ConcernGroup].[concern_group_id] AS [concern_group_id]
+      FROM [dbo].[V_ConcernGroup] AS [V_ConcernGroup]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_Report" EntityType="PackingChangeModel.Store.V_Report" store:Type="Views" store:Schema="dbo" store:Name="V_Report">
+            <DefiningQuery>SELECT 
+      [V_Report].[id] AS [id], 
+      [V_Report].[gpcode] AS [gpcode], 
+      [V_Report].[year] AS [year], 
+      [V_Report].[runno] AS [runno], 
+      [V_Report].[status_name] AS [status_name], 
+      [V_Report].[issue_group] AS [issue_group], 
+      [V_Report].[request_date] AS [request_date], 
+      [V_Report].[change_detail] AS [change_detail], 
+      [V_Report].[chage_type] AS [chage_type], 
+      [V_Report].[act_dt] AS [act_dt], 
+      [V_Report].[DiffDate] AS [DiffDate], 
+      [V_Report].[group_name] AS [group_name]
+      FROM [dbo].[V_Report] AS [V_Report]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_ShowConcern" EntityType="PackingChangeModel.Store.V_ShowConcern" store:Type="Views" store:Schema="dbo" store:Name="V_ShowConcern">
+            <DefiningQuery>SELECT 
+      [V_ShowConcern].[gpcode] AS [gpcode], 
+      [V_ShowConcern].[year] AS [year], 
+      [V_ShowConcern].[runno] AS [runno], 
+      [V_ShowConcern].[concern_group_id] AS [concern_group_id], 
+      [V_ShowConcern].[group_id] AS [group_id], 
+      [V_ShowConcern].[group_name] AS [group_name]
+      FROM [dbo].[V_ShowConcern] AS [V_ShowConcern]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_ShowFB" EntityType="PackingChangeModel.Store.V_ShowFB" store:Type="Views" store:Schema="dbo" store:Name="V_ShowFB">
+            <DefiningQuery>SELECT 
+      [V_ShowFB].[emp_fname] AS [emp_fname], 
+      [V_ShowFB].[emp_lname] AS [emp_lname], 
+      [V_ShowFB].[status_name] AS [status_name], 
+      [V_ShowFB].[comment] AS [comment], 
+      [V_ShowFB].[act_dt] AS [act_dt], 
+      [V_ShowFB].[gpcode] AS [gpcode], 
+      [V_ShowFB].[year] AS [year], 
+      [V_ShowFB].[runno] AS [runno], 
+      [V_ShowFB].[status_id] AS [status_id], 
+      [V_ShowFB].[lv_id] AS [lv_id], 
+      [V_ShowFB].[org_id] AS [org_id]
+      FROM [dbo].[V_ShowFB] AS [V_ShowFB]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_ShowPack" EntityType="PackingChangeModel.Store.V_ShowPack" store:Type="Views" store:Schema="dbo" store:Name="V_ShowPack">
+            <DefiningQuery>SELECT 
+      [V_ShowPack].[gpcode] AS [gpcode], 
+      [V_ShowPack].[year] AS [year], 
+      [V_ShowPack].[runno] AS [runno], 
+      [V_ShowPack].[series] AS [series], 
+      [V_ShowPack].[cust_no] AS [cust_no], 
+      [V_ShowPack].[pack_file] AS [pack_file], 
+      [V_ShowPack].[status] AS [status], 
+      [V_ShowPack].[submit_dt] AS [submit_dt], 
+      [V_ShowPack].[reason] AS [reason], 
+      [V_ShowPack].[issue_org] AS [issue_org], 
+      [V_ShowPack].[cust_name] AS [cust_name]
+      FROM [dbo].[V_ShowPack] AS [V_ShowPack]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_ShowTran" EntityType="PackingChangeModel.Store.V_ShowTran" store:Type="Views" store:Schema="dbo" store:Name="V_ShowTran">
+            <DefiningQuery>SELECT 
+      [V_ShowTran].[fname] AS [fname], 
+      [V_ShowTran].[lname] AS [lname], 
+      [V_ShowTran].[action] AS [action], 
+      [V_ShowTran].[status_name] AS [status_name], 
+      [V_ShowTran].[comment] AS [comment], 
+      [V_ShowTran].[act_dt] AS [act_dt], 
+      [V_ShowTran].[gpcode] AS [gpcode], 
+      [V_ShowTran].[year] AS [year], 
+      [V_ShowTran].[runno] AS [runno], 
+      [V_ShowTran].[status_id] AS [status_id], 
+      [V_ShowTran].[lv_id] AS [lv_id], 
+      [V_ShowTran].[org_id] AS [org_id], 
+      [V_ShowTran].[plant_code] AS [plant_code], 
+      [V_ShowTran].[act_id] AS [act_id], 
+      [V_ShowTran].[lv_name] AS [lv_name]
+      FROM [dbo].[V_ShowTran] AS [V_ShowTran]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_TNC_Group" EntityType="PackingChangeModel.Store.V_TNC_Group" store:Type="Views" store:Schema="dbo" store:Name="V_TNC_Group">
+            <DefiningQuery>SELECT 
+      [V_TNC_Group].[id] AS [id], 
+      [V_TNC_Group].[group_name] AS [group_name]
+      FROM [dbo].[V_TNC_Group] AS [V_TNC_Group]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_Tran" EntityType="PackingChangeModel.Store.V_Tran" store:Type="Views" store:Schema="dbo" store:Name="V_Tran">
+            <DefiningQuery>SELECT 
+      [V_Tran].[id] AS [id], 
+      [V_Tran].[gpcode] AS [gpcode], 
+      [V_Tran].[year] AS [year], 
+      [V_Tran].[runno] AS [runno], 
+      [V_Tran].[change_detail] AS [change_detail], 
+      [V_Tran].[chage_type] AS [chage_type], 
+      [V_Tran].[issue_group] AS [issue_group], 
+      [V_Tran].[maxstatus] AS [maxstatus], 
+      [V_Tran].[lv_id] AS [lv_id], 
+      [V_Tran].[request_by] AS [request_by], 
+      [V_Tran].[production_type] AS [production_type], 
+      [V_Tran].[system_update] AS [system_update], 
+      [V_Tran].[condition_current] AS [condition_current], 
+      [V_Tran].[condition_new] AS [condition_new], 
+      [V_Tran].[reason] AS [reason], 
+      [V_Tran].[expected_dt] AS [expected_dt], 
+      [V_Tran].[request_date] AS [request_date]
+      FROM [dbo].[V_Tran] AS [V_Tran]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_Tran1" EntityType="PackingChangeModel.Store.V_Tran1" store:Type="Views" store:Schema="dbo" store:Name="V_Tran1">
+            <DefiningQuery>SELECT 
+      [V_Tran1].[id] AS [id], 
+      [V_Tran1].[gpcode] AS [gpcode], 
+      [V_Tran1].[year] AS [year], 
+      [V_Tran1].[runno] AS [runno], 
+      [V_Tran1].[status_id] AS [status_id], 
+      [V_Tran1].[lv_id] AS [lv_id], 
+      [V_Tran1].[org_id] AS [org_id], 
+      [V_Tran1].[change_detail] AS [change_detail], 
+      [V_Tran1].[issue_group] AS [issue_group], 
+      [V_Tran1].[request_date] AS [request_date], 
+      [V_Tran1].[production_type] AS [production_type], 
+      [V_Tran1].[request_by] AS [request_by], 
+      [V_Tran1].[chage_type] AS [chage_type]
+      FROM [dbo].[V_Tran1] AS [V_Tran1]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_Tran2" EntityType="PackingChangeModel.Store.V_Tran2" store:Type="Views" store:Schema="dbo" store:Name="V_Tran2">
+            <DefiningQuery>SELECT 
+      [V_Tran2].[id] AS [id], 
+      [V_Tran2].[gpcode] AS [gpcode], 
+      [V_Tran2].[year] AS [year], 
+      [V_Tran2].[runno] AS [runno], 
+      [V_Tran2].[status_id] AS [status_id], 
+      [V_Tran2].[lv_id] AS [lv_id], 
+      [V_Tran2].[change_detail] AS [change_detail], 
+      [V_Tran2].[issue_group] AS [issue_group]
+      FROM [dbo].[V_Tran2] AS [V_Tran2]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_td_feedback_td_main_data" Association="PackingChangeModel.Store.FK_td_feedback_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_feedback" EntitySet="td_feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_files_td_main_data" Association="PackingChangeModel.Store.FK_td_files_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_files" EntitySet="td_files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_impact_plant_td_main_data" Association="PackingChangeModel.Store.FK_td_impact_plant_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_impact_plant" EntitySet="td_impact_plant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_item_list_td_main_data" Association="PackingChangeModel.Store.FK_td_item_list_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_item_list" EntitySet="td_item_list" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_pack_std_td_main_data" Association="PackingChangeModel.Store.FK_td_pack_std_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_pack_std" EntitySet="td_pack_std" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_salecs_td_main_data" Association="PackingChangeModel.Store.FK_td_salecs_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_salecs" EntitySet="td_salecs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_salecs_tm_init_tag" Association="PackingChangeModel.Store.FK_td_salecs_tm_init_tag">
+            <End Role="tm_init_tag" EntitySet="tm_init_tag" />
+            <End Role="td_salecs" EntitySet="td_salecs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_tell_td_main_data" Association="PackingChangeModel.Store.FK_td_tell_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_tell" EntitySet="td_tell" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_temp_concern_td_main_data" Association="PackingChangeModel.Store.FK_td_temp_concern_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_temp_concern" EntitySet="td_temp_concern" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_transaction_td_main_data" Association="PackingChangeModel.Store.FK_td_transaction_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_transaction" EntitySet="td_transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_transaction_tm_action" Association="PackingChangeModel.Store.FK_td_transaction_tm_action">
+            <End Role="tm_action" EntitySet="tm_action" />
+            <End Role="td_transaction" EntitySet="td_transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_transaction_tm_status" Association="PackingChangeModel.Store.FK_td_transaction_tm_status">
+            <End Role="tm_status" EntitySet="tm_status" />
+            <End Role="td_transaction" EntitySet="td_transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_transaction_tm_user_level" Association="PackingChangeModel.Store.FK_td_transaction_tm_user_level">
+            <End Role="tm_user_level" EntitySet="tm_user_level" />
+            <End Role="td_transaction" EntitySet="td_transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tm_concern_group_tm_sys_concern_group" Association="PackingChangeModel.Store.FK_tm_concern_group_tm_sys_concern_group">
+            <End Role="tm_sys_concern_group" EntitySet="tm_sys_concern_group" />
+            <End Role="tm_concern_group" EntitySet="tm_concern_group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tm_sys_group_tm_plant" Association="PackingChangeModel.Store.FK_tm_sys_group_tm_plant">
+            <End Role="tm_plant" EntitySet="tm_plant" />
+            <End Role="tm_sys_group" EntitySet="tm_sys_group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tm_sys_group_user_tm_sys_group" Association="PackingChangeModel.Store.FK_tm_sys_group_user_tm_sys_group">
+            <End Role="tm_sys_group" EntitySet="tm_sys_group" />
+            <End Role="tm_sys_group_user" EntitySet="tm_sys_group_user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tm_sys_user_tm_sys_utype" Association="PackingChangeModel.Store.FK_tm_sys_user_tm_sys_utype">
+            <End Role="tm_sys_utype" EntitySet="tm_sys_utype" />
+            <End Role="tm_sys_user" EntitySet="tm_sys_user" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="td_feedback">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="auto_id" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="auto_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="status_id" Type="tinyint" Nullable="false" />
+          <Property Name="lv_id" Type="tinyint" Nullable="false" />
+          <Property Name="org_id" Type="int" Nullable="false" />
+          <Property Name="actor" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="act_dt" Type="datetime" Nullable="false" />
+          <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="td_files">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="filename" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="filename" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="path" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="upload_by" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="upload_dt" Type="datetime" Nullable="false" />
+          <Property Name="delete_dt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="td_impact_plant">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="plant_code" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="plant_code" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="td_item_list">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="item_code" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="item_code" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="customer_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="pp_have" Type="nvarchar" MaxLength="10" />
+          <Property Name="pp_lot" Type="nvarchar" MaxLength="100" />
+          <Property Name="pp_qty" Type="int" />
+          <Property Name="pp_check" Type="nvarchar" MaxLength="10" />
+          <Property Name="pp_confirm_lot" Type="nvarchar" MaxLength="20" />
+          <Property Name="pp_eff_prod" Type="date" />
+          <Property Name="pp_eff_pln" Type="date" />
+          <Property Name="cs_stock" Type="int" />
+          <Property Name="cs_repack" Type="nvarchar" MaxLength="50" />
+          <Property Name="cs_eff_dt" Type="date" />
+          <Property Name="cs_lot" Type="nvarchar" MaxLength="50" />
+          <Property Name="cs_change" Type="bit" />
+          <Property Name="cs_check" Type="nvarchar" MaxLength="10" />
+          <Property Name="pln_item" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="td_main_data">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="chage_type" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="change_detail" Type="ntext" Nullable="false" />
+          <Property Name="condition_current" Type="nvarchar(max)" />
+          <Property Name="condition_new" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="reason" Type="ntext" Nullable="false" />
+          <Property Name="expected_dt" Type="date" Nullable="false" />
+          <Property Name="request_by" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="production_type" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="system_update" Type="bit" />
+          <Property Name="issue_group" Type="int" Nullable="false" />
+          <Property Name="request_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="td_pack_std">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="series" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="series" Type="tinyint" Nullable="false" />
+          <Property Name="cust_no" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="pack_file" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="status" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="submit_dt" Type="date" Nullable="false" />
+          <Property Name="reason" Type="nvarchar(max)" />
+          <Property Name="issue_org" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="td_salecs">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="actor" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="actor" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="pack_std_need" Type="bit" Nullable="false" />
+          <Property Name="pack_std_noneed" Type="bit" Nullable="false" />
+          <Property Name="cust_need" Type="nvarchar(max)" />
+          <Property Name="cust_noneed" Type="nvarchar(max)" />
+          <Property Name="init_tag_id" Type="tinyint" Nullable="false" />
+          <Property Name="frequency" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="td_tell">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="auto" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="status_id" Type="tinyint" Nullable="false" />
+          <Property Name="lv_id" Type="tinyint" Nullable="false" />
+          <Property Name="org_id" Type="int" Nullable="false" />
+          <Property Name="actor" Type="nvarchar" MaxLength="20" />
+          <Property Name="act_dt" Type="datetime" Nullable="false" />
+          <Property Name="tell" Type="ntext" Nullable="false" />
+        </EntityType>
+        <EntityType Name="td_temp_concern">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="concern_group_id" />
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="concern_group_id" Type="tinyint" Nullable="false" />
+          <Property Name="group_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="td_transaction">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="status_id" />
+            <PropertyRef Name="lv_id" />
+            <PropertyRef Name="org_id" />
+            <PropertyRef Name="plant_code" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="status_id" Type="tinyint" Nullable="false" />
+          <Property Name="lv_id" Type="tinyint" Nullable="false" />
+          <Property Name="org_id" Type="int" Nullable="false" />
+          <Property Name="plant_code" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="act_id" Type="nvarchar" MaxLength="10" />
+          <Property Name="actor" Type="nvarchar" MaxLength="20" />
+          <Property Name="act_dt" Type="datetime" Nullable="false" />
+          <Property Name="comment" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tm_action">
+          <Key>
+            <PropertyRef Name="act_id" />
+          </Key>
+          <Property Name="act_id" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="act_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tm_concern_group">
+          <Key>
+            <PropertyRef Name="concern_group_id" />
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="concern_group_id" Type="tinyint" Nullable="false" />
+          <Property Name="group_id" Type="int" Nullable="false" />
+          <Property Name="create_dt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tm_init_tag">
+          <Key>
+            <PropertyRef Name="init_tag_id" />
+          </Key>
+          <Property Name="init_tag_id" Type="tinyint" Nullable="false" />
+          <Property Name="init_tag_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tm_plant">
+          <Key>
+            <PropertyRef Name="plant_code" />
+          </Key>
+          <Property Name="plant_code" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="plant_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="update_dt" Type="datetime" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tm_status">
+          <Key>
+            <PropertyRef Name="status_id" />
+          </Key>
+          <Property Name="status_id" Type="tinyint" Nullable="false" />
+          <Property Name="status_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="lv_min" Type="tinyint" />
+          <Property Name="lv_max" Type="tinyint" />
+          <Property Name="cross_status" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="tm_sys_concern_group">
+          <Key>
+            <PropertyRef Name="concern_group_id" />
+          </Key>
+          <Property Name="concern_group_id" Type="tinyint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="concern_group_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tm_sys_group">
+          <Key>
+            <PropertyRef Name="sys_group_code" />
+          </Key>
+          <Property Name="sys_group_code" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="sys_group_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="plant_code" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="group_respond" Type="int" Nullable="false" />
+          <Property Name="group_type" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="update_dt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tm_sys_group_user">
+          <Key>
+            <PropertyRef Name="sys_group_code" />
+            <PropertyRef Name="emp_code" />
+          </Key>
+          <Property Name="sys_group_code" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="emp_code" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="update_dt" Type="datetime" Nullable="false" />
+          <Property Name="lv_id" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="tm_sys_user">
+          <Key>
+            <PropertyRef Name="emp_code" />
+          </Key>
+          <Property Name="emp_code" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="utype_code" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="update_dt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tm_sys_utype">
+          <Key>
+            <PropertyRef Name="utype_code" />
+          </Key>
+          <Property Name="utype_code" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="utype_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="utype_lv" Type="tinyint" />
+          <Property Name="update_dt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tm_user_level">
+          <Key>
+            <PropertyRef Name="lv_id" />
+          </Key>
+          <Property Name="lv_id" Type="tinyint" Nullable="false" />
+          <Property Name="lv_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="pos_min" Type="tinyint" />
+          <Property Name="pos_max" Type="tinyint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.V_ConcernGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="V_ConcernGroup">
+          <Key>
+            <PropertyRef Name="group_id" />
+            <PropertyRef Name="concern_group_id" />
+          </Key>
+          <Property Name="group_id" Type="int" Nullable="false" />
+          <Property Name="group_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="concern_group_id" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.V_Report' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="V_Report">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="status_name" />
+            <PropertyRef Name="issue_group" />
+            <PropertyRef Name="request_date" />
+            <PropertyRef Name="change_detail" />
+            <PropertyRef Name="chage_type" />
+            <PropertyRef Name="act_dt" />
+          </Key>
+          <Property Name="id" Type="nvarchar" MaxLength="33" />
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="status_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="issue_group" Type="int" Nullable="false" />
+          <Property Name="request_date" Type="datetime" Nullable="false" />
+          <Property Name="change_detail" Type="ntext" Nullable="false" />
+          <Property Name="chage_type" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="act_dt" Type="datetime" Nullable="false" />
+          <Property Name="DiffDate" Type="int" />
+          <Property Name="group_name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.V_ShowConcern' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="V_ShowConcern">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="concern_group_id" />
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="concern_group_id" Type="tinyint" Nullable="false" />
+          <Property Name="group_id" Type="int" Nullable="false" />
+          <Property Name="group_name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.V_ShowFB' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="V_ShowFB">
+          <Key>
+            <PropertyRef Name="status_name" />
+            <PropertyRef Name="comment" />
+            <PropertyRef Name="act_dt" />
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="status_id" />
+            <PropertyRef Name="lv_id" />
+            <PropertyRef Name="org_id" />
+          </Key>
+          <Property Name="emp_fname" Type="nvarchar" MaxLength="255" />
+          <Property Name="emp_lname" Type="nvarchar" MaxLength="255" />
+          <Property Name="status_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="act_dt" Type="datetime" Nullable="false" />
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="status_id" Type="tinyint" Nullable="false" />
+          <Property Name="lv_id" Type="tinyint" Nullable="false" />
+          <Property Name="org_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.V_ShowPack' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="V_ShowPack">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="series" />
+            <PropertyRef Name="cust_no" />
+            <PropertyRef Name="pack_file" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="submit_dt" />
+            <PropertyRef Name="issue_org" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="series" Type="tinyint" Nullable="false" />
+          <Property Name="cust_no" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="pack_file" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="status" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="submit_dt" Type="date" Nullable="false" />
+          <Property Name="reason" Type="nvarchar(max)" />
+          <Property Name="issue_org" Type="int" Nullable="false" />
+          <Property Name="cust_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.V_ShowTran' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="V_ShowTran">
+          <Key>
+            <PropertyRef Name="act_dt" />
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="status_id" />
+            <PropertyRef Name="lv_id" />
+            <PropertyRef Name="org_id" />
+            <PropertyRef Name="plant_code" />
+            <PropertyRef Name="lv_name" />
+          </Key>
+          <Property Name="fname" Type="nvarchar" MaxLength="255" />
+          <Property Name="lname" Type="nvarchar" MaxLength="255" />
+          <Property Name="action" Type="nvarchar" MaxLength="50" />
+          <Property Name="status_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="comment" Type="nvarchar(max)" />
+          <Property Name="act_dt" Type="datetime" Nullable="false" />
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="status_id" Type="tinyint" Nullable="false" />
+          <Property Name="lv_id" Type="tinyint" Nullable="false" />
+          <Property Name="org_id" Type="int" Nullable="false" />
+          <Property Name="plant_code" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="act_id" Type="nvarchar" MaxLength="10" />
+          <Property Name="lv_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.V_TNC_Group' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="V_TNC_Group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="group_name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.V_Tran' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="V_Tran">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="change_detail" />
+            <PropertyRef Name="chage_type" />
+            <PropertyRef Name="issue_group" />
+            <PropertyRef Name="lv_id" />
+            <PropertyRef Name="request_by" />
+            <PropertyRef Name="production_type" />
+            <PropertyRef Name="condition_new" />
+            <PropertyRef Name="reason" />
+            <PropertyRef Name="expected_dt" />
+          </Key>
+          <Property Name="id" Type="nvarchar" MaxLength="33" />
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="change_detail" Type="ntext" Nullable="false" />
+          <Property Name="chage_type" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="issue_group" Type="int" Nullable="false" />
+          <Property Name="maxstatus" Type="tinyint" />
+          <Property Name="lv_id" Type="tinyint" Nullable="false" />
+          <Property Name="request_by" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="production_type" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="system_update" Type="bit" />
+          <Property Name="condition_current" Type="nvarchar(max)" />
+          <Property Name="condition_new" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="reason" Type="ntext" Nullable="false" />
+          <Property Name="expected_dt" Type="date" Nullable="false" />
+          <Property Name="request_date" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.V_Tran1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="V_Tran1">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="status_id" />
+            <PropertyRef Name="lv_id" />
+            <PropertyRef Name="org_id" />
+            <PropertyRef Name="change_detail" />
+            <PropertyRef Name="issue_group" />
+            <PropertyRef Name="production_type" />
+            <PropertyRef Name="request_by" />
+            <PropertyRef Name="chage_type" />
+          </Key>
+          <Property Name="id" Type="nvarchar" MaxLength="33" />
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="status_id" Type="tinyint" Nullable="false" />
+          <Property Name="lv_id" Type="tinyint" Nullable="false" />
+          <Property Name="org_id" Type="int" Nullable="false" />
+          <Property Name="change_detail" Type="ntext" Nullable="false" />
+          <Property Name="issue_group" Type="int" Nullable="false" />
+          <Property Name="request_date" Type="datetime" />
+          <Property Name="production_type" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="request_by" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="chage_type" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.V_Tran2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="V_Tran2">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="status_id" />
+            <PropertyRef Name="lv_id" />
+            <PropertyRef Name="change_detail" />
+            <PropertyRef Name="issue_group" />
+          </Key>
+          <Property Name="id" Type="nvarchar" MaxLength="33" />
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="status_id" Type="tinyint" Nullable="false" />
+          <Property Name="lv_id" Type="tinyint" Nullable="false" />
+          <Property Name="change_detail" Type="ntext" Nullable="false" />
+          <Property Name="issue_group" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_td_feedback_td_main_data">
+          <End Role="td_main_data" Type="PackingChangeModel.Store.td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="td_feedback" Type="PackingChangeModel.Store.td_feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_feedback">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_files_td_main_data">
+          <End Role="td_main_data" Type="PackingChangeModel.Store.td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="td_files" Type="PackingChangeModel.Store.td_files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_files">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_impact_plant_td_main_data">
+          <End Role="td_main_data" Type="PackingChangeModel.Store.td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="td_impact_plant" Type="PackingChangeModel.Store.td_impact_plant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_impact_plant">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_item_list_td_main_data">
+          <End Role="td_main_data" Type="PackingChangeModel.Store.td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="td_item_list" Type="PackingChangeModel.Store.td_item_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_item_list">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_pack_std_td_main_data">
+          <End Role="td_main_data" Type="PackingChangeModel.Store.td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="td_pack_std" Type="PackingChangeModel.Store.td_pack_std" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_pack_std">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_salecs_td_main_data">
+          <End Role="td_main_data" Type="PackingChangeModel.Store.td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="td_salecs" Type="PackingChangeModel.Store.td_salecs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_salecs">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_salecs_tm_init_tag">
+          <End Role="tm_init_tag" Type="PackingChangeModel.Store.tm_init_tag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="td_salecs" Type="PackingChangeModel.Store.td_salecs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_init_tag">
+              <PropertyRef Name="init_tag_id" />
+            </Principal>
+            <Dependent Role="td_salecs">
+              <PropertyRef Name="init_tag_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_tell_td_main_data">
+          <End Role="td_main_data" Type="PackingChangeModel.Store.td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="td_tell" Type="PackingChangeModel.Store.td_tell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_tell">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_temp_concern_td_main_data">
+          <End Role="td_main_data" Type="PackingChangeModel.Store.td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="td_temp_concern" Type="PackingChangeModel.Store.td_temp_concern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_temp_concern">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_transaction_td_main_data">
+          <End Role="td_main_data" Type="PackingChangeModel.Store.td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="td_transaction" Type="PackingChangeModel.Store.td_transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_transaction">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_transaction_tm_action">
+          <End Role="tm_action" Type="PackingChangeModel.Store.tm_action" Multiplicity="0..1" />
+          <End Role="td_transaction" Type="PackingChangeModel.Store.td_transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_action">
+              <PropertyRef Name="act_id" />
+            </Principal>
+            <Dependent Role="td_transaction">
+              <PropertyRef Name="act_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_transaction_tm_status">
+          <End Role="tm_status" Type="PackingChangeModel.Store.tm_status" Multiplicity="1" />
+          <End Role="td_transaction" Type="PackingChangeModel.Store.td_transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_status">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="td_transaction">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_transaction_tm_user_level">
+          <End Role="tm_user_level" Type="PackingChangeModel.Store.tm_user_level" Multiplicity="1" />
+          <End Role="td_transaction" Type="PackingChangeModel.Store.td_transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_user_level">
+              <PropertyRef Name="lv_id" />
+            </Principal>
+            <Dependent Role="td_transaction">
+              <PropertyRef Name="lv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tm_concern_group_tm_sys_concern_group">
+          <End Role="tm_sys_concern_group" Type="PackingChangeModel.Store.tm_sys_concern_group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tm_concern_group" Type="PackingChangeModel.Store.tm_concern_group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_sys_concern_group">
+              <PropertyRef Name="concern_group_id" />
+            </Principal>
+            <Dependent Role="tm_concern_group">
+              <PropertyRef Name="concern_group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tm_sys_group_tm_plant">
+          <End Role="tm_plant" Type="PackingChangeModel.Store.tm_plant" Multiplicity="1" />
+          <End Role="tm_sys_group" Type="PackingChangeModel.Store.tm_sys_group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_plant">
+              <PropertyRef Name="plant_code" />
+            </Principal>
+            <Dependent Role="tm_sys_group">
+              <PropertyRef Name="plant_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tm_sys_group_user_tm_sys_group">
+          <End Role="tm_sys_group" Type="PackingChangeModel.Store.tm_sys_group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tm_sys_group_user" Type="PackingChangeModel.Store.tm_sys_group_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_sys_group">
+              <PropertyRef Name="sys_group_code" />
+            </Principal>
+            <Dependent Role="tm_sys_group_user">
+              <PropertyRef Name="sys_group_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tm_sys_user_tm_sys_utype">
+          <End Role="tm_sys_utype" Type="PackingChangeModel.Store.tm_sys_utype" Multiplicity="1" />
+          <End Role="tm_sys_user" Type="PackingChangeModel.Store.tm_sys_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_sys_utype">
+              <PropertyRef Name="utype_code" />
+            </Principal>
+            <Dependent Role="tm_sys_user">
+              <PropertyRef Name="utype_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PackingChangeModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PackingChangeEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="td_impact_plant" EntityType="PackingChangeModel.td_impact_plant" />
+          <EntitySet Name="td_main_data" EntityType="PackingChangeModel.td_main_data" />
+          <EntitySet Name="td_tell" EntityType="PackingChangeModel.td_tell" />
+          <EntitySet Name="td_transaction" EntityType="PackingChangeModel.td_transaction" />
+          <EntitySet Name="tm_action" EntityType="PackingChangeModel.tm_action" />
+          <EntitySet Name="tm_plant" EntityType="PackingChangeModel.tm_plant" />
+          <EntitySet Name="tm_status" EntityType="PackingChangeModel.tm_status" />
+          <EntitySet Name="tm_sys_group" EntityType="PackingChangeModel.tm_sys_group" />
+          <EntitySet Name="tm_sys_group_user" EntityType="PackingChangeModel.tm_sys_group_user" />
+          <EntitySet Name="tm_sys_user" EntityType="PackingChangeModel.tm_sys_user" />
+          <EntitySet Name="tm_sys_utype" EntityType="PackingChangeModel.tm_sys_utype" />
+          <EntitySet Name="tm_user_level" EntityType="PackingChangeModel.tm_user_level" />
+          <AssociationSet Name="FK_td_impact_plant_td_main_data" Association="PackingChangeModel.FK_td_impact_plant_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_impact_plant" EntitySet="td_impact_plant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_tell_td_main_data" Association="PackingChangeModel.FK_td_tell_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_tell" EntitySet="td_tell" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_transaction_td_main_data" Association="PackingChangeModel.FK_td_transaction_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_transaction" EntitySet="td_transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_transaction_tm_action" Association="PackingChangeModel.FK_td_transaction_tm_action">
+            <End Role="tm_action" EntitySet="tm_action" />
+            <End Role="td_transaction" EntitySet="td_transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_transaction_tm_status" Association="PackingChangeModel.FK_td_transaction_tm_status">
+            <End Role="tm_status" EntitySet="tm_status" />
+            <End Role="td_transaction" EntitySet="td_transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_transaction_tm_user_level" Association="PackingChangeModel.FK_td_transaction_tm_user_level">
+            <End Role="tm_user_level" EntitySet="tm_user_level" />
+            <End Role="td_transaction" EntitySet="td_transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tm_sys_group_tm_plant" Association="PackingChangeModel.FK_tm_sys_group_tm_plant">
+            <End Role="tm_plant" EntitySet="tm_plant" />
+            <End Role="tm_sys_group" EntitySet="tm_sys_group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tm_sys_group_user_tm_sys_group" Association="PackingChangeModel.FK_tm_sys_group_user_tm_sys_group">
+            <End Role="tm_sys_group" EntitySet="tm_sys_group" />
+            <End Role="tm_sys_group_user" EntitySet="tm_sys_group_user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tm_sys_user_tm_sys_utype" Association="PackingChangeModel.FK_tm_sys_user_tm_sys_utype">
+            <End Role="tm_sys_utype" EntitySet="tm_sys_utype" />
+            <End Role="tm_sys_user" EntitySet="tm_sys_user" />
+          </AssociationSet>
+          <EntitySet Name="td_feedback" EntityType="PackingChangeModel.td_feedback" />
+          <EntitySet Name="V_Tran" EntityType="PackingChangeModel.V_Tran" />
+          <EntitySet Name="tm_concern_group" EntityType="PackingChangeModel.tm_concern_group" />
+          <EntitySet Name="tm_sys_concern_group" EntityType="PackingChangeModel.tm_sys_concern_group" />
+          <AssociationSet Name="FK_tm_concern_group_tm_sys_concern_group" Association="PackingChangeModel.FK_tm_concern_group_tm_sys_concern_group">
+            <End Role="tm_sys_concern_group" EntitySet="tm_sys_concern_group" />
+            <End Role="tm_concern_group" EntitySet="tm_concern_group" />
+          </AssociationSet>
+          <EntitySet Name="td_temp_concern" EntityType="PackingChangeModel.td_temp_concern" />
+          <AssociationSet Name="FK_td_temp_concern_td_main_data" Association="PackingChangeModel.FK_td_temp_concern_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_temp_concern" EntitySet="td_temp_concern" />
+          </AssociationSet>
+          <EntitySet Name="td_files" EntityType="PackingChangeModel.td_files" />
+          <AssociationSet Name="FK_td_files_td_main_data" Association="PackingChangeModel.FK_td_files_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_files" EntitySet="td_files" />
+          </AssociationSet>
+          <EntitySet Name="V_ConcernGroup" EntityType="PackingChangeModel.V_ConcernGroup" />
+          <EntitySet Name="V_ShowConcern" EntityType="PackingChangeModel.V_ShowConcern" />
+          <EntitySet Name="V_ShowFB" EntityType="PackingChangeModel.V_ShowFB" />
+          <EntitySet Name="V_ShowTran" EntityType="PackingChangeModel.V_ShowTran" />
+          <EntitySet Name="td_salecs" EntityType="PackingChangeModel.td_salecs" />
+          <EntitySet Name="tm_init_tag" EntityType="PackingChangeModel.tm_init_tag" />
+          <AssociationSet Name="FK_td_salecs_td_main_data" Association="PackingChangeModel.FK_td_salecs_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_salecs" EntitySet="td_salecs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_td_salecs_tm_init_tag" Association="PackingChangeModel.FK_td_salecs_tm_init_tag">
+            <End Role="tm_init_tag" EntitySet="tm_init_tag" />
+            <End Role="td_salecs" EntitySet="td_salecs" />
+          </AssociationSet>
+          <EntitySet Name="td_pack_std" EntityType="PackingChangeModel.td_pack_std" />
+          <AssociationSet Name="FK_td_pack_std_td_main_data" Association="PackingChangeModel.FK_td_pack_std_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_pack_std" EntitySet="td_pack_std" />
+          </AssociationSet>
+          <EntitySet Name="V_ShowPack" EntityType="PackingChangeModel.V_ShowPack" />
+          <AssociationSet Name="FK_td_feedback_td_main_data" Association="PackingChangeModel.FK_td_feedback_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_feedback" EntitySet="td_feedback" />
+          </AssociationSet>
+          <EntitySet Name="td_item_list" EntityType="PackingChangeModel.td_item_list" />
+          <AssociationSet Name="FK_td_item_list_td_main_data" Association="PackingChangeModel.FK_td_item_list_td_main_data">
+            <End Role="td_main_data" EntitySet="td_main_data" />
+            <End Role="td_item_list" EntitySet="td_item_list" />
+          </AssociationSet>
+          <EntitySet Name="V_TNC_Group" EntityType="PackingChangeModel.V_TNC_Group" />
+          <EntitySet Name="V_Tran1" EntityType="PackingChangeModel.V_Tran1" />
+          <EntitySet Name="V_Report" EntityType="PackingChangeModel.V_Report" />
+          <EntitySet Name="V_Tran2" EntityType="PackingChangeModel.V_Tran2" />
+        </EntityContainer>
+        <EntityType Name="td_impact_plant">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="plant_code" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="String" Name="plant_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="td_main_data" Relationship="PackingChangeModel.FK_td_impact_plant_td_main_data" FromRole="td_impact_plant" ToRole="td_main_data" />
+        </EntityType>
+        <EntityType Name="td_main_data">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="String" Name="chage_type" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="change_detail" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="condition_current" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="condition_new" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="reason" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="expected_dt" Nullable="false" Precision="0" />
+          <Property Type="String" Name="request_by" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="production_type" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="system_update" />
+          <Property Type="Int32" Name="issue_group" Nullable="false" />
+          <NavigationProperty Name="td_impact_plant" Relationship="PackingChangeModel.FK_td_impact_plant_td_main_data" FromRole="td_main_data" ToRole="td_impact_plant" />
+          <NavigationProperty Name="td_tell" Relationship="PackingChangeModel.FK_td_tell_td_main_data" FromRole="td_main_data" ToRole="td_tell" />
+          <NavigationProperty Name="td_transaction" Relationship="PackingChangeModel.FK_td_transaction_td_main_data" FromRole="td_main_data" ToRole="td_transaction" />
+          <NavigationProperty Name="td_temp_concern" Relationship="PackingChangeModel.FK_td_temp_concern_td_main_data" FromRole="td_main_data" ToRole="td_temp_concern" />
+          <NavigationProperty Name="td_files" Relationship="PackingChangeModel.FK_td_files_td_main_data" FromRole="td_main_data" ToRole="td_files" />
+          <NavigationProperty Name="td_salecs" Relationship="PackingChangeModel.FK_td_salecs_td_main_data" FromRole="td_main_data" ToRole="td_salecs" />
+          <NavigationProperty Name="td_pack_std" Relationship="PackingChangeModel.FK_td_pack_std_td_main_data" FromRole="td_main_data" ToRole="td_pack_std" />
+          <NavigationProperty Name="td_feedback" Relationship="PackingChangeModel.FK_td_feedback_td_main_data" FromRole="td_main_data" ToRole="td_feedback" />
+          <NavigationProperty Name="td_item_list" Relationship="PackingChangeModel.FK_td_item_list_td_main_data" FromRole="td_main_data" ToRole="td_item_list" />
+          <Property Type="DateTime" Name="request_date" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="td_tell">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="auto" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="Int32" Name="auto" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Byte" Name="status_id" Nullable="false" />
+          <Property Type="Byte" Name="lv_id" Nullable="false" />
+          <Property Type="Int32" Name="org_id" Nullable="false" />
+          <Property Type="String" Name="actor" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="act_dt" Nullable="false" Precision="3" />
+          <Property Type="String" Name="tell" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="td_main_data" Relationship="PackingChangeModel.FK_td_tell_td_main_data" FromRole="td_tell" ToRole="td_main_data" />
+        </EntityType>
+        <EntityType Name="td_transaction">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="status_id" />
+            <PropertyRef Name="lv_id" />
+            <PropertyRef Name="org_id" />
+            <PropertyRef Name="plant_code" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="Byte" Name="status_id" Nullable="false" />
+          <Property Type="Byte" Name="lv_id" Nullable="false" />
+          <Property Type="Int32" Name="org_id" Nullable="false" />
+          <Property Type="String" Name="plant_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="act_id" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="actor" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="act_dt" Nullable="false" Precision="3" />
+          <NavigationProperty Name="td_main_data" Relationship="PackingChangeModel.FK_td_transaction_td_main_data" FromRole="td_transaction" ToRole="td_main_data" />
+          <NavigationProperty Name="tm_action" Relationship="PackingChangeModel.FK_td_transaction_tm_action" FromRole="td_transaction" ToRole="tm_action" />
+          <NavigationProperty Name="tm_status" Relationship="PackingChangeModel.FK_td_transaction_tm_status" FromRole="td_transaction" ToRole="tm_status" />
+          <NavigationProperty Name="tm_user_level" Relationship="PackingChangeModel.FK_td_transaction_tm_user_level" FromRole="td_transaction" ToRole="tm_user_level" />
+          <Property Type="String" Name="comment" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tm_action">
+          <Key>
+            <PropertyRef Name="act_id" />
+          </Key>
+          <Property Type="String" Name="act_id" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="act_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <NavigationProperty Name="td_transaction" Relationship="PackingChangeModel.FK_td_transaction_tm_action" FromRole="tm_action" ToRole="td_transaction" />
+        </EntityType>
+        <EntityType Name="tm_plant">
+          <Key>
+            <PropertyRef Name="plant_code" />
+          </Key>
+          <Property Type="String" Name="plant_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="plant_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="update_dt" Nullable="false" Precision="3" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <NavigationProperty Name="tm_sys_group" Relationship="PackingChangeModel.FK_tm_sys_group_tm_plant" FromRole="tm_plant" ToRole="tm_sys_group" />
+        </EntityType>
+        <EntityType Name="tm_status">
+          <Key>
+            <PropertyRef Name="status_id" />
+          </Key>
+          <Property Type="Byte" Name="status_id" Nullable="false" />
+          <Property Type="String" Name="status_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="lv_min" />
+          <Property Type="Byte" Name="lv_max" />
+          <Property Type="Byte" Name="cross_status" />
+          <NavigationProperty Name="td_transaction" Relationship="PackingChangeModel.FK_td_transaction_tm_status" FromRole="tm_status" ToRole="td_transaction" />
+        </EntityType>
+        <EntityType Name="tm_sys_group">
+          <Key>
+            <PropertyRef Name="sys_group_code" />
+          </Key>
+          <Property Type="String" Name="sys_group_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="sys_group_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="plant_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="update_dt" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tm_plant" Relationship="PackingChangeModel.FK_tm_sys_group_tm_plant" FromRole="tm_sys_group" ToRole="tm_plant" />
+          <NavigationProperty Name="tm_sys_group_user" Relationship="PackingChangeModel.FK_tm_sys_group_user_tm_sys_group" FromRole="tm_sys_group" ToRole="tm_sys_group_user" />
+          <Property Type="Int32" Name="group_respond" Nullable="false" />
+          <Property Type="String" Name="group_type" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tm_sys_group_user">
+          <Key>
+            <PropertyRef Name="sys_group_code" />
+            <PropertyRef Name="emp_code" />
+          </Key>
+          <Property Type="String" Name="sys_group_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="emp_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="update_dt" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tm_sys_group" Relationship="PackingChangeModel.FK_tm_sys_group_user_tm_sys_group" FromRole="tm_sys_group_user" ToRole="tm_sys_group" />
+          <Property Type="Byte" Name="lv_id" />
+        </EntityType>
+        <EntityType Name="tm_sys_user">
+          <Key>
+            <PropertyRef Name="emp_code" />
+          </Key>
+          <Property Type="String" Name="emp_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="utype_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="update_dt" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tm_sys_utype" Relationship="PackingChangeModel.FK_tm_sys_user_tm_sys_utype" FromRole="tm_sys_user" ToRole="tm_sys_utype" />
+        </EntityType>
+        <EntityType Name="tm_sys_utype">
+          <Key>
+            <PropertyRef Name="utype_code" />
+          </Key>
+          <Property Type="String" Name="utype_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="utype_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="utype_lv" />
+          <Property Type="DateTime" Name="update_dt" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tm_sys_user" Relationship="PackingChangeModel.FK_tm_sys_user_tm_sys_utype" FromRole="tm_sys_utype" ToRole="tm_sys_user" />
+        </EntityType>
+        <EntityType Name="tm_user_level">
+          <Key>
+            <PropertyRef Name="lv_id" />
+          </Key>
+          <Property Type="Byte" Name="lv_id" Nullable="false" />
+          <Property Type="String" Name="lv_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="pos_min" />
+          <Property Type="Byte" Name="pos_max" />
+          <NavigationProperty Name="td_transaction" Relationship="PackingChangeModel.FK_td_transaction_tm_user_level" FromRole="tm_user_level" ToRole="td_transaction" />
+        </EntityType>
+        <Association Name="FK_td_impact_plant_td_main_data">
+          <End Type="PackingChangeModel.td_main_data" Role="td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PackingChangeModel.td_impact_plant" Role="td_impact_plant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_impact_plant">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_tell_td_main_data">
+          <End Type="PackingChangeModel.td_main_data" Role="td_main_data" Multiplicity="1" />
+          <End Type="PackingChangeModel.td_tell" Role="td_tell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_tell">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_transaction_td_main_data">
+          <End Type="PackingChangeModel.td_main_data" Role="td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PackingChangeModel.td_transaction" Role="td_transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_transaction">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_transaction_tm_action">
+          <End Type="PackingChangeModel.tm_action" Role="tm_action" Multiplicity="0..1" />
+          <End Type="PackingChangeModel.td_transaction" Role="td_transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_action">
+              <PropertyRef Name="act_id" />
+            </Principal>
+            <Dependent Role="td_transaction">
+              <PropertyRef Name="act_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_transaction_tm_status">
+          <End Type="PackingChangeModel.tm_status" Role="tm_status" Multiplicity="1" />
+          <End Type="PackingChangeModel.td_transaction" Role="td_transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_status">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="td_transaction">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_transaction_tm_user_level">
+          <End Type="PackingChangeModel.tm_user_level" Role="tm_user_level" Multiplicity="1" />
+          <End Type="PackingChangeModel.td_transaction" Role="td_transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_user_level">
+              <PropertyRef Name="lv_id" />
+            </Principal>
+            <Dependent Role="td_transaction">
+              <PropertyRef Name="lv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tm_sys_group_tm_plant">
+          <End Type="PackingChangeModel.tm_plant" Role="tm_plant" Multiplicity="1" />
+          <End Type="PackingChangeModel.tm_sys_group" Role="tm_sys_group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_plant">
+              <PropertyRef Name="plant_code" />
+            </Principal>
+            <Dependent Role="tm_sys_group">
+              <PropertyRef Name="plant_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tm_sys_group_user_tm_sys_group">
+          <End Type="PackingChangeModel.tm_sys_group" Role="tm_sys_group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PackingChangeModel.tm_sys_group_user" Role="tm_sys_group_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_sys_group">
+              <PropertyRef Name="sys_group_code" />
+            </Principal>
+            <Dependent Role="tm_sys_group_user">
+              <PropertyRef Name="sys_group_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tm_sys_user_tm_sys_utype">
+          <End Type="PackingChangeModel.tm_sys_utype" Role="tm_sys_utype" Multiplicity="1" />
+          <End Type="PackingChangeModel.tm_sys_user" Role="tm_sys_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_sys_utype">
+              <PropertyRef Name="utype_code" />
+            </Principal>
+            <Dependent Role="tm_sys_user">
+              <PropertyRef Name="utype_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="td_feedback">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="auto_id" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="Int32" Name="auto_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Byte" Name="status_id" Nullable="false" />
+          <Property Type="Byte" Name="lv_id" Nullable="false" />
+          <Property Type="Int32" Name="org_id" Nullable="false" />
+          <Property Type="String" Name="actor" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="act_dt" Nullable="false" Precision="3" />
+          <Property Type="String" Name="comment" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="td_main_data" Relationship="PackingChangeModel.FK_td_feedback_td_main_data" FromRole="td_feedback" ToRole="td_main_data" />
+        </EntityType>
+        <EntityType Name="V_Tran">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="change_detail" />
+            <PropertyRef Name="chage_type" />
+            <PropertyRef Name="issue_group" />
+            <PropertyRef Name="lv_id" />
+            <PropertyRef Name="request_by" />
+            <PropertyRef Name="production_type" />
+            <PropertyRef Name="condition_new" />
+            <PropertyRef Name="reason" />
+            <PropertyRef Name="expected_dt" />
+          </Key>
+          <Property Type="String" Name="id" MaxLength="33" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="String" Name="change_detail" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="chage_type" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="issue_group" Nullable="false" />
+          <Property Type="Byte" Name="maxstatus" />
+          <Property Type="Byte" Name="lv_id" Nullable="false" />
+          <Property Type="String" Name="request_by" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="production_type" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="system_update" />
+          <Property Type="String" Name="condition_current" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="condition_new" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="reason" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="expected_dt" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="request_date" Precision="3" />
+        </EntityType>
+        <EntityType Name="tm_concern_group">
+          <Key>
+            <PropertyRef Name="concern_group_id" />
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Type="Byte" Name="concern_group_id" Nullable="false" />
+          <Property Type="Int32" Name="group_id" Nullable="false" />
+          <NavigationProperty Name="tm_sys_concern_group" Relationship="PackingChangeModel.FK_tm_concern_group_tm_sys_concern_group" FromRole="tm_concern_group" ToRole="tm_sys_concern_group" />
+          <Property Type="DateTime" Name="create_dt" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tm_sys_concern_group">
+          <Key>
+            <PropertyRef Name="concern_group_id" />
+          </Key>
+          <Property Type="Byte" Name="concern_group_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="concern_group_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tm_concern_group" Relationship="PackingChangeModel.FK_tm_concern_group_tm_sys_concern_group" FromRole="tm_sys_concern_group" ToRole="tm_concern_group" />
+        </EntityType>
+        <Association Name="FK_tm_concern_group_tm_sys_concern_group">
+          <End Type="PackingChangeModel.tm_sys_concern_group" Role="tm_sys_concern_group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PackingChangeModel.tm_concern_group" Role="tm_concern_group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_sys_concern_group">
+              <PropertyRef Name="concern_group_id" />
+            </Principal>
+            <Dependent Role="tm_concern_group">
+              <PropertyRef Name="concern_group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="td_temp_concern">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="concern_group_id" />
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="Byte" Name="concern_group_id" Nullable="false" />
+          <Property Type="Int32" Name="group_id" Nullable="false" />
+          <NavigationProperty Name="td_main_data" Relationship="PackingChangeModel.FK_td_temp_concern_td_main_data" FromRole="td_temp_concern" ToRole="td_main_data" />
+        </EntityType>
+        <Association Name="FK_td_temp_concern_td_main_data">
+          <End Type="PackingChangeModel.td_main_data" Role="td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PackingChangeModel.td_temp_concern" Role="td_temp_concern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_temp_concern">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="td_files">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="filename" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="String" Name="filename" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="path" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="upload_by" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="upload_dt" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="delete_dt" Precision="3" />
+          <NavigationProperty Name="td_main_data" Relationship="PackingChangeModel.FK_td_files_td_main_data" FromRole="td_files" ToRole="td_main_data" />
+        </EntityType>
+        <Association Name="FK_td_files_td_main_data">
+          <End Type="PackingChangeModel.td_main_data" Role="td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PackingChangeModel.td_files" Role="td_files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_files">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="V_ConcernGroup">
+          <Key>
+            <PropertyRef Name="group_id" />
+            <PropertyRef Name="concern_group_id" />
+          </Key>
+          <Property Type="Int32" Name="group_id" Nullable="false" />
+          <Property Type="String" Name="group_name" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="concern_group_id" Nullable="false" />
+        </EntityType>
+        <EntityType Name="V_ShowConcern">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="concern_group_id" />
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="Byte" Name="concern_group_id" Nullable="false" />
+          <Property Type="Int32" Name="group_id" Nullable="false" />
+          <Property Type="String" Name="group_name" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="V_ShowFB">
+          <Key>
+            <PropertyRef Name="status_name" />
+            <PropertyRef Name="comment" />
+            <PropertyRef Name="act_dt" />
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="status_id" />
+            <PropertyRef Name="lv_id" />
+            <PropertyRef Name="org_id" />
+          </Key>
+          <Property Type="String" Name="emp_fname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="emp_lname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="status_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="comment" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="act_dt" Nullable="false" Precision="3" />
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="Byte" Name="status_id" Nullable="false" />
+          <Property Type="Byte" Name="lv_id" Nullable="false" />
+          <Property Type="Int32" Name="org_id" Nullable="false" />
+        </EntityType>
+        <EntityType Name="V_ShowTran">
+          <Key>
+            <PropertyRef Name="act_dt" />
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="status_id" />
+            <PropertyRef Name="lv_id" />
+            <PropertyRef Name="org_id" />
+            <PropertyRef Name="plant_code" />
+            <PropertyRef Name="lv_name" />
+          </Key>
+          <Property Type="String" Name="fname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="lname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="action" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="status_name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="comment" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="act_dt" Nullable="false" Precision="3" />
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="Byte" Name="status_id" Nullable="false" />
+          <Property Type="Byte" Name="lv_id" Nullable="false" />
+          <Property Type="Int32" Name="org_id" Nullable="false" />
+          <Property Type="String" Name="plant_code" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="act_id" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="lv_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="td_salecs">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="actor" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="String" Name="actor" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="pack_std_need" Nullable="false" />
+          <Property Type="Boolean" Name="pack_std_noneed" Nullable="false" />
+          <Property Type="String" Name="cust_need" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="cust_noneed" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="init_tag_id" Nullable="false" />
+          <Property Type="String" Name="frequency" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="td_main_data" Relationship="PackingChangeModel.FK_td_salecs_td_main_data" FromRole="td_salecs" ToRole="td_main_data" />
+          <NavigationProperty Name="tm_init_tag" Relationship="PackingChangeModel.FK_td_salecs_tm_init_tag" FromRole="td_salecs" ToRole="tm_init_tag" />
+        </EntityType>
+        <EntityType Name="tm_init_tag">
+          <Key>
+            <PropertyRef Name="init_tag_id" />
+          </Key>
+          <Property Type="Byte" Name="init_tag_id" Nullable="false" />
+          <Property Type="String" Name="init_tag_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <NavigationProperty Name="td_salecs" Relationship="PackingChangeModel.FK_td_salecs_tm_init_tag" FromRole="tm_init_tag" ToRole="td_salecs" />
+        </EntityType>
+        <Association Name="FK_td_salecs_td_main_data">
+          <End Type="PackingChangeModel.td_main_data" Role="td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PackingChangeModel.td_salecs" Role="td_salecs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_salecs">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_td_salecs_tm_init_tag">
+          <End Type="PackingChangeModel.tm_init_tag" Role="tm_init_tag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PackingChangeModel.td_salecs" Role="td_salecs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tm_init_tag">
+              <PropertyRef Name="init_tag_id" />
+            </Principal>
+            <Dependent Role="td_salecs">
+              <PropertyRef Name="init_tag_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="td_pack_std">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="series" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="Byte" Name="series" Nullable="false" />
+          <Property Type="String" Name="cust_no" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="pack_file" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="submit_dt" Nullable="false" Precision="0" />
+          <Property Type="String" Name="reason" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="issue_org" Nullable="false" />
+          <NavigationProperty Name="td_main_data" Relationship="PackingChangeModel.FK_td_pack_std_td_main_data" FromRole="td_pack_std" ToRole="td_main_data" />
+        </EntityType>
+        <Association Name="FK_td_pack_std_td_main_data">
+          <End Type="PackingChangeModel.td_main_data" Role="td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PackingChangeModel.td_pack_std" Role="td_pack_std" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_pack_std">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="V_ShowPack">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="series" />
+            <PropertyRef Name="cust_no" />
+            <PropertyRef Name="pack_file" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="submit_dt" />
+            <PropertyRef Name="issue_org" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="Byte" Name="series" Nullable="false" />
+          <Property Type="String" Name="cust_no" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="pack_file" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="submit_dt" Nullable="false" Precision="0" />
+          <Property Type="String" Name="reason" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="issue_org" Nullable="false" />
+          <Property Type="String" Name="cust_name" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_td_feedback_td_main_data">
+          <End Type="PackingChangeModel.td_main_data" Role="td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PackingChangeModel.td_feedback" Role="td_feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_feedback">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="td_item_list">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="item_code" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="String" Name="item_code" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="customer_name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="pp_have" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="pp_lot" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="pp_qty" />
+          <Property Type="String" Name="pp_check" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="pp_confirm_lot" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="pp_eff_prod" Precision="0" />
+          <Property Type="DateTime" Name="pp_eff_pln" Precision="0" />
+          <Property Type="Int32" Name="cs_stock" />
+          <Property Type="String" Name="cs_repack" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="cs_eff_dt" Precision="0" />
+          <Property Type="String" Name="cs_lot" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="cs_change" />
+          <Property Type="String" Name="cs_check" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="pln_item" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="td_main_data" Relationship="PackingChangeModel.FK_td_item_list_td_main_data" FromRole="td_item_list" ToRole="td_main_data" />
+        </EntityType>
+        <Association Name="FK_td_item_list_td_main_data">
+          <End Type="PackingChangeModel.td_main_data" Role="td_main_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PackingChangeModel.td_item_list" Role="td_item_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="td_main_data">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Principal>
+            <Dependent Role="td_item_list">
+              <PropertyRef Name="gpcode" />
+              <PropertyRef Name="year" />
+              <PropertyRef Name="runno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="V_TNC_Group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="group_name" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="V_Tran1">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="status_id" />
+            <PropertyRef Name="lv_id" />
+            <PropertyRef Name="org_id" />
+            <PropertyRef Name="change_detail" />
+            <PropertyRef Name="issue_group" />
+            <PropertyRef Name="production_type" />
+            <PropertyRef Name="request_by" />
+            <PropertyRef Name="chage_type" />
+          </Key>
+          <Property Type="String" Name="id" MaxLength="33" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="Byte" Name="status_id" Nullable="false" />
+          <Property Type="Byte" Name="lv_id" Nullable="false" />
+          <Property Type="Int32" Name="org_id" Nullable="false" />
+          <Property Type="String" Name="change_detail" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="issue_group" Nullable="false" />
+          <Property Type="DateTime" Name="request_date" Precision="3" />
+          <Property Type="String" Name="production_type" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="request_by" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="chage_type" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="V_Report">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="status_name" />
+            <PropertyRef Name="issue_group" />
+            <PropertyRef Name="request_date" />
+            <PropertyRef Name="change_detail" />
+            <PropertyRef Name="chage_type" />
+            <PropertyRef Name="act_dt" />
+          </Key>
+          <Property Type="String" Name="id" MaxLength="33" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="String" Name="status_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="issue_group" Nullable="false" />
+          <Property Type="DateTime" Name="request_date" Nullable="false" Precision="3" />
+          <Property Type="String" Name="change_detail" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="chage_type" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="act_dt" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="DiffDate" />
+          <Property Type="String" Name="group_name" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="V_Tran2">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="status_id" />
+            <PropertyRef Name="lv_id" />
+            <PropertyRef Name="change_detail" />
+            <PropertyRef Name="issue_group" />
+          </Key>
+          <Property Type="String" Name="id" MaxLength="33" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="Byte" Name="status_id" Nullable="false" />
+          <Property Type="Byte" Name="lv_id" Nullable="false" />
+          <Property Type="String" Name="change_detail" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="issue_group" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PackingChangeModelStoreContainer" CdmEntityContainer="PackingChangeEntities">
+          <EntitySetMapping Name="td_impact_plant">
+            <EntityTypeMapping TypeName="PackingChangeModel.td_impact_plant">
+              <MappingFragment StoreEntitySet="td_impact_plant">
+                <ScalarProperty Name="plant_code" ColumnName="plant_code" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="td_main_data">
+            <EntityTypeMapping TypeName="PackingChangeModel.td_main_data">
+              <MappingFragment StoreEntitySet="td_main_data">
+                <ScalarProperty Name="request_date" ColumnName="request_date" />
+                <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+                <ScalarProperty Name="system_update" ColumnName="system_update" />
+                <ScalarProperty Name="production_type" ColumnName="production_type" />
+                <ScalarProperty Name="request_by" ColumnName="request_by" />
+                <ScalarProperty Name="expected_dt" ColumnName="expected_dt" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="condition_new" ColumnName="condition_new" />
+                <ScalarProperty Name="condition_current" ColumnName="condition_current" />
+                <ScalarProperty Name="change_detail" ColumnName="change_detail" />
+                <ScalarProperty Name="chage_type" ColumnName="chage_type" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="td_tell">
+            <EntityTypeMapping TypeName="PackingChangeModel.td_tell">
+              <MappingFragment StoreEntitySet="td_tell">
+                <ScalarProperty Name="tell" ColumnName="tell" />
+                <ScalarProperty Name="act_dt" ColumnName="act_dt" />
+                <ScalarProperty Name="actor" ColumnName="actor" />
+                <ScalarProperty Name="org_id" ColumnName="org_id" />
+                <ScalarProperty Name="lv_id" ColumnName="lv_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="td_transaction">
+            <EntityTypeMapping TypeName="PackingChangeModel.td_transaction">
+              <MappingFragment StoreEntitySet="td_transaction">
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="act_dt" ColumnName="act_dt" />
+                <ScalarProperty Name="actor" ColumnName="actor" />
+                <ScalarProperty Name="act_id" ColumnName="act_id" />
+                <ScalarProperty Name="plant_code" ColumnName="plant_code" />
+                <ScalarProperty Name="org_id" ColumnName="org_id" />
+                <ScalarProperty Name="lv_id" ColumnName="lv_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_action">
+            <EntityTypeMapping TypeName="PackingChangeModel.tm_action">
+              <MappingFragment StoreEntitySet="tm_action">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="act_name" ColumnName="act_name" />
+                <ScalarProperty Name="act_id" ColumnName="act_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_plant">
+            <EntityTypeMapping TypeName="PackingChangeModel.tm_plant">
+              <MappingFragment StoreEntitySet="tm_plant">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="update_dt" ColumnName="update_dt" />
+                <ScalarProperty Name="plant_name" ColumnName="plant_name" />
+                <ScalarProperty Name="plant_code" ColumnName="plant_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_status">
+            <EntityTypeMapping TypeName="PackingChangeModel.tm_status">
+              <MappingFragment StoreEntitySet="tm_status">
+                <ScalarProperty Name="cross_status" ColumnName="cross_status" />
+                <ScalarProperty Name="lv_max" ColumnName="lv_max" />
+                <ScalarProperty Name="lv_min" ColumnName="lv_min" />
+                <ScalarProperty Name="status_name" ColumnName="status_name" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_sys_group">
+            <EntityTypeMapping TypeName="PackingChangeModel.tm_sys_group">
+              <MappingFragment StoreEntitySet="tm_sys_group">
+                <ScalarProperty Name="group_type" ColumnName="group_type" />
+                <ScalarProperty Name="group_respond" ColumnName="group_respond" />
+                <ScalarProperty Name="update_dt" ColumnName="update_dt" />
+                <ScalarProperty Name="plant_code" ColumnName="plant_code" />
+                <ScalarProperty Name="sys_group_name" ColumnName="sys_group_name" />
+                <ScalarProperty Name="sys_group_code" ColumnName="sys_group_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_sys_group_user">
+            <EntityTypeMapping TypeName="PackingChangeModel.tm_sys_group_user">
+              <MappingFragment StoreEntitySet="tm_sys_group_user">
+                <ScalarProperty Name="lv_id" ColumnName="lv_id" />
+                <ScalarProperty Name="update_dt" ColumnName="update_dt" />
+                <ScalarProperty Name="emp_code" ColumnName="emp_code" />
+                <ScalarProperty Name="sys_group_code" ColumnName="sys_group_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_sys_user">
+            <EntityTypeMapping TypeName="PackingChangeModel.tm_sys_user">
+              <MappingFragment StoreEntitySet="tm_sys_user">
+                <ScalarProperty Name="update_dt" ColumnName="update_dt" />
+                <ScalarProperty Name="utype_code" ColumnName="utype_code" />
+                <ScalarProperty Name="emp_code" ColumnName="emp_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_sys_utype">
+            <EntityTypeMapping TypeName="PackingChangeModel.tm_sys_utype">
+              <MappingFragment StoreEntitySet="tm_sys_utype">
+                <ScalarProperty Name="update_dt" ColumnName="update_dt" />
+                <ScalarProperty Name="utype_lv" ColumnName="utype_lv" />
+                <ScalarProperty Name="utype_name" ColumnName="utype_name" />
+                <ScalarProperty Name="utype_code" ColumnName="utype_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_user_level">
+            <EntityTypeMapping TypeName="PackingChangeModel.tm_user_level">
+              <MappingFragment StoreEntitySet="tm_user_level">
+                <ScalarProperty Name="pos_max" ColumnName="pos_max" />
+                <ScalarProperty Name="pos_min" ColumnName="pos_min" />
+                <ScalarProperty Name="lv_name" ColumnName="lv_name" />
+                <ScalarProperty Name="lv_id" ColumnName="lv_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="td_feedback">
+            <EntityTypeMapping TypeName="PackingChangeModel.td_feedback">
+              <MappingFragment StoreEntitySet="td_feedback">
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="act_dt" ColumnName="act_dt" />
+                <ScalarProperty Name="actor" ColumnName="actor" />
+                <ScalarProperty Name="org_id" ColumnName="org_id" />
+                <ScalarProperty Name="lv_id" ColumnName="lv_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="auto_id" ColumnName="auto_id" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Tran">
+            <EntityTypeMapping TypeName="PackingChangeModel.V_Tran">
+              <MappingFragment StoreEntitySet="V_Tran">
+                <ScalarProperty Name="request_date" ColumnName="request_date" />
+                <ScalarProperty Name="expected_dt" ColumnName="expected_dt" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="condition_new" ColumnName="condition_new" />
+                <ScalarProperty Name="condition_current" ColumnName="condition_current" />
+                <ScalarProperty Name="system_update" ColumnName="system_update" />
+                <ScalarProperty Name="production_type" ColumnName="production_type" />
+                <ScalarProperty Name="request_by" ColumnName="request_by" />
+                <ScalarProperty Name="lv_id" ColumnName="lv_id" />
+                <ScalarProperty Name="maxstatus" ColumnName="maxstatus" />
+                <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+                <ScalarProperty Name="chage_type" ColumnName="chage_type" />
+                <ScalarProperty Name="change_detail" ColumnName="change_detail" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_concern_group">
+            <EntityTypeMapping TypeName="PackingChangeModel.tm_concern_group">
+              <MappingFragment StoreEntitySet="tm_concern_group">
+                <ScalarProperty Name="create_dt" ColumnName="create_dt" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="concern_group_id" ColumnName="concern_group_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_sys_concern_group">
+            <EntityTypeMapping TypeName="PackingChangeModel.tm_sys_concern_group">
+              <MappingFragment StoreEntitySet="tm_sys_concern_group">
+                <ScalarProperty Name="concern_group_name" ColumnName="concern_group_name" />
+                <ScalarProperty Name="concern_group_id" ColumnName="concern_group_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="td_temp_concern">
+            <EntityTypeMapping TypeName="PackingChangeModel.td_temp_concern">
+              <MappingFragment StoreEntitySet="td_temp_concern">
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="concern_group_id" ColumnName="concern_group_id" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="td_files">
+            <EntityTypeMapping TypeName="PackingChangeModel.td_files">
+              <MappingFragment StoreEntitySet="td_files">
+                <ScalarProperty Name="delete_dt" ColumnName="delete_dt" />
+                <ScalarProperty Name="upload_dt" ColumnName="upload_dt" />
+                <ScalarProperty Name="upload_by" ColumnName="upload_by" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ConcernGroup">
+            <EntityTypeMapping TypeName="PackingChangeModel.V_ConcernGroup">
+              <MappingFragment StoreEntitySet="V_ConcernGroup">
+                <ScalarProperty Name="concern_group_id" ColumnName="concern_group_id" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ShowConcern">
+            <EntityTypeMapping TypeName="PackingChangeModel.V_ShowConcern">
+              <MappingFragment StoreEntitySet="V_ShowConcern">
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="concern_group_id" ColumnName="concern_group_id" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ShowFB">
+            <EntityTypeMapping TypeName="PackingChangeModel.V_ShowFB">
+              <MappingFragment StoreEntitySet="V_ShowFB">
+                <ScalarProperty Name="org_id" ColumnName="org_id" />
+                <ScalarProperty Name="lv_id" ColumnName="lv_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+                <ScalarProperty Name="act_dt" ColumnName="act_dt" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="status_name" ColumnName="status_name" />
+                <ScalarProperty Name="emp_lname" ColumnName="emp_lname" />
+                <ScalarProperty Name="emp_fname" ColumnName="emp_fname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ShowTran">
+            <EntityTypeMapping TypeName="PackingChangeModel.V_ShowTran">
+              <MappingFragment StoreEntitySet="V_ShowTran">
+                <ScalarProperty Name="lv_name" ColumnName="lv_name" />
+                <ScalarProperty Name="act_id" ColumnName="act_id" />
+                <ScalarProperty Name="plant_code" ColumnName="plant_code" />
+                <ScalarProperty Name="org_id" ColumnName="org_id" />
+                <ScalarProperty Name="lv_id" ColumnName="lv_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+                <ScalarProperty Name="act_dt" ColumnName="act_dt" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="status_name" ColumnName="status_name" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="td_salecs">
+            <EntityTypeMapping TypeName="PackingChangeModel.td_salecs">
+              <MappingFragment StoreEntitySet="td_salecs">
+                <ScalarProperty Name="frequency" ColumnName="frequency" />
+                <ScalarProperty Name="init_tag_id" ColumnName="init_tag_id" />
+                <ScalarProperty Name="cust_noneed" ColumnName="cust_noneed" />
+                <ScalarProperty Name="cust_need" ColumnName="cust_need" />
+                <ScalarProperty Name="pack_std_noneed" ColumnName="pack_std_noneed" />
+                <ScalarProperty Name="pack_std_need" ColumnName="pack_std_need" />
+                <ScalarProperty Name="actor" ColumnName="actor" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_init_tag">
+            <EntityTypeMapping TypeName="PackingChangeModel.tm_init_tag">
+              <MappingFragment StoreEntitySet="tm_init_tag">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="init_tag_name" ColumnName="init_tag_name" />
+                <ScalarProperty Name="init_tag_id" ColumnName="init_tag_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="td_pack_std">
+            <EntityTypeMapping TypeName="PackingChangeModel.td_pack_std">
+              <MappingFragment StoreEntitySet="td_pack_std">
+                <ScalarProperty Name="issue_org" ColumnName="issue_org" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="submit_dt" ColumnName="submit_dt" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="pack_file" ColumnName="pack_file" />
+                <ScalarProperty Name="cust_no" ColumnName="cust_no" />
+                <ScalarProperty Name="series" ColumnName="series" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ShowPack">
+            <EntityTypeMapping TypeName="PackingChangeModel.V_ShowPack">
+              <MappingFragment StoreEntitySet="V_ShowPack">
+                <ScalarProperty Name="cust_name" ColumnName="cust_name" />
+                <ScalarProperty Name="issue_org" ColumnName="issue_org" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="submit_dt" ColumnName="submit_dt" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="pack_file" ColumnName="pack_file" />
+                <ScalarProperty Name="cust_no" ColumnName="cust_no" />
+                <ScalarProperty Name="series" ColumnName="series" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="td_item_list">
+            <EntityTypeMapping TypeName="PackingChangeModel.td_item_list">
+              <MappingFragment StoreEntitySet="td_item_list">
+                <ScalarProperty Name="pln_item" ColumnName="pln_item" />
+                <ScalarProperty Name="cs_check" ColumnName="cs_check" />
+                <ScalarProperty Name="cs_change" ColumnName="cs_change" />
+                <ScalarProperty Name="cs_lot" ColumnName="cs_lot" />
+                <ScalarProperty Name="cs_eff_dt" ColumnName="cs_eff_dt" />
+                <ScalarProperty Name="cs_repack" ColumnName="cs_repack" />
+                <ScalarProperty Name="cs_stock" ColumnName="cs_stock" />
+                <ScalarProperty Name="pp_eff_pln" ColumnName="pp_eff_pln" />
+                <ScalarProperty Name="pp_eff_prod" ColumnName="pp_eff_prod" />
+                <ScalarProperty Name="pp_confirm_lot" ColumnName="pp_confirm_lot" />
+                <ScalarProperty Name="pp_check" ColumnName="pp_check" />
+                <ScalarProperty Name="pp_qty" ColumnName="pp_qty" />
+                <ScalarProperty Name="pp_lot" ColumnName="pp_lot" />
+                <ScalarProperty Name="pp_have" ColumnName="pp_have" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="item_code" ColumnName="item_code" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_TNC_Group">
+            <EntityTypeMapping TypeName="PackingChangeModel.V_TNC_Group">
+              <MappingFragment StoreEntitySet="V_TNC_Group">
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Tran1">
+            <EntityTypeMapping TypeName="PackingChangeModel.V_Tran1">
+              <MappingFragment StoreEntitySet="V_Tran1">
+                <ScalarProperty Name="chage_type" ColumnName="chage_type" />
+                <ScalarProperty Name="request_by" ColumnName="request_by" />
+                <ScalarProperty Name="production_type" ColumnName="production_type" />
+                <ScalarProperty Name="request_date" ColumnName="request_date" />
+                <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+                <ScalarProperty Name="change_detail" ColumnName="change_detail" />
+                <ScalarProperty Name="org_id" ColumnName="org_id" />
+                <ScalarProperty Name="lv_id" ColumnName="lv_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Report">
+            <EntityTypeMapping TypeName="PackingChangeModel.V_Report">
+              <MappingFragment StoreEntitySet="V_Report">
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="DiffDate" ColumnName="DiffDate" />
+                <ScalarProperty Name="act_dt" ColumnName="act_dt" />
+                <ScalarProperty Name="chage_type" ColumnName="chage_type" />
+                <ScalarProperty Name="change_detail" ColumnName="change_detail" />
+                <ScalarProperty Name="request_date" ColumnName="request_date" />
+                <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+                <ScalarProperty Name="status_name" ColumnName="status_name" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Tran2">
+            <EntityTypeMapping TypeName="PackingChangeModel.V_Tran2">
+              <MappingFragment StoreEntitySet="V_Tran2">
+                <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+                <ScalarProperty Name="change_detail" ColumnName="change_detail" />
+                <ScalarProperty Name="lv_id" ColumnName="lv_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

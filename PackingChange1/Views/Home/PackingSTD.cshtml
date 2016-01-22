@@ -1,0 +1,173 @@
+﻿@model IEnumerable<PackingChange1.Models.V_ShowPack>
+@{
+    ViewBag.Title = "Packing Standard";
+}
+<style>
+    .thead { font-weight: bold; }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validate({
+            modules: 'date, file',
+            form: '#formPack'
+        });
+
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-mm-yy',
+            showOtherMonths: true,
+            selectOtherMonths: true
+        });
+
+        $("#spanUpd").hide();
+
+        $("#selStatus").change(function () {
+            if ($(this).val() == "Rejected" || $(this).val() == "Canceled") {
+                $("#txaReason").attr('data-validation', 'required');
+            } else {
+                $("#txaReason").removeAttr('data-validation');
+            }
+        });
+
+        $("#btnAdd").click(function (e) {
+            e.preventDefault();
+            var formAction = "@Url.Action("CreatePackSTD")";
+            $("#formPack").attr('action', formAction).submit();
+        });
+
+        $("#btnUpd").click(function (e) {
+            e.preventDefault();
+            var formAction = "@Url.Action("UpdatePackSTD")";
+            $("#formPack").attr('action', formAction).submit();
+        });
+
+        $("#btnReset").click(function (e) {
+            $("#spanAdd").show();
+            $("#spanUpd").hide();
+            $("#files").attr('data-validation', 'required');
+        });
+
+        $(document).on("click", ".btnEdit", function () {
+            var obj = new Object();
+            obj.gpcode = $(this).attr("data-gc");
+            obj.year = $(this).attr("data-yy");
+            obj.runno = $(this).attr("data-rn");
+            obj.series = $(this).attr("data-sr");
+            $.get("@Url.Action("GetPackSTD")", obj, function (data) {
+                $("#selCust").val(data.cust_no);
+                $("#dpSubmit").datepicker('setDate', new Date(data.yy, data.mm, data.dd));
+                $("#selStatus").val(data.status);
+                $("#txaReason").val(data.reason);
+                $("#hdseries").val(data.series);
+                $("#files").removeAttr('data-validation');
+                $("#spanUpd").show();
+                $("#spanAdd").hide();
+            });
+        });
+    });
+</script>
+
+<h3>Submit Packing Standard</h3>
+@if (ViewBag.CompBtn != null)
+{
+    @Html.ActionLink("Completed", "CompPackSTD", new { gpcode = ViewBag.GCode, year = ViewBag.Year, runno = ViewBag.Runno, org = ViewBag.Org }, new { @class = "btn btn-success" })
+}
+<table class="table table-hover table-condensed">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Customer No.</th>
+            <th>Customer Name</th>
+            <th>Status</th>
+            <th>Upload</th>
+            <th>Submit Date</th>
+            <th>Reason</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.series</td>
+            <td>@item.cust_no</td>
+            <td>@item.cust_name</td>
+            <td>@item.status</td>
+            <td><a href="@Url.Content(item.pack_file)" target="_blank"><i class="icon-file"></i></a></td>
+            <td>@item.submit_dt.ToShortDateString()</td>
+            <td>@item.reason</td>
+            <td><button type="button" name="btnEdit" class="btn btn-info btnEdit" data-gc="@item.gpcode" data-yy="@item.year" data-rn="@item.runno" data-sr="@item.series"><i class="icon-edit icon-white"></i></button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<form id="formPack" name="formPack" class="form-horizontal" enctype="multipart/form-data" method="post">
+<fieldset>
+<!-- Form Name -->
+<legend>Add/Update Packing Standard</legend>
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="selCust">Customer :</label>
+  <div class="controls">
+      <select id="selCust" name="selCust" class="span6" data-validation="required">
+          <option value="">--Please Select--</option>
+          @foreach (var item in ViewBag.SelCust)
+          {
+          <option value="@item.cust_no">@item.cust_no - @item.cust_name</option>
+          }
+      </select>
+  </div>
+</div>
+<!-- File Button --> 
+<div class="control-group">
+  <label class="control-label" for="files">Upload :</label>
+  <div class="controls">
+    <input id="files" name="files" type="file" data-validation="required extension" data-validation-allowing="pdf">
+  </div>
+</div>
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="dpSubmit">Submit Date :</label>
+  <div class="controls">
+    <input id="dpSubmit" name="dpSubmit" type="text" readonly="true" class="datepicker span3"
+                data-validation="date" data-validation-format="dd-mm-yyyy">
+  </div>
+</div>
+<!-- Select Basic -->
+<div class="control-group">
+  <label class="control-label" for="selStatus">Status :</label>
+  <div class="controls">
+    <select id="selStatus" name="selStatus" class="span3" data-validation="required">
+        <option value="">-Please Select-</option>
+        <option>Pending</option>
+        <option>Approved</option>
+        <option>Rejected</option>
+        <option>Canceled</option>
+    </select>
+  </div>
+</div>
+<!-- Textarea -->
+<div class="control-group">
+  <label class="control-label" for="txaReason">Reason :</label>
+  <div class="controls">                     
+    <textarea id="txaReason" name="txaReason" class="span6" data-validation="required"></textarea>
+  </div>
+</div>
+<!-- Button (Double) -->
+<div class="control-group">
+    <label class="control-label" for="btnAdd"></label>
+    <div class="controls">
+        <input type="hidden" id="hdgc" name="hdgc" value="@ViewBag.GCode" />
+        <input type="hidden" id="hdyy" name="hdyy" value="@ViewBag.Year" />
+        <input type="hidden" id="hdrn" name="hdrn" value="@ViewBag.Runno" />
+        <input type="hidden" id="hdorg" name="hdorg" value="@ViewBag.Org" />
+        <input type="hidden" id="hdseries" name="hdseries" />
+        <span id="spanAdd"><button id="btnAdd" name="btnAdd" class="btn btn-primary">Add</button></span>
+        <span id="spanUpd"><button id="btnUpd" name="btnUpd" class="btn">Update</button></span>
+        <input type="reset" id="btnReset" name="btnReset" class="btn btn-danger" value="Clear" />
+    </div>
+</div>
+</fieldset>
+</form>

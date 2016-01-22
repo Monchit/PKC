@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Group User Management";
+}
+<style type="text/css">
+    /*fix jTable*/
+    span.jtable-goto-page select, span.jtable-page-size-change select {
+        height: 25px;
+        width: 60px;
+        padding: 2px 2px;
+        margin-bottom:auto;
+    }
+    div.jtable-main-container table.jtable thead th {
+        text-align: center;
+    }
+    div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jTableGroupUser').jtable({
+            title: 'Group User Master',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'sys_group_code', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("GroupUserList","Master")',
+                @*deleteAction: '@Url.Action("DeleteGroupUser","Master")',*@
+                createAction: '@Url.Action("CreateGroupUser","Master")'
+            },
+            fields: {
+                sys_group_code: { title: 'Group', key: true, create: true, edit: false, width: '30%', options: '@Url.Action("GetGroupList","Master")' },
+                emp_code: { title: 'Name', key: true, create: true, edit: false, width: '48%', options: '@Url.Action("GetTNCUserList","Master")' },
+                lv_id: { title: 'User Lv', create: true, edit: true, width: '20%', options: '@Url.Action("GetUserLvList","Master")' },
+                btnDelete: {
+                    title: '',
+                    width: '2%', create: false, edit: false,
+                    display: function (data) {
+                        return $('<button type="button" class="btn btn-mini GUDel" data-emp="' + data.record.emp_code + '" data-group="' + data.record.sys_group_code + '"><i class="icon-trash"></i></a>');
+                    }
+                }
+            }
+        });
+        //Load student list from server
+        $('#jTableGroupUser').jtable('load');
+
+        $(document).on("click", ".GUDel", function (event) {
+            var obj = new Object();
+            obj.emp_code = $(this).attr("data-emp");
+            obj.group = $(this).attr("data-group");
+            
+            if (confirm("Are you sure to Delete ?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeleteGroupUser","Master")",
+                    data: obj,
+                    dataType: "json",
+                    success: function (data) {
+                        $('#jTableGroupUser').jtable('reload');
+                    },
+                    error: function (request, status, err) {
+                        alert("Request:" + request + ", Status:" + status + ", Error:" + err);
+                    }
+                });
+            }
+            return false;
+        });
+    });
+</script>
+
+<div id="jTableGroupUser"></div>

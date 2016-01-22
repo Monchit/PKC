@@ -1,0 +1,209 @@
+﻿
+@{
+    ViewBag.Title = "Edit Main Data";
+}
+
+@section scripts {
+     <script type="text/javascript">
+         $(document).ready(function () {
+
+             $('#selectid').on('change', function () {
+                 //alert($(this).find(':selected').attr('data-gc'));
+                 $("#hdgc").val($(this).find(':selected').attr('data-gc'));
+                 $("#hdyy").val($(this).find(':selected').attr('data-yy'));
+                 $("#hdrn").val($(this).find(':selected').attr('data-rn'));
+             });
+
+             $("#btnSearch").click(function () {
+                 var remote = "@Url.Action("GetMain", "EditData")";
+                 var obj = new Object();
+                 obj.gpcode = $("#hdgc").val();
+                 obj.year = $("#hdyy").val();
+                 obj.runno = $("#hdrn").val();
+                 $.get(remote, obj, function (data) {
+                     $("#hdgc").val(data.gpcode);
+                     $("#hdyy").val(data.year);
+                     $("#hdrn").val(data.runno);
+                     $("#selChangeType").val(data.chage_type);
+                     $("#dtpExpectDate").val(data.expected_dt);
+                     $("#txaDetail").text(data.change_detail);
+                     $("#txaReason").text(data.reason);
+                     $("#selReqBy").val(data.request_by);
+                     $("#selProdType").val(data.production_type);
+                     $("#txaCurrent").text(data.condition_current);
+                     $("#txaNew").text(data.condition_new);
+                 });
+
+                 $.get("@Url.Action("GetImpactPlant", "EditData")", obj, function (data) {
+                     $('.cbImpact').each(function () {
+                         this.checked = false;
+                     });
+                     $.each(data, function (idx, obj) {
+                         $('.cbImpact').each(function () {
+                             if ($(this).val() == obj) {
+                                 this.checked = true;
+                             }
+                         });
+                     });
+                 });
+             });
+
+             $("#selectid").select2();
+
+             $(".datepicker").datepicker({
+                 dateFormat: 'dd-mm-yy',
+                 showOtherMonths: true,
+                 selectOtherMonths: true,
+                 showButtonPanel: true
+                 //minDate: new Date()//set minDate is today
+             });
+
+             $("#btnClear").click(function () {
+                 $("#txaDetail").text('');
+                 $("#txaReason").text('');
+                 $("#txaCurrent").text('');
+                 $("#txaNew").text('');
+             });
+
+             $.validate({
+                 modules: 'date',
+                 form: '#formNew'
+             });
+
+             $("[name='ImpPlant[]']:eq(0)").valAttr('', 'validate_checkbox_group').valAttr('qty', 'min1');
+         });
+    </script>
+}
+
+<h3>@ViewBag.Title</h3>
+
+<form class="form-inline">
+    Select Control No. :
+    <select id="selectid" class="input-xlarge">
+        @foreach (var item in ViewBag.ControlNo)
+        {
+            <option data-gc="@item.gpcode" data-yy="@item.year" data-rn="@item.runno">@item.id</option>
+        }
+    </select>
+    <button id="btnSearch" name="btnSearch" type="button" class="btn btn-inverse">Search</button>
+</form>
+
+<form id="formNew" name="formNew" class="form-horizontal" action="@Url.Action("UpdateMain")" method="post">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Application for Packing Change</legend>
+
+<div class="container-fluid">
+
+    <!-- Form Left -->
+    <div class="span6">
+    
+        <input type="hidden" id="hdgc" name="hdgd" />
+        <input type="hidden" id="hdyy" name="hdyy" />
+        <input type="hidden" id="hdrn" name="hdrn" />
+
+        <div class="control-group">
+          <label class="control-label" for="selChangeType">Type of change : </label>
+          <div class="controls">
+            <select id="selChangeType" name="selChangeType" class="input-xlarge" data-validation="required">
+                <option value="">--Please Select--</option>
+                <option>Packing Condition</option>
+                <option>Inspection Data</option>
+                <option>Packing Condition and Inspection Data</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label" for="textinput">Expected date : </label>
+          <div class="controls">
+            <input type="text" id="dtpExpectDate" name="dtpExpectDate" readonly="true" class="datepicker input-medium"
+                data-validation="date" data-validation-format="dd-mm-yyyy">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="txaDetail">Change detail : </label>
+          <div class="controls">                     
+            <textarea id="txaDetail" name="txaDetail" class="input-xlarge" data-validation="required"></textarea>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="txaReason">Reason of change : </label>
+          <div class="controls">                     
+            <textarea id="txaReason" name="txaReason" class="input-xlarge" data-validation="required"></textarea>
+          </div>
+        </div>
+
+    </div>
+
+    <!-- Form Right -->
+    <div class="span6">
+        <div class="control-group">
+          <label class="control-label" for="selReqBy">Request by : </label>
+          <div class="controls">
+            <select id="selReqBy" name="selReqBy" class="input-large" data-validation="required">
+                <option value="">--Please Select--</option>
+                <option>Customer</option>
+                <option>Internal</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="selProdType">Production type : </label>
+          <div class="controls">
+            <select id="selProdType" name="selProdType" class="input-large" data-validation="required">
+                <option value="">--Please Select--</option>
+                <option>Manufacturing</option>
+                <option>Service Part</option>
+                <option>Pass Through</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="txaCurrent">Current condition : </label>
+          <div class="controls">                     
+            <textarea id="txaCurrent" name="txaCurrent" class="input-xlarge" data-validation="required"></textarea>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="txaNew">New condition : </label>
+          <div class="controls">                     
+            <textarea id="txaNew" name="txaNew" class="input-xlarge" data-validation="required"></textarea>
+          </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label" for="checkboxes">Impact plant : </label>
+            <div class="controls">
+                @foreach (var item in ViewBag.SelectPlant)
+                {
+                <label class="checkbox inline" for="Imp_@item.plant_code">
+                <input type="checkbox" name="ImpPlant[]" id="Imp_@item.plant_code" value="@item.plant_code" class="cbImpact">
+                @item.plant_name
+                </label>
+                }
+            </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="btnSubmit"></label>
+          <div class="controls">
+            <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-inverse">Submit</button>
+            <button id="btnClear" name="btnClear" type="reset" class="btn">Clear</button>
+          </div>
+        </div>
+    </div>
+</div>
+
+</fieldset>
+</form>

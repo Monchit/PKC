@@ -1,0 +1,24 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $.validate({ form: '#formFeedback' });
+    });
+</script>
+
+<form id="formFeedback" name="formFeedback" action="@Url.Action("FeedbackAction")" method="post">
+    <span>Feedback :<button class="btn btn-warning pull-right"><i class="icon-comment icon-white"></i> Feedback</button></span>
+    <textarea rows="5" id="txaFB" name="txaFB" class="span12" data-validation="required"></textarea>
+    @{
+        var gc = ViewData["gpcode"];
+        var yy = ViewData["year"];
+        var rn = ViewData["runno"];
+        var ulv = ViewData["ulv"];
+        var org = ViewData["org"];
+        var status = ViewData["status"];
+    }
+    <input type="hidden" id="fbgc" name="fbgc" value="@gc" />
+    <input type="hidden" id="fbyy" name="fbyy" value="@yy" />
+    <input type="hidden" id="fbrn" name="fbrn" value="@rn" />
+    <input type="hidden" id="fbulv" name="fbulv" value="@ulv" />
+    <input type="hidden" id="fborg" name="fborg" value="@org" />
+    <input type="hidden" id="fbstt" name="fbstt" value="@status" />
+</form>

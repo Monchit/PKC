@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Report";
+}
+<style type="text/css">
+    /*fix jTable*/
+    span.jtable-goto-page select, span.jtable-page-size-change select {
+        height: 25px;
+        width: 60px;
+        padding: 2px 2px;
+        margin-bottom:auto;
+    }
+    div.jtable-main-container table.jtable thead th {
+        text-align: center;
+    }
+    div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+        text-align: center;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jTableReport').jtable({
+            title: 'Packing Change',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            multiselect: false, //Allow multiple selecting
+            defaultSorting: 'year, runno', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("ExportPCOList","Master")'
+            },
+            fields: {
+                gpcode: { title: 'GroupCode', list: false },
+                year: { title: 'Year', list: false },
+                runno: { title: 'RunNo.', list: false },
+                id: { title: 'Control No.', width: '17%', visibility: 'fixed' },
+                change_detail: { title: 'Change detail', width: '36%' },
+                issue_group: { title: 'Issue group', width: '20%', options: '@Url.Action("GetTNCGroupList","Home")' },
+                status_name: { title: 'Status', width: '10%' },
+                request_date: { title: 'Status', width: '10%' },
+                DiffDate: { title: 'Days', width: '7%' }
+            }
+        });
+
+        $.validate({ form: '#formFilter' });
+
+        //Re-load records when user click 'load records' button.
+        //$('#btnSubmit').click(function (e) {
+        //    if (!$.validate({ form: '#formFilter' })) {
+        //        return false;
+        //    } else {
+        //        e.preventDefault();
+        //        $('#jTableReport').jtable('load', {
+        //            date_from: $('#date_from').val(),
+        //            date_to: $('#date_to').val(),
+        //            group: $('#selGroup').val()
+        //        });
+        //    }
+        //});
+
+        //$('#btnExport').click(function (e) {
+        //    if (!$.validate({ form: '#formFilter' })) {
+        //        return false;
+        //    }
+        //});
+
+        $("#date_from").datepicker({
+            dateFormat: 'yy-mm-dd',
+            onClose: function (selectedDate) {
+                $("#date_to").datepicker("option", "minDate", selectedDate);
+            }
+        });
+        $("#date_to").datepicker({
+            dateFormat: 'yy-mm-dd',
+            onClose: function (selectedDate) {
+                $("#date_from").datepicker("option", "maxDate", selectedDate);
+            }
+        });
+    });
+</script>
+
+<h3>@ViewBag.Title</h3>
+
+<form name="formFilter" id="formFilter" class="form-inline" action="@Url.Action("ExportPCO")" method="post">
+    <label for="date_from">From : </label>
+    <input type="text" id="date_from" name="date_from" class="input-small" data-validation="required">
+    <label for="date_to"> To : </label>
+    <input type="text" id="date_to" name="date_to" class="input-small" data-validation="required">
+    <label for="selGroup"> Issued group : </label>
+    <select id="selGroup" name="selGroup" class="input-xlarge">
+        <option value="0">--All Group--</option>
+        @foreach (var item in ViewBag.SelectGroup)
+        {
+        <option value="@item.id">@item.group_name</option>
+        }
+    </select>
+    @*<button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-primary"><i class="icon-filter icon-white"></i> Filter</button>*@
+    <button type="submit" id="btnExport" name="btnExport" class="btn btn-success"><i class="icon-list-alt icon-white"></i> Export</button>
+</form>
+@*<div id="jTableReport"></div>*@

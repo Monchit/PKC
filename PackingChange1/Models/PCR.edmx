@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PCRModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="PCRModelStoreContainer">
+          <EntitySet Name="PCR_Customer" EntityType="PCRModel.Store.PCR_Customer" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PCR_GCode" EntityType="PCRModel.Store.PCR_GCode" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="v_pcr_main" EntityType="PCRModel.Store.v_pcr_main" store:Type="Views" store:Schema="dbo" store:Name="v_pcr_main">
+            <DefiningQuery>SELECT 
+      [v_pcr_main].[state_name] AS [state_name], 
+      [v_pcr_main].[status_name] AS [status_name], 
+      [v_pcr_main].[type_name] AS [type_name], 
+      [v_pcr_main].[group_name] AS [group_name], 
+      [v_pcr_main].[emp_fname] AS [emp_fname], 
+      [v_pcr_main].[emp_lname] AS [emp_lname], 
+      [v_pcr_main].[id] AS [id], 
+      [v_pcr_main].[pcr_id] AS [pcr_id], 
+      [v_pcr_main].[issuer] AS [issuer], 
+      [v_pcr_main].[issue_group] AS [issue_group], 
+      [v_pcr_main].[issue_tel] AS [issue_tel], 
+      [v_pcr_main].[issued_date] AS [issued_date], 
+      [v_pcr_main].[expected_date] AS [expected_date], 
+      [v_pcr_main].[completed_date] AS [completed_date], 
+      [v_pcr_main].[class_type] AS [class_type], 
+      [v_pcr_main].[app_type] AS [app_type], 
+      [v_pcr_main].[std_req] AS [std_req], 
+      [v_pcr_main].[std_txt] AS [std_txt], 
+      [v_pcr_main].[pcr_type] AS [pcr_type], 
+      [v_pcr_main].[change_txt] AS [change_txt], 
+      [v_pcr_main].[reason_txt] AS [reason_txt], 
+      [v_pcr_main].[status_id] AS [status_id], 
+      [v_pcr_main].[state_id] AS [state_id], 
+      [v_pcr_main].[item_attach] AS [item_attach], 
+      [v_pcr_main].[folder_no] AS [folder_no], 
+      [v_pcr_main].[item_no] AS [item_no], 
+      [v_pcr_main].[cust_no] AS [cust_no], 
+      [v_pcr_main].[issue_dept] AS [issue_dept], 
+      [v_pcr_main].[issue_div] AS [issue_div], 
+      [v_pcr_main].[email] AS [email]
+      FROM [dbo].[v_pcr_main] AS [v_pcr_main]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <EntityType Name="PCR_Customer">
+          <Key>
+            <PropertyRef Name="cust_no" />
+          </Key>
+          <Property Name="cust_no" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="cust_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PCR_GCode">
+          <Key>
+            <PropertyRef Name="g_id" />
+          </Key>
+          <Property Name="g_id" Type="int" Nullable="false" />
+          <Property Name="g_code" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PCR.dbo.v_pcr_main' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="v_pcr_main">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="pcr_id" />
+            <PropertyRef Name="issuer" />
+          </Key>
+          <Property Name="state_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="status_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="type_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="group_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="emp_fname" Type="nvarchar" MaxLength="255" />
+          <Property Name="emp_lname" Type="nvarchar" MaxLength="255" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="pcr_id" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="issuer" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="issue_group" Type="nvarchar" MaxLength="50" />
+          <Property Name="issue_tel" Type="nvarchar" MaxLength="10" />
+          <Property Name="issued_date" Type="date" />
+          <Property Name="expected_date" Type="date" />
+          <Property Name="completed_date" Type="date" />
+          <Property Name="class_type" Type="tinyint" />
+          <Property Name="app_type" Type="tinyint" />
+          <Property Name="std_req" Type="tinyint" />
+          <Property Name="std_txt" Type="nvarchar" MaxLength="50" />
+          <Property Name="pcr_type" Type="int" />
+          <Property Name="change_txt" Type="text" />
+          <Property Name="reason_txt" Type="text" />
+          <Property Name="status_id" Type="tinyint" />
+          <Property Name="state_id" Type="tinyint" />
+          <Property Name="item_attach" Type="nvarchar" MaxLength="255" />
+          <Property Name="folder_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="item_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="cust_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="issue_dept" Type="nvarchar" MaxLength="50" />
+          <Property Name="issue_div" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PCRModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PCREntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="PCR_GCode" EntityType="PCRModel.PCR_GCode" />
+          <EntitySet Name="PCR_Customer" EntityType="PCRModel.PCR_Customer" />
+          <EntitySet Name="v_pcr_main" EntityType="PCRModel.v_pcr_main" />
+        </EntityContainer>
+        <EntityType Name="PCR_GCode">
+          <Key>
+            <PropertyRef Name="g_id" />
+          </Key>
+          <Property Name="g_id" Type="Int32" Nullable="false" />
+          <Property Name="g_code" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="PCR_Customer">
+          <Key>
+            <PropertyRef Name="cust_no" />
+          </Key>
+          <Property Type="String" Name="cust_no" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="cust_name" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="v_pcr_main">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="pcr_id" />
+            <PropertyRef Name="issuer" />
+          </Key>
+          <Property Type="String" Name="state_name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="status_name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="type_name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="group_name" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="emp_fname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="emp_lname" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="pcr_id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="issuer" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="issue_group" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="issue_tel" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="issued_date" Precision="0" />
+          <Property Type="DateTime" Name="expected_date" Precision="0" />
+          <Property Type="DateTime" Name="completed_date" Precision="0" />
+          <Property Type="Byte" Name="class_type" />
+          <Property Type="Byte" Name="app_type" />
+          <Property Type="Byte" Name="std_req" />
+          <Property Type="String" Name="std_txt" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="pcr_type" />
+          <Property Type="String" Name="change_txt" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="reason_txt" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="status_id" />
+          <Property Type="Byte" Name="state_id" />
+          <Property Type="String" Name="item_attach" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="folder_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="item_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="cust_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="issue_dept" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="issue_div" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="email" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PCRModelStoreContainer" CdmEntityContainer="PCREntities">
+          <EntitySetMapping Name="PCR_GCode">
+            <EntityTypeMapping TypeName="PCRModel.PCR_GCode">
+              <MappingFragment StoreEntitySet="PCR_GCode">
+                <ScalarProperty Name="g_id" ColumnName="g_id" />
+                <ScalarProperty Name="g_code" ColumnName="g_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PCR_Customer">
+            <EntityTypeMapping TypeName="PCRModel.PCR_Customer">
+              <MappingFragment StoreEntitySet="PCR_Customer">
+                <ScalarProperty Name="cust_name" ColumnName="cust_name" />
+                <ScalarProperty Name="cust_no" ColumnName="cust_no" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_pcr_main">
+            <EntityTypeMapping TypeName="PCRModel.v_pcr_main">
+              <MappingFragment StoreEntitySet="v_pcr_main">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="issue_div" ColumnName="issue_div" />
+                <ScalarProperty Name="issue_dept" ColumnName="issue_dept" />
+                <ScalarProperty Name="cust_no" ColumnName="cust_no" />
+                <ScalarProperty Name="item_no" ColumnName="item_no" />
+                <ScalarProperty Name="folder_no" ColumnName="folder_no" />
+                <ScalarProperty Name="item_attach" ColumnName="item_attach" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="reason_txt" ColumnName="reason_txt" />
+                <ScalarProperty Name="change_txt" ColumnName="change_txt" />
+                <ScalarProperty Name="pcr_type" ColumnName="pcr_type" />
+                <ScalarProperty Name="std_txt" ColumnName="std_txt" />
+                <ScalarProperty Name="std_req" ColumnName="std_req" />
+                <ScalarProperty Name="app_type" ColumnName="app_type" />
+                <ScalarProperty Name="class_type" ColumnName="class_type" />
+                <ScalarProperty Name="completed_date" ColumnName="completed_date" />
+                <ScalarProperty Name="expected_date" ColumnName="expected_date" />
+                <ScalarProperty Name="issued_date" ColumnName="issued_date" />
+                <ScalarProperty Name="issue_tel" ColumnName="issue_tel" />
+                <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+                <ScalarProperty Name="issuer" ColumnName="issuer" />
+                <ScalarProperty Name="pcr_id" ColumnName="pcr_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="emp_lname" ColumnName="emp_lname" />
+                <ScalarProperty Name="emp_fname" ColumnName="emp_fname" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="type_name" ColumnName="type_name" />
+                <ScalarProperty Name="status_name" ColumnName="status_name" />
+                <ScalarProperty Name="state_name" ColumnName="state_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

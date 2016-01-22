@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PCRModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PCRModelStoreContainer">
+    <EntitySet Name="PCR_Customer" EntityType="PCRModel.Store.PCR_Customer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PCR_GCode" EntityType="PCRModel.Store.PCR_GCode" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="v_pcr_main" EntityType="PCRModel.Store.v_pcr_main" store:Type="Views" store:Schema="dbo" store:Name="v_pcr_main">
+      <DefiningQuery>SELECT 
+      [v_pcr_main].[state_name] AS [state_name], 
+      [v_pcr_main].[status_name] AS [status_name], 
+      [v_pcr_main].[type_name] AS [type_name], 
+      [v_pcr_main].[group_name] AS [group_name], 
+      [v_pcr_main].[emp_fname] AS [emp_fname], 
+      [v_pcr_main].[emp_lname] AS [emp_lname], 
+      [v_pcr_main].[id] AS [id], 
+      [v_pcr_main].[pcr_id] AS [pcr_id], 
+      [v_pcr_main].[issuer] AS [issuer], 
+      [v_pcr_main].[issue_group] AS [issue_group], 
+      [v_pcr_main].[issue_tel] AS [issue_tel], 
+      [v_pcr_main].[issued_date] AS [issued_date], 
+      [v_pcr_main].[expected_date] AS [expected_date], 
+      [v_pcr_main].[completed_date] AS [completed_date], 
+      [v_pcr_main].[class_type] AS [class_type], 
+      [v_pcr_main].[app_type] AS [app_type], 
+      [v_pcr_main].[std_req] AS [std_req], 
+      [v_pcr_main].[std_txt] AS [std_txt], 
+      [v_pcr_main].[pcr_type] AS [pcr_type], 
+      [v_pcr_main].[change_txt] AS [change_txt], 
+      [v_pcr_main].[reason_txt] AS [reason_txt], 
+      [v_pcr_main].[status_id] AS [status_id], 
+      [v_pcr_main].[state_id] AS [state_id], 
+      [v_pcr_main].[item_attach] AS [item_attach], 
+      [v_pcr_main].[folder_no] AS [folder_no], 
+      [v_pcr_main].[item_no] AS [item_no], 
+      [v_pcr_main].[cust_no] AS [cust_no], 
+      [v_pcr_main].[issue_dept] AS [issue_dept], 
+      [v_pcr_main].[issue_div] AS [issue_div], 
+      [v_pcr_main].[email] AS [email]
+      FROM [dbo].[v_pcr_main] AS [v_pcr_main]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+  <EntityType Name="PCR_Customer">
+    <Key>
+      <PropertyRef Name="cust_no" />
+    </Key>
+    <Property Name="cust_no" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="cust_name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PCR_GCode">
+    <Key>
+      <PropertyRef Name="g_id" />
+    </Key>
+    <Property Name="g_id" Type="int" Nullable="false" />
+    <Property Name="g_code" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'PCR.dbo.v_pcr_main' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="v_pcr_main">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="pcr_id" />
+      <PropertyRef Name="issuer" />
+    </Key>
+    <Property Name="state_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="status_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="type_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="group_name" Type="nvarchar" MaxLength="255" />
+    <Property Name="emp_fname" Type="nvarchar" MaxLength="255" />
+    <Property Name="emp_lname" Type="nvarchar" MaxLength="255" />
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="pcr_id" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="issuer" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="issue_group" Type="nvarchar" MaxLength="50" />
+    <Property Name="issue_tel" Type="nvarchar" MaxLength="10" />
+    <Property Name="issued_date" Type="date" />
+    <Property Name="expected_date" Type="date" />
+    <Property Name="completed_date" Type="date" />
+    <Property Name="class_type" Type="tinyint" />
+    <Property Name="app_type" Type="tinyint" />
+    <Property Name="std_req" Type="tinyint" />
+    <Property Name="std_txt" Type="nvarchar" MaxLength="50" />
+    <Property Name="pcr_type" Type="int" />
+    <Property Name="change_txt" Type="text" />
+    <Property Name="reason_txt" Type="text" />
+    <Property Name="status_id" Type="tinyint" />
+    <Property Name="state_id" Type="tinyint" />
+    <Property Name="item_attach" Type="nvarchar" MaxLength="255" />
+    <Property Name="folder_no" Type="nvarchar" MaxLength="50" />
+    <Property Name="item_no" Type="nvarchar" MaxLength="50" />
+    <Property Name="cust_no" Type="nvarchar" MaxLength="50" />
+    <Property Name="issue_dept" Type="nvarchar" MaxLength="50" />
+    <Property Name="issue_div" Type="nvarchar" MaxLength="50" />
+    <Property Name="email" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+</Schema>

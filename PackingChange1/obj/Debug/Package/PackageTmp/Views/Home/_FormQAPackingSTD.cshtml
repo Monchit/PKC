@@ -1,0 +1,40 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-mm-yy',
+            showOtherMonths: true,
+            selectOtherMonths: true
+            //showButtonPanel: true
+        });
+    });
+</script>
+
+<h3>Submit Packing Standard</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Upload</th>
+            <th>Status</th>
+            <th>Submit Date</th>
+            <th>Reason</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="text" name="selCust" /></td>
+            <td><input type="file" name="filePack" class="input-file"></td>
+            <td>
+                <select name="selStatus" class="input-medium">
+                    <option value="">--Please Select--</option>
+                    <option>Pending</option>
+                    <option>Approved</option>
+                    <option>Rejected</option>
+                    <option>Canceled</option>
+                </select>
+            </td>
+            <td><input type="text" name="dtpSubmit" class="datepicker input-small" readonly="true" /></td>
+            <td><input type="text" name="txtReason" class="input-xlarge" /></td>
+        </tr>
+    </tbody>
+</table>

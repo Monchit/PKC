@@ -1,0 +1,16 @@
+﻿
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).on("click", ".lnkDel", function () {
+            $(this).parent().remove();
+            return false;
+        });
+        $("#btnAddFile").click(function () {
+            $('#divAttach').last().after($('<div style="padding: 5px 0px 5px 0px;"><input type="file" name="atfiles" class="file" /> <button type="button" class="lnkDel btn btn-mini btn-danger"><i class="icon-remove icon-white"></i></button></div>'));
+        });
+    });
+</script>
+<button id="btnAddFile" type="button" class="btn btn-info"><i class="icon-plus icon-white"></i> Add File</button>
+<div id="divAttach">
+    <div style="padding: 3px 0px 3px 0px;"><input type="file" name="atfiles" class="file" /></div>
+</div>

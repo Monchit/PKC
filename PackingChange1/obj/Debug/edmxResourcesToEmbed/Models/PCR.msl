@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PCRModelStoreContainer" CdmEntityContainer="PCREntities">
+    <EntitySetMapping Name="PCR_GCode">
+      <EntityTypeMapping TypeName="PCRModel.PCR_GCode">
+        <MappingFragment StoreEntitySet="PCR_GCode">
+          <ScalarProperty Name="g_id" ColumnName="g_id" />
+          <ScalarProperty Name="g_code" ColumnName="g_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PCR_Customer">
+      <EntityTypeMapping TypeName="PCRModel.PCR_Customer">
+        <MappingFragment StoreEntitySet="PCR_Customer">
+          <ScalarProperty Name="cust_name" ColumnName="cust_name" />
+          <ScalarProperty Name="cust_no" ColumnName="cust_no" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_pcr_main">
+      <EntityTypeMapping TypeName="PCRModel.v_pcr_main">
+        <MappingFragment StoreEntitySet="v_pcr_main">
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="issue_div" ColumnName="issue_div" />
+          <ScalarProperty Name="issue_dept" ColumnName="issue_dept" />
+          <ScalarProperty Name="cust_no" ColumnName="cust_no" />
+          <ScalarProperty Name="item_no" ColumnName="item_no" />
+          <ScalarProperty Name="folder_no" ColumnName="folder_no" />
+          <ScalarProperty Name="item_attach" ColumnName="item_attach" />
+          <ScalarProperty Name="state_id" ColumnName="state_id" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="reason_txt" ColumnName="reason_txt" />
+          <ScalarProperty Name="change_txt" ColumnName="change_txt" />
+          <ScalarProperty Name="pcr_type" ColumnName="pcr_type" />
+          <ScalarProperty Name="std_txt" ColumnName="std_txt" />
+          <ScalarProperty Name="std_req" ColumnName="std_req" />
+          <ScalarProperty Name="app_type" ColumnName="app_type" />
+          <ScalarProperty Name="class_type" ColumnName="class_type" />
+          <ScalarProperty Name="completed_date" ColumnName="completed_date" />
+          <ScalarProperty Name="expected_date" ColumnName="expected_date" />
+          <ScalarProperty Name="issued_date" ColumnName="issued_date" />
+          <ScalarProperty Name="issue_tel" ColumnName="issue_tel" />
+          <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+          <ScalarProperty Name="issuer" ColumnName="issuer" />
+          <ScalarProperty Name="pcr_id" ColumnName="pcr_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="emp_lname" ColumnName="emp_lname" />
+          <ScalarProperty Name="emp_fname" ColumnName="emp_fname" />
+          <ScalarProperty Name="group_name" ColumnName="group_name" />
+          <ScalarProperty Name="type_name" ColumnName="type_name" />
+          <ScalarProperty Name="status_name" ColumnName="status_name" />
+          <ScalarProperty Name="state_name" ColumnName="state_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

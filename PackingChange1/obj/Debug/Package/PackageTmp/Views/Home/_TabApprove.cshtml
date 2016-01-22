@@ -1,0 +1,40 @@
+﻿
+@if (ViewBag.PCOTran != null && ViewBag.PCOForm != null)
+{
+    <hr />
+    var gpcode = ViewBag.PCOTran.gpcode;
+    var year = ViewBag.PCOTran.year;
+    var runno = ViewBag.PCOTran.runno;
+    var status = ViewBag.PCOTran.status_id;
+    var ulv = ViewBag.PCOTran.lv_id;
+    var org = ViewBag.PCOTran.org_id;
+    string form = ViewBag.PCOForm;
+
+    if (form == "EditPCO")
+    {
+        <a href="@Url.Action(form, "Home", new { gpcode = gpcode, year = year, runno = runno })" class="btn btn-warning">Edit</a>
+    }
+    else if (form == "PackingSTD")
+    {
+        <a href="@Url.Action(form, "Home", new { gpcode = gpcode, year = year, runno = runno, org = org })" class="btn btn-warning" target="_blank">Submit Packing Standard</a>
+    }
+    else if (form.StartsWith("EditItemList"))
+    {
+        <a href="@Url.Action(form, "Home", new { gpcode = gpcode, year = year, runno = runno, org = org })" class="btn btn-warning" target="_blank">Update Item List</a>
+        if (form == "EditItemList2")
+        {
+            <a href="@Url.Action("PrintPLN", "Home", new { gpcode = gpcode, year = year, runno = runno })" class="btn btn-primary" target="_blank">Print</a>
+        }
+    }
+    else
+    {
+        <div class="row-fluid">
+            <div class="span9">
+                @Html.Partial(form, new ViewDataDictionary { { "gpcode", gpcode }, { "year", year }, { "runno", runno }, { "ulv", ulv }, { "org", org }, {"status", status} })
+            </div>
+            <div class="span3">
+                @Html.Partial("_FormFeedback", new ViewDataDictionary { { "gpcode", gpcode }, { "year", year }, { "runno", runno }, { "ulv", ulv }, { "org", org }, { "status", status } })
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,59 @@
+﻿@using System.Linq
+@model IEnumerable<PackingChange1.Models.V_ShowPack>
+<h3>Submit Packing Standard</h3>
+
+@if(Model.Any()){
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Customer No.</th>
+            <th>Customer Name</th>
+            <th>Status</th>
+            <th>Upload</th>
+            <th>Submit Date</th>
+            <th>Reason</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.series</td>
+            <td>@item.cust_no</td>
+            <td>@item.cust_name</td>
+            <td>@item.status</td>
+            <td><a href="@Url.Content(item.pack_file)" target="_blank"><i class="icon-file"></i></a></td>
+            <td>@item.submit_dt.ToShortDateString()</td>
+            <td>@item.reason</td>
+        </tr>    
+        }
+    </tbody>
+</table>
+}
+
+<table class="table table-condensed table-bordered">
+    <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Action</th>
+            <th>Comment</th>
+            <th>Date-Time</th>
+        </tr>
+    </thead>
+    @if(ViewBag.QAPackTran != null) {
+    <tbody>
+        @foreach (var item in ViewBag.QAPackTran)
+        {
+        <tr>
+            <td>@item.fname</td>
+            <td>@item.lname</td>
+            <td>@item.action</td>
+            <td>@item.comment</td>
+            <td>@item.act_dt.ToString("dd/MM/yyyy HH:mm")</td>
+        </tr>    
+        }
+    </tbody>
+    }
+</table>

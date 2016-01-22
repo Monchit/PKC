@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "User Management";
+}
+<style type="text/css">
+    /*fix jTable*/
+    span.jtable-goto-page select, span.jtable-page-size-change select {
+        height: 25px;
+        width: 60px;
+        padding: 2px 2px;
+        margin-bottom:auto;
+    }
+    div.jtable-main-container table.jtable thead th {
+        text-align: center;
+    }
+    div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jTableUser').jtable({
+            title: 'User Master',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'utype_code', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("UserList","Master")',
+                deleteAction: '@Url.Action("DeleteUser","Master")',
+                updateAction: '@Url.Action("UpdateUser","Master")',
+                createAction: '@Url.Action("CreateUser","Master")'
+            },
+            fields: {
+                emp_code: { title: 'Name', key: true, create: true, edit: false, width: '60%', options: '@Url.Action("GetTNCUserList","Master")' },
+                utype_code: { title: 'User Type', create: true, edit: true, width: '40%', options: '@Url.Action("GetUTypeList","Master")' }
+            }
+        });
+        //Load student list from server
+        $('#jTableUser').jtable('load');
+    });
+</script>
+
+<div id="jTableUser"></div>

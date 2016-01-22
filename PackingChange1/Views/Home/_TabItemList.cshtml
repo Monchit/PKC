@@ -1,0 +1,47 @@
+﻿@model IEnumerable<PackingChange1.Models.td_item_list>
+
+<h3>Item Lists of Application for Packing Change</h3>
+
+<div style="overflow-x:scroll;">
+<table class="table table-bordered table-condensed" style="font-size:0.9em;width:2500px !important;">
+    <thead>
+        <tr>
+            <th style="width:100px;">Item code</th>
+            <th>Customer Name</th>
+            <th>Have</th>
+            <th>Job/Lot no.</th>
+            <th>Q'ty (pcs.)</th>
+            <th>Confirm Start</th>
+            <th>Eff. Date for Prod.</th>
+            <th>Eff. Date for Planning</th>
+            <th>TNC'S Stock (pcs.)</th>
+            <th>Re-Pack</th>
+            <th>Eff. Date for Delivery</th>
+            <th>Job/Lot no.</th>
+            <th>Item code Change</th>
+            <th>New Item code</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.item_code</td>
+            <td>@item.customer_name</td>
+            <td>@item.pp_have</td>
+            <td>@item.pp_lot</td>
+            <td>@item.pp_qty</td>
+            <td>@item.pp_confirm_lot</td>
+            <td>@if (item.pp_eff_prod != null) { <text>@item.pp_eff_prod.Value.ToString("dd/MM/yyyy")</text> }</td>
+            <td>@if (item.pp_eff_pln != null) { <text>@item.pp_eff_pln.Value.ToString("dd/MM/yyyy")</text> }</td>
+            <td>@item.cs_stock</td>
+            <td>@item.cs_repack</td>
+            <td>@if (item.cs_eff_dt != null) { <text>@item.cs_eff_dt.Value.ToString("dd/MM/yyyy")</text> }</td>
+            <td>@item.cs_lot</td>
+            <td>@if (item.cs_change != null) { if(item.cs_change.Value){ <text>Yes</text> }else{ <text>No</text> } }</td>
+            <td>@item.pln_item</td>
+        </tr>
+        }
+    </tbody>
+</table>
+</div>

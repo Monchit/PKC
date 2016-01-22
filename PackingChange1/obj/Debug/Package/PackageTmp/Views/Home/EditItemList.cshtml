@@ -1,0 +1,79 @@
+﻿@model IEnumerable<PackingChange1.Models.td_item_list>
+@{
+    ViewBag.Title = "Item List PP";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validate({
+            form: '#formItemList'
+        });
+
+        $(".pp_have").change(function () {
+            if ($(this).val() == "Have") {
+                $(this).parent().next().children().attr('data-validation', 'required');
+                $(this).parent().next().next().children().attr('data-validation', 'number');
+            } else {
+                $(this).parent().next().children().removeAttr('data-validation');
+                $(this).parent().next().next().children().removeAttr('data-validation');
+            }
+        });
+    });
+</script>
+<h3>Item Lists of Application for Packing Change</h3>
+
+<form id="formItemList" name="formItemList" action="@Url.Action("UpdateItemListPP")" method="post">
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Item code</th>
+                <th>Customer Name</th>
+                <th>Have</th>
+                <th>Job/Lot no.</th>
+                <th>Q'ty (pcs.)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.item_code<input type="hidden" name="hdItem" value="@item.item_code" /></td>
+                <td>@item.customer_name</td>
+                @if (item.pp_have == "Have")
+                {
+                <td><select name="pp_have" class="span2 pp_have">
+                        <option value="">----</option>
+                        <option selected="selected">Have</option>
+                        <option >No Have</option>
+                    </select>
+                </td>
+                <td><input type="text" name="pp_lot" class="span5" value="@item.pp_lot" data-validation="required" /></td>
+                <td><input type="text" name="pp_qty" class="span1" value="@item.pp_qty" data-validation="number" /></td>
+                }
+                else
+                {
+                    <td><select name="pp_have" class="span2 pp_have">
+                        <option value="">----</option>
+                        <option @if (@item.pp_have == "Have")
+                                { <text>selected="selected"</text> }>Have</option>
+                        <option @if (@item.pp_have == "No Have")
+                                { <text>selected="selected"</text> }>No Have</option>
+                    </select>
+                </td>
+                <td><input type="text" name="pp_lot" class="span5" value="@item.pp_lot" /></td>
+                <td><input type="text" name="pp_qty" class="span1" value="@item.pp_qty" /></td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+    <input type="hidden" id="hdgc" name="hdgc" value="@ViewBag.GCode" />
+    <input type="hidden" id="hdyy" name="hdyy" value="@ViewBag.Year" />
+    <input type="hidden" id="hdrn" name="hdrn" value="@ViewBag.Runno" />
+    <input type="hidden" id="hdorg" name="hdorg" value="@ViewBag.Org" />
+    <input type="submit" id="btnUpd" name="btnUpd" value="Update" class="btn btn-primary" />
+    @if (ViewBag.CompItem != null && ViewBag.CompItem == 0)
+{
+    <div class="pull-right">@Html.ActionLink("Completed", "CompItem", new { gpcode = ViewBag.GCode, year = ViewBag.Year, runno = ViewBag.Runno, org = ViewBag.Org }, new { @class = "btn btn-success" })</div>
+}
+</form>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PackingChange1.Models.td_salecs>
+<h3>Sale/CS</h3>
+
+@if(Model.Any()){
+<table class="table table-condensed table-striped">
+    <thead>
+        <tr>
+            <th colspan="2">Submit Packing Standard</th>
+            <th>Initial Tag</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@if(item.pack_std_need){ <input type="checkbox" checked disabled /> }else{ <input type="checkbox" disabled /> } NEED</td>
+            <td>Customer: @item.cust_need</td>
+            <td>@item.tm_init_tag.init_tag_name</td>
+        </tr>
+        <tr>
+            <td>@if(item.pack_std_noneed){ <input type="checkbox" checked disabled /> }else{ <input type="checkbox" disabled /> } NO NEED</td>
+            <td>Customer: @item.cust_noneed</td>
+            <td>Frequency: @item.frequency</td>
+        </tr>
+    }
+</table>
+}
+
+<table class="table table-condensed table-bordered">
+    <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Action</th>
+            <th>Comment</th>
+            <th>Date-Time</th>
+        </tr>
+    </thead>
+    @if (ViewBag.SLCSTran != null) {
+    <tbody>
+        @foreach (var item in ViewBag.SLCSTran)
+        {
+        <tr>
+            <td>@item.fname</td>
+            <td>@item.lname</td>
+            <td>@item.action</td>
+            <td>@item.comment</td>
+            <td>@item.act_dt.ToString("dd/MM/yyyy HH:mm")</td>
+        </tr>    
+        }
+    </tbody>
+    }
+</table>

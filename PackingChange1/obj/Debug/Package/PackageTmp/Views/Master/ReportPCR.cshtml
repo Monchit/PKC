@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "PCR Report";
+}
+<style type="text/css">
+    /*fix jTable*/
+    span.jtable-goto-page select, span.jtable-page-size-change select {
+        height: 25px;
+        width: 60px;
+        padding: 2px 2px;
+        margin-bottom:auto;
+    }
+    div.jtable-main-container table.jtable thead th {
+        text-align: center;
+    }
+    div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+        text-align: center;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jTableReport').jtable({
+            title: 'PCR',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            multiselect: false, //Allow multiple selecting
+            defaultSorting: 'pcr_id', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("ExportPCRList","Master")'
+            },
+            fields: {
+                pcr_id: { title: 'PCR No.', width: '20%' },
+                emp_fname: { title: 'First Name', width: '13%' },
+                emp_lname: { title: 'Last Name', width: '13%' },
+                group_name: { title: 'Group', width: '15%' },
+                state_name: { title: 'State', width: '12%' },
+                status_name: { title: 'Status', width: '12%' },
+                email: { title: 'Email', width: '15%' }
+            }
+        });
+
+        //Re-load records when user click 'load records' button.
+        $('#btnSubmit').click(function (e) {
+            e.preventDefault();
+            $('#jTableReport').jtable('load', {
+                date_from: $('#date_from').val(),
+                date_to: $('#date_to').val()
+            });
+        });
+
+        $("#date_from").datepicker({
+            dateFormat: 'yy-mm-dd',
+            onClose: function (selectedDate) {
+                $("#date_to").datepicker("option", "minDate", selectedDate);
+            }
+        });
+        $("#date_to").datepicker({
+            dateFormat: 'yy-mm-dd',
+            onClose: function (selectedDate) {
+                $("#date_from").datepicker("option", "maxDate", selectedDate);
+            }
+        });
+    });
+</script>
+
+<h3>@ViewBag.Title</h3>
+
+<form name="formFilter" id="formFilter" class="form-inline" action="@Url.Action("ExportPCR")" method="post">
+    <label for="date_from">Request From : </label>
+    <input type="text" id="date_from" name="date_from" class="input-small">
+    <label for="date_to"> To : </label>
+    <input type="text" id="date_to" name="date_to" class="input-small">
+    <button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-primary"><i class="icon-filter icon-white"></i> Filter</button>
+    <button type="submit" id="btnExport" name="btnExport" class="btn btn-success"><i class="icon-list-alt icon-white"></i> Export</button>
+</form>
+<div id="jTableReport"></div>

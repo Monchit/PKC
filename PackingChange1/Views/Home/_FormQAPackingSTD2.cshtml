@@ -1,0 +1,198 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jTablePackSTD').jtable({
+            title: 'Submit Packing Standard',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'series', //Set default sorting
+            defaultDateFormat: 'dd-mm-yy',//Set default date format
+            actions: {
+                listAction: '@Url.Action("PackSTDList", "Home")',
+            },
+            fields: {
+                gpcode: { title: 'gpcode', create: false, edit: false, list: false },
+                year: { title: 'year', create: false, edit: false, list: false },
+                runno: { title: 'runno', create: false, edit: false, list: false },
+                series: { key: true, create: false, edit: false, list: false },
+                cust_no: { title: 'Customer', width: '15%', options: '@Url.Action("GetCustList","Home")' },
+                status: { title: 'Status', width: '10%' },
+                submit_dt: { title: 'Submit Date', type: 'date', width: '10%', displayFormat: 'dd-mm-yy' },
+                pack_file: { title: 'Upload', list: true, create: true, edit: true,
+                    display: function (data) {
+                        if (data.record.pack_file != "") {
+                            return $(data.record.pack_file);
+                        } else {
+                            return '';
+                        }
+                    },
+                    input: function (data) {
+                        return '<input type="file" name="pack_file" />';
+                    }
+                },
+                reason: { title: 'Reason', type: 'textarea' },
+                edit: { title: 'Edit', width: '6%',
+                    display: function (data) {
+                        return $('<button type="button" class="btn btn-mini packEdit" data-gpcode="' + data.record.gpcode + ' data-year="' + data.record.year + ' data-runno="' + data.record.runno + ' data-series="' + data.record.series + '"><i class="icon-edit"></i> Edit</a>');
+                    }
+                }
+            },
+            toolbar: {
+                items: [{
+                    //icon: '/Image/excel.png',
+                    text: 'Add Packing Standard',
+                    click: function () {
+                        $("#dialogAdd").dialog("open");
+                    }
+                }]
+            },
+            //Initialize validation logic when a form is created
+            formCreated: function (event, data) {
+                data.form.attr('enctype','multipart/form-data');
+            },
+            //Validate form when it is being submitted
+            formSubmitting: function (event, data) {
+                //return data.form.validationEngine('validate');
+            },
+            recordUpdated: function (event, data) {
+                reload
+            }
+        });
+
+        //Load student list from server
+        $('#jTablePackSTD').jtable('load', {
+            gpcode: $('#hdgc').val(),
+            year: $('#hdyy').val(),
+            runno: $('#hdrn').val()
+        });
+
+        $("#formPackSTD").submit(function () {
+            $.validate({ form: '#formPackSTD' });
+        });
+
+        $("#formEditPack").submit(function () {
+            $.validate({ form: '#formEditPack' });
+        });
+
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-mm-yy',
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            showButtonPanel: true
+        });
+
+        $('.divdialog').dialog({
+            autoOpen: false,
+            width: 300,
+            height: 'auto',
+            modal: true
+        });
+
+        $('#selStatus').change(function () {
+            if ($(this).val() == 3) {
+                $("#showReason").css("display", "inline");
+                $("#txaReason").attr('data-validation', 'required');
+            } else {
+                $("#showReason").css("display", "none");
+                $("#txaReason").removeAttr('data-validation');
+            }
+        });
+
+        $('#selStatus_e').change(function () {
+            if ($(this).val() == 3) {
+                $("#showReason_e").css("display", "inline");
+                $("#txaReason_e").attr('data-validation', 'required');
+            } else {
+                $("#showReason_e").css("display", "none");
+                $("#txaReason_e").removeAttr('data-validation');
+            }
+        });
+
+        $(document).on("click", ".packEdit", function (event) {
+            var sa_id = $(this).attr("data-sa_id");
+            $.get("@Url.Action("GetPackSTD")", "sa_id=" + sa_id, function (data) {
+                $("#txtSANo_e").val(data.sa_no);
+                $("#txtCust_e").val(data.cust_name);
+                $("#selStatus_e").val(data.result);
+                $("#dtpSubmitDate_e").val(data.issue_date);
+                $("#txaReason_e").val(data.reason);
+                $("#hdId").val(sa_id);
+                if (data.result == 3) {
+                    $("#showReason").css("display", "inline");
+                    $("#txaReason").attr("data-validation", "required");
+                }
+                $("#dialogEdit").dialog("open");
+            });
+        });
+    });
+</script>
+
+@{
+    var gc = ViewData["gpcode"];
+    var yy = ViewData["year"];
+    var rn = ViewData["runno"];
+    var ulv = ViewData["ulv"];
+    var org = ViewData["org"];
+    //var status = ViewData["status"];
+}
+<div id="dialogAdd" class="divdialog" title="Add Packing Standard">
+    <form id="formPackSTD" name="formPackSTD" action="@Url.Action("CreatePackSTD", "Home")" method="post" enctype="multipart/form-data">
+        <label>Customer</label><input type="text" id="txtCust" name="txtCust" data-validation="required" />
+        <label>Status</label>
+        <select id="selStatus" name="selStatus" data-validation="required">
+            <option value="">--Select Result--</option>
+            <option>Pending</option>
+            <option>Approved</option>
+            <option>Reject</option>
+            <option>Cancel</option>
+        </select>
+        <label>Submit Date</label>
+        <input type="text" id="dtpSubmitDate" name="dtpSubmitDate" readonly="true" class="datepicker input-medium" data-validation="required" />
+        <label>Upload</label>
+        <input type="file" name="files" class="file" accept="application/pdf" />
+
+        <input type="hidden" id="hdgc" name="hdgc" value="@gc" />
+        <input type="hidden" id="hdyy" name="hdyy" value="@yy" />
+        <input type="hidden" id="hdrn" name="hdrn" value="@rn" />
+        <input type="hidden" id="hdulv" name="hdulv" value="@ulv" />
+        <input type="hidden" id="hdorg" name="hdorg" value="@org" />
+
+        <label>Reason</label>
+        <textarea id="txaReason" name="txaReason" rows="4"></textarea>
+
+        <div class="form-actions">
+            <button type="reset" class="btn">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<div id="dialogEdit" class="divdialog" title="Edit Packing Standard">
+    <form id="formEditPack" name="formEditPack" action="@Url.Action("UpdatePackSTD","Home")" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="hdId" name="hdId" value="0" />
+        <label>Customer</label><input type="text" id="txtCust_e" name="txtCust_e" data-validation="required" />
+        <label>Status</label>
+        <select id="selStatus_e" name="selStatus_e" data-validation="required">
+            <option value="">--Select Result--</option>
+            <option>Pending</option>
+            <option>Approved</option>
+            <option>Reject</option>
+            <option>Cancel</option>
+        </select>
+        <label>Submit Date</label>
+        <input type="text" id="dtpSubmitDate_e" name="dtpSubmitDate_e" readonly="true" class="datepicker input-medium" data-validation="required" />
+        <label>Upload</label>
+        <input type="file" name="files_e" class="file" accept="application/pdf" />
+        <div id="showReason_e" style="display:none;">
+            <label>Reason</label>
+            <textarea id="txaReason_e" name="txaReason_e" rows="4"></textarea>
+        </div>
+        <div class="form-actions">
+            <button type="reset" class="btn">Clear</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<div id="jTablePackSTD" style="width:95%;"></div>

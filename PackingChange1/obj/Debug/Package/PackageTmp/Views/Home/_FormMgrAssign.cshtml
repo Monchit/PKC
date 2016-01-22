@@ -1,0 +1,91 @@
+﻿
+<style>
+    .thead {
+        font-weight: bold;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validate({ form: '#MgrAssign' });
+
+        $("#divText").hide();
+
+        $("#slAction").change(function () {
+            if ($(this).val() == "APV") {
+                $("#divText").show();
+                $("#lbText").text("Comment :");
+                //$("#txaCM").removeAttr('data-validation');
+            } else if ($(this).val() == "REJ") {
+                $("#divText").show();
+                $("#lbText").text("Reason for Reject :");
+                //$("#txaCM").attr('data-validation', 'required');
+            } else {
+                $("#divText").hide();
+            }
+        });
+
+        var url = '@Url.Action("GetPIC", "Home")';
+        var pic = $("#slPic");
+        var group = $("#hdorg").val();
+        $.getJSON(url, { org: group }, function (response) {
+            pic.empty(); // remove any existing options
+            pic.append($('<option></option>').text("-Please Select-").val(""));
+            //console.log(response);
+            $.each(response, function (index, item) {
+                pic.append($('<option></option>').text(item.Text).val(item.ID));
+            });
+        });
+
+    });
+</script>
+
+<form id="MgrAssign" name="MgrAssign" action="@Url.Action("MgrAssignAction")" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <!-- Select Basic -->
+    <div class="control-group">
+      <label class="control-label" for="slAction">Action :</label>
+      <div class="controls">
+        <select id="slAction" name="slAction" class="input-large" data-validation="required">
+          <option value="">-Please Select-</option>
+          <option value="APV">Approve</option>
+          <option value="REJ">Reject</option>
+        </select>
+        @{
+            var gc = ViewData["gpcode"];
+            var yy = ViewData["year"];
+            var rn = ViewData["runno"];
+            var ulv = ViewData["ulv"];
+            var org = ViewData["org"];
+            var status = ViewData["status"];
+        }
+        <input type="hidden" id="hdgc" name="hdgc" value="@gc" />
+        <input type="hidden" id="hdyy" name="hdyy" value="@yy" />
+        <input type="hidden" id="hdrn" name="hdrn" value="@rn" />
+        <input type="hidden" id="hdulv" name="hdulv" value="@ulv" />
+        <input type="hidden" id="hdorg" name="hdorg" value="@org" />
+        <input type="hidden" id="hdstt" name="hdstt" value="@status" />
+        <button id="btnSubmit" name="btnSubmit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group" id="divText">
+      <label class="control-label" for="txaCM" id="lbText"></label>
+      <div class="controls">
+        <textarea rows="4" id="txaCM" name="txaCM" class="input-xlarge" data-validation="required"></textarea>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="uplAtt">Attach files :</label>
+      <div class="controls">
+        @Html.Partial("_SectionAtt")
+      </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="">PIC :</label>
+        <div class="controls">
+            <select id="slPic" name="slPic" class="input-large" data-validation="required"></select>
+        </div>
+    </div>
+</form>
