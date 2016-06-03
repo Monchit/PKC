@@ -33,6 +33,9 @@ namespace PackingChange1.Models
         public Nullable<bool> cs_change { get; set; }
         public string cs_check { get; set; }
         public string pln_item { get; set; }
+        public string cust_no { get; set; }
+        public string part_no { get; set; }
+        public string wc { get; set; }
     
         public virtual td_main_data td_main_data { get; set; }
     }

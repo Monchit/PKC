@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PackingChangeModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PackingChangeEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="td_main_data" EntityType="PackingChangeModel.td_main_data" />
+    <EntitySet Name="td_transaction" EntityType="PackingChangeModel.td_transaction" />
+    <AssociationSet Name="FK_td_transaction_td_main_data" Association="PackingChangeModel.FK_td_transaction_td_main_data">
+      <End Role="td_main_data" EntitySet="td_main_data" />
+      <End Role="td_transaction" EntitySet="td_transaction" />
+    </AssociationSet>
+    <EntitySet Name="tm_status" EntityType="PackingChangeModel.tm_status" />
+    <AssociationSet Name="FK_td_transaction_tm_status" Association="PackingChangeModel.FK_td_transaction_tm_status">
+      <End Role="tm_status" EntitySet="tm_status" />
+      <End Role="td_transaction" EntitySet="td_transaction" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="td_main_data">
+    <Key>
+      <PropertyRef Name="gpcode" />
+      <PropertyRef Name="year" />
+      <PropertyRef Name="runno" />
+    </Key>
+    <Property Name="gpcode" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="year" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="false" />
+    <Property Name="runno" Type="Int32" Nullable="false" />
+    <Property Name="chage_type" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="change_detail" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="condition_current" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="condition_new" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="reason" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="expected_dt" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="request_by" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="production_type" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="system_update" Type="Boolean" />
+    <Property Name="issue_group" Type="Int32" Nullable="false" />
+    <Property Name="request_date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="td_transaction" Relationship="PackingChangeModel.FK_td_transaction_td_main_data" FromRole="td_main_data" ToRole="td_transaction" />
+  </EntityType>
+  <EntityType Name="td_transaction">
+    <Key>
+      <PropertyRef Name="gpcode" />
+      <PropertyRef Name="year" />
+      <PropertyRef Name="runno" />
+      <PropertyRef Name="status_id" />
+      <PropertyRef Name="lv_id" />
+      <PropertyRef Name="org_id" />
+      <PropertyRef Name="plant_code" />
+    </Key>
+    <Property Name="gpcode" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="year" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="false" />
+    <Property Name="runno" Type="Int32" Nullable="false" />
+    <Property Name="status_id" Type="Byte" Nullable="false" />
+    <Property Name="lv_id" Type="Byte" Nullable="false" />
+    <Property Name="org_id" Type="Int32" Nullable="false" />
+    <Property Name="plant_code" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="act_id" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="actor" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="act_dt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="td_main_data" Relationship="PackingChangeModel.FK_td_transaction_td_main_data" FromRole="td_transaction" ToRole="td_main_data" />
+    <NavigationProperty Name="tm_status" Relationship="PackingChangeModel.FK_td_transaction_tm_status" FromRole="td_transaction" ToRole="tm_status" />
+  </EntityType>
+  <Association Name="FK_td_transaction_td_main_data">
+    <End Role="td_main_data" Type="PackingChangeModel.td_main_data" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="td_transaction" Type="PackingChangeModel.td_transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="td_main_data">
+        <PropertyRef Name="gpcode" />
+        <PropertyRef Name="year" />
+        <PropertyRef Name="runno" />
+      </Principal>
+      <Dependent Role="td_transaction">
+        <PropertyRef Name="gpcode" />
+        <PropertyRef Name="year" />
+        <PropertyRef Name="runno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tm_status">
+    <Key>
+      <PropertyRef Name="status_id" />
+    </Key>
+    <Property Type="Byte" Name="status_id" Nullable="false" />
+    <Property Type="String" Name="status_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Byte" Name="lv_min" />
+    <Property Type="Byte" Name="lv_max" />
+    <Property Type="Byte" Name="cross_status" />
+    <NavigationProperty Name="td_transaction" Relationship="PackingChangeModel.FK_td_transaction_tm_status" FromRole="tm_status" ToRole="td_transaction" />
+  </EntityType>
+  <Association Name="FK_td_transaction_tm_status">
+    <End Type="PackingChangeModel.tm_status" Role="tm_status" Multiplicity="1" />
+    <End Type="PackingChangeModel.td_transaction" Role="td_transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tm_status">
+        <PropertyRef Name="status_id" />
+      </Principal>
+      <Dependent Role="td_transaction">
+        <PropertyRef Name="status_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

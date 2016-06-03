@@ -408,6 +408,9 @@
     <Compile Include="Models\V_Tran2.cs">
       <DependentUpon>PackingChange.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\V_Tran3.cs">
+      <DependentUpon>PackingChange.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -567,6 +570,7 @@
     <Content Include="Rotativa\README.txt" />
     <Content Include="Rotativa\ssleay32.dll" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\jquery.freezeheader.js" />
     <Content Include="Scripts\multiselect\img\switch.png" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
@@ -887,6 +891,7 @@
     <Content Include="Scripts\Select2-locales\select2_locale_zh-TW.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\tableHeadFixer.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -986,6 +991,10 @@
     <Content Include="Views\EditData\Comment.cshtml" />
     <Content Include="Views\EditData\_FormComment.cshtml" />
     <Content Include="Views\EditData\Concern.cshtml" />
+    <Content Include="Views\EditData\ItemList.cshtml" />
+    <Content Include="Views\EditData\_FormItemList.cshtml" />
+    <Content Include="Views\EditData\_FormItemList1.cshtml" />
+    <Content Include="Views\Home\_FormCSApprove.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

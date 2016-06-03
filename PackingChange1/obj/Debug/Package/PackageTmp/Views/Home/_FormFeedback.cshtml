@@ -5,7 +5,7 @@
 </script>
 
 <form id="formFeedback" name="formFeedback" action="@Url.Action("FeedbackAction")" method="post">
-    <span>Feedback :<button class="btn btn-warning pull-right"><i class="icon-comment icon-white"></i> Feedback</button></span>
+    <span>Feedback :<button class="btn btn-warning pull-right" type="submit"><i class="icon-comment icon-white"></i> Feedback</button></span>
     <textarea rows="5" id="txaFB" name="txaFB" class="span12" data-validation="required"></textarea>
     @{
         var gc = ViewData["gpcode"];

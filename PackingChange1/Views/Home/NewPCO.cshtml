@@ -76,8 +76,9 @@
         </div>
 
         <div class="control-group">
-          <label class="control-label" for="filebutton">Import item list <a href="~/SourceFiles/ItemList.xlsx" class="btn btn-mini btn-inverse" target="_blank"><i class="icon-download-alt icon-white"></i></a> : </label>
+          <label class="control-label" for="filebutton">Import item list <a href="~/SourceFiles/ItemList.xlsx" class="btn btn-mini btn-inverse" target="_blank" title="Format Item list"><i class="icon-download-alt icon-white"></i></a> : </label>
           <div class="controls">
+              <span class="label label-success">Excel</span>
             <input id="impfile" name="impfile" class="input-file" type="file" data-validation="mime" data-validation-allowing="xls, xlsx">
           </div>
         </div>
@@ -112,6 +113,7 @@
                 <option>Manufacturing</option>
                 <option>Service Part</option>
                 <option>Pass Through</option>
+                <option>Manufacturing & Service Part</option>
             </select>
           </div>
         </div>
@@ -131,7 +133,7 @@
         </div>
 
         <div class="control-group">
-          <label class="control-label" for="filebutton">Attach files <button id="btnAddFile" type="button" class="btn btn-mini btn-inverse"><i class="icon-plus icon-white"></i></button> : </label>
+          <label class="control-label" for="filebutton">Attach files <span class="label label-important">PDF</span> <button id="btnAddFile" type="button" class="btn btn-mini btn-inverse"><i class="icon-plus icon-white"></i></button> : </label>
           <div class="controls" id="divAttach">
             <div style="padding: 3px 0px 3px 0px;"><input type="file" name="atfiles" class="input-file"></div>
           </div>

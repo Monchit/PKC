@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1d97c7ede0bf44e9850c86af453fc58e" Name="Diagram1">
+        <EntityTypeShape EntityType="PackingChangeModel.td_main_data" Width="1.5" PointX="1" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PackingChangeModel.td_transaction" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_transaction_td_main_data" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PackingChangeModel.tm_status" Width="1.5" PointX="5" PointY="1" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_transaction_tm_status" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

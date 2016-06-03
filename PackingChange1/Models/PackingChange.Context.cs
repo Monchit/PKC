@@ -56,5 +56,6 @@ namespace PackingChange1.Models
         public DbSet<V_Tran1> V_Tran1 { get; set; }
         public DbSet<V_Report> V_Report { get; set; }
         public DbSet<V_Tran2> V_Tran2 { get; set; }
+        public DbSet<V_Tran3> V_Tran3 { get; set; }
     }
 }

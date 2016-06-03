@@ -5,12 +5,15 @@ using System.Linq;
 using System.Linq.Dynamic;
 using System.Web;
 using System.Web.Mvc;
+using WebCommonFunction;
 
 namespace PackingChange1.Controllers
 {
     public class EditDataController : Controller
     {
         private PackingChangeEntities dbPC = new PackingChangeEntities();
+        private TNC_ADMINEntities dbTNC = new TNC_ADMINEntities();
+        private TNCConversion convert = new TNCConversion();
 
         [Chk_Authen]
         [Chk_Authorize_PowerUser]
@@ -25,6 +28,8 @@ namespace PackingChange1.Controllers
             return View();
         }
 
+        [Chk_Authen]
+        [Chk_Authorize_PowerUser]
         public ActionResult Comment()
         {
             ViewBag.ControlNo = from a in dbPC.V_Report
@@ -32,8 +37,21 @@ namespace PackingChange1.Controllers
             return View();
         }
 
+        [Chk_Authen]
+        [Chk_Authorize_PowerUser]
         public ActionResult Concern()
         {
+            ViewBag.ControlNo = from a in dbPC.V_Tran3
+                                select a;
+            return View();
+        }
+
+        [Chk_Authen]
+        [Chk_Authorize_PowerUser]
+        public ActionResult ItemList()
+        {
+            ViewBag.ControlNo = from a in dbPC.V_Report
+                                select a;
             return View();
         }
 
@@ -96,8 +114,31 @@ namespace PackingChange1.Controllers
                              a.lv_id,
                              a.org_id,
                              a.plant_code
-                         }).ToList();
+                         }).OrderBy(o => o.status_id).ThenBy(o => o.lv_id).ToList();
 
+            if (query != null)
+                return Json(query, JsonRequestBehavior.AllowGet);
+            else
+                return Json(0, JsonRequestBehavior.AllowGet);
+        }
+
+        [OutputCache(Duration = 0, VaryByParam = "*", NoStore = true)]
+        public ActionResult GetItemList(string gpcode, string year, int runno)
+        {
+            var query = (from a in dbPC.td_item_list
+                         where a.gpcode == gpcode && a.year == year && a.runno == runno
+                         select new
+                         {
+                             a.gpcode,
+                             a.year,
+                             a.runno,
+                             a.item_code,
+                             a.customer_name,
+                             a.pp_have,
+                             a.pp_lot,
+                             a.pp_qty,
+                             a.cs_lot
+                         }).ToList();
             if (query != null)
                 return Json(query, JsonRequestBehavior.AllowGet);
             else
@@ -107,6 +148,18 @@ namespace PackingChange1.Controllers
         public ActionResult _FormComment(string gpcode, string year, int runno, byte status, byte lv, int org, string plant = "-")
         {
             var query = dbPC.td_transaction.Find(gpcode, year, runno, status, lv, org, plant);
+            return PartialView(query);
+        }
+
+        public ActionResult _FormItemList(string gpcode, string year, int runno, string item)
+        {
+            var query = dbPC.td_item_list.Find(gpcode, year, runno, item);
+            return PartialView(query);
+        }
+
+        public ActionResult _FormItemList1(string gpcode, string year, int runno, string item)
+        {
+            var query = dbPC.td_item_list.Find(gpcode, year, runno, item);
             return PartialView(query);
         }
 
@@ -181,6 +234,72 @@ namespace PackingChange1.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult UpdateItemList()
+        {
+            try
+            {
+                var gpcode = Request.Form["hdgc"];
+                var year = Request.Form["hdyy"];
+                var runno = int.Parse(Request.Form["hdrn"]);
+                var item = Request.Form["item_code"];
+
+                var itemlist = dbPC.td_item_list.Find(gpcode, year, runno, item);
+                itemlist.customer_name = Request.Form["customer_name"] != "" ? Request.Form["customer_name"] : null;
+                itemlist.pp_have = Request.Form["pp_have"] != "" ? Request.Form["pp_have"] : null;
+                itemlist.pp_lot = Request.Form["pp_lot"] != "" ? Request.Form["pp_lot"] : null;
+                itemlist.pp_qty = Request.Form["pp_qty"] != "" ? int.Parse(Request.Form["pp_qty"].ToString()) : 0;
+                itemlist.pp_confirm_lot = Request.Form["pp_confirm_lot"] != "" ? Request.Form["pp_confirm_lot"] : null;
+                if (Request.Form["pp_eff_prod"] != "")
+                {
+                    itemlist.pp_eff_prod = convert.DateDisplayToDB(Request.Form["pp_eff_prod"]);
+                }
+                if (Request.Form["pp_eff_pln"] != "")
+                {
+                    itemlist.pp_eff_pln = convert.DateDisplayToDB(Request.Form["pp_eff_pln"]);
+                }
+
+                dbPC.SaveChanges();
+                return RedirectToAction("ItemList", "EditData");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public ActionResult UpdateItemList1()
+        {
+            try
+            {
+                var gpcode = Request.Form["hdgc"];
+                var year = Request.Form["hdyy"];
+                var runno = int.Parse(Request.Form["hdrn"]);
+                var item = Request.Form["item_code"];
+
+                var itemlist = dbPC.td_item_list.Find(gpcode, year, runno, item);
+                itemlist.cs_stock = Request.Form["cs_stock"] != "" ? int.Parse(Request.Form["cs_stock"]) : 0;
+                itemlist.cs_repack = Request.Form["cs_repack"] != "" ? Request.Form["cs_repack"] : null;
+                itemlist.cs_lot = Request.Form["cs_lot"] != "" ? Request.Form["cs_lot"] : null;
+                itemlist.pln_item = Request.Form["pln_item"] != "" ? Request.Form["pln_item"] : null;
+                if (Request.Form["cs_eff_dt"] != "")
+                {
+                    itemlist.cs_eff_dt = convert.DateDisplayToDB(Request.Form["cs_eff_dt"]);
+                }
+                if (Request.Form["cs_change"] != "")
+                {
+                    itemlist.cs_change = bool.Parse(Request.Form["cs_change"]);
+                }
+
+                dbPC.SaveChanges();
+                return RedirectToAction("ItemList", "EditData");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public DateTime ParseToDate(string inputDT)
         {
             char[] delimiters = new char[] { '-', '/', ' ' };
@@ -206,5 +325,56 @@ namespace PackingChange1.Controllers
             }
         }
 
+        [OutputCache(Duration = 0, VaryByParam = "*", NoStore = true)]
+        public ActionResult GetSelectedTemp(string gpcode, string year, int runno, byte gtype)
+        {
+            var get_selected = (from a in dbPC.td_temp_concern
+                                where a.gpcode == gpcode && a.year == year
+                                && a.runno == runno && a.concern_group_id == gtype
+                                select a.group_id).ToList();
+            var get_inf = dbTNC.tnc_group_master.Where(w => get_selected.Contains(w.id))
+                .Select(s => new { id = s.id, text = s.group_name });
+            if (get_inf != null)
+                return Json(get_inf, JsonRequestBehavior.AllowGet);
+            else
+                return Json(0, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateConcern(string gpcode, string year, int runno, byte congid, string congroup)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(congroup))
+                {
+
+                    int[] groups = congroup.Split(',').Select(s => Convert.ToInt32(s)).ToArray();
+                    using (var dbLocal = new PackingChangeEntities())
+                    {
+                        foreach (var item in groups)
+                        {
+                            var check = dbPC.td_temp_concern.Find(gpcode, year, runno, congid, item);
+                            if (check == null)
+                            {
+                                var temp = new td_temp_concern();
+                                temp.gpcode = gpcode;
+                                temp.year = year;
+                                temp.runno = runno;
+                                temp.concern_group_id = congid;
+                                temp.group_id = item;
+                                dbLocal.td_temp_concern.Add(temp);
+                            }
+                        }
+                        dbLocal.SaveChanges();
+                    }
+                } 
+
+                return Json("Update Successful.");
+            }
+            catch (Exception)
+            {
+                return Json("Error");
+            }
+        }
     }
 }

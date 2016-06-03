@@ -346,6 +346,9 @@
     <EntitySetMapping Name="td_item_list">
       <EntityTypeMapping TypeName="PackingChangeModel.td_item_list">
         <MappingFragment StoreEntitySet="td_item_list">
+          <ScalarProperty Name="wc" ColumnName="wc" />
+          <ScalarProperty Name="part_no" ColumnName="part_no" />
+          <ScalarProperty Name="cust_no" ColumnName="cust_no" />
           <ScalarProperty Name="pln_item" ColumnName="pln_item" />
           <ScalarProperty Name="cs_check" ColumnName="cs_check" />
           <ScalarProperty Name="cs_change" ColumnName="cs_change" />
@@ -418,6 +421,21 @@
         <MappingFragment StoreEntitySet="V_Tran2">
           <ScalarProperty Name="issue_group" ColumnName="issue_group" />
           <ScalarProperty Name="change_detail" ColumnName="change_detail" />
+          <ScalarProperty Name="lv_id" ColumnName="lv_id" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="runno" ColumnName="runno" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Tran3">
+      <EntityTypeMapping TypeName="PackingChangeModel.V_Tran3">
+        <MappingFragment StoreEntitySet="V_Tran3">
+          <ScalarProperty Name="change_detail" ColumnName="change_detail" />
+          <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+          <ScalarProperty Name="org_id" ColumnName="org_id" />
           <ScalarProperty Name="lv_id" ColumnName="lv_id" />
           <ScalarProperty Name="status_id" ColumnName="status_id" />
           <ScalarProperty Name="runno" ColumnName="runno" />

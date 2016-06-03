@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PackingChangeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PackingChangeModelStoreContainer">
+    <EntitySet Name="td_main_data" EntityType="PackingChangeModel.Store.td_main_data" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="td_transaction" EntityType="PackingChangeModel.Store.td_transaction" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tm_status" EntityType="PackingChangeModel.Store.tm_status" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_td_transaction_td_main_data" Association="PackingChangeModel.Store.FK_td_transaction_td_main_data">
+      <End Role="td_main_data" EntitySet="td_main_data" />
+      <End Role="td_transaction" EntitySet="td_transaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_td_transaction_tm_status" Association="PackingChangeModel.Store.FK_td_transaction_tm_status">
+      <End Role="tm_status" EntitySet="tm_status" />
+      <End Role="td_transaction" EntitySet="td_transaction" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="td_main_data">
+    <Key>
+      <PropertyRef Name="gpcode" />
+      <PropertyRef Name="year" />
+      <PropertyRef Name="runno" />
+    </Key>
+    <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+    <Property Name="runno" Type="int" Nullable="false" />
+    <Property Name="chage_type" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="change_detail" Type="ntext" Nullable="false" />
+    <Property Name="condition_current" Type="nvarchar(max)" />
+    <Property Name="condition_new" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="reason" Type="ntext" Nullable="false" />
+    <Property Name="expected_dt" Type="date" Nullable="false" />
+    <Property Name="request_by" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="production_type" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="system_update" Type="bit" />
+    <Property Name="issue_group" Type="int" Nullable="false" />
+    <Property Name="request_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="td_transaction">
+    <Key>
+      <PropertyRef Name="gpcode" />
+      <PropertyRef Name="year" />
+      <PropertyRef Name="runno" />
+      <PropertyRef Name="status_id" />
+      <PropertyRef Name="lv_id" />
+      <PropertyRef Name="org_id" />
+      <PropertyRef Name="plant_code" />
+    </Key>
+    <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+    <Property Name="runno" Type="int" Nullable="false" />
+    <Property Name="status_id" Type="tinyint" Nullable="false" />
+    <Property Name="lv_id" Type="tinyint" Nullable="false" />
+    <Property Name="org_id" Type="int" Nullable="false" />
+    <Property Name="plant_code" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="act_id" Type="nvarchar" MaxLength="10" />
+    <Property Name="actor" Type="nvarchar" MaxLength="20" />
+    <Property Name="act_dt" Type="datetime" Nullable="false" />
+    <Property Name="comment" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tm_status">
+    <Key>
+      <PropertyRef Name="status_id" />
+    </Key>
+    <Property Name="status_id" Type="tinyint" Nullable="false" />
+    <Property Name="status_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="lv_min" Type="tinyint" />
+    <Property Name="lv_max" Type="tinyint" />
+    <Property Name="cross_status" Type="tinyint" />
+  </EntityType>
+  <Association Name="FK_td_transaction_td_main_data">
+    <End Role="td_main_data" Type="PackingChangeModel.Store.td_main_data" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="td_transaction" Type="PackingChangeModel.Store.td_transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="td_main_data">
+        <PropertyRef Name="gpcode" />
+        <PropertyRef Name="year" />
+        <PropertyRef Name="runno" />
+      </Principal>
+      <Dependent Role="td_transaction">
+        <PropertyRef Name="gpcode" />
+        <PropertyRef Name="year" />
+        <PropertyRef Name="runno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_td_transaction_tm_status">
+    <End Role="tm_status" Type="PackingChangeModel.Store.tm_status" Multiplicity="1" />
+    <End Role="td_transaction" Type="PackingChangeModel.Store.td_transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tm_status">
+        <PropertyRef Name="status_id" />
+      </Principal>
+      <Dependent Role="td_transaction">
+        <PropertyRef Name="status_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

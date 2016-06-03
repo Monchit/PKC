@@ -1,0 +1,218 @@
+﻿@{
+    ViewBag.Title = "Concern";
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#btnSearch").click(function () {
+                $("#formUpdate").slideDown("slow");
+
+                $("#ctrlno").val($("#selectid option:selected").text());
+                //var obj = new Object();
+                var gpcode = $("#selectid option:selected").attr('data-gc');
+                var year = $("#selectid option:selected").attr('data-yy');
+                var runno = $("#selectid option:selected").attr('data-rn');
+
+                $.get('@Url.Action("GetSelectedTemp", "Home")', { gpcode: gpcode, year: year, runno: runno, gtype: 1 }, function (data) {
+                    $("#slProd").select2("data", data);
+                });
+
+                $.get('@Url.Action("GetSelectedTemp", "Home")', { gpcode: gpcode, year: year, runno: runno, gtype: 2 }, function (data) {
+                    $("#slPur").select2("data", data);
+                });
+
+                $.get('@Url.Action("GetSelectedTemp", "Home")', { gpcode: gpcode, year: year, runno: runno, gtype: 3 }, function (data) {
+                    $("#slSale").select2("data", data);
+                });
+
+                $.get('@Url.Action("GetSelectedTemp", "Home")', { gpcode: gpcode, year: year, runno: runno, gtype: 4 }, function (data) {
+                    $("#slCS").select2("data", data);
+                });
+
+                $.get('@Url.Action("GetSelectedTemp", "Home")', { gpcode: gpcode, year: year, runno: runno, gtype: 5 }, function (data) {
+                    $("#slLG").select2("data", data);
+                });
+
+                $.get('@Url.Action("GetSelectedTemp", "Home")', { gpcode: gpcode, year: year, runno: runno, gtype: 6 }, function (data) {
+                    $("#slPLN").select2("data", data);
+                });
+            });
+
+            $('#slProd').select2({
+                multiple: true,
+                ajax: {
+                    url: '@Url.Action("GetProdList", "Home")',
+                    dataType: 'json',
+                    data: function (term, page) {
+                        return {
+                            searchTerm: term
+                        };
+                    },
+                    results: function (data, page) {
+                        return { results: data };
+                    }
+                },
+                formatResult: function (item) { return item.text; },
+                formatSelection: function (item) { return item.text; }
+            });
+
+            $('#slPur').select2({
+                multiple: true,
+                ajax: {
+                    url: '@Url.Action("GetPurList", "Home")',
+                    dataType: 'json',
+                    data: function (term, page) {
+                        return {
+                            searchTerm: term
+                        };
+                    },
+                    results: function (data, page) {
+                        return { results: data };
+                    }
+                },
+                formatResult: function (item) { return item.text; },
+                formatSelection: function (item) { return item.text; }
+            });
+
+            $('#slSale').select2({
+                multiple: true,
+                ajax: {
+                    url: '@Url.Action("GetSaleList", "Home")',
+                    dataType: 'json',
+                    data: function (term, page) {
+                        return {
+                            searchTerm: term
+                        };
+                    },
+                    results: function (data, page) {
+                        return { results: data };
+                    }
+                },
+                formatResult: function (item) { return item.text; },
+                formatSelection: function (item) { return item.text; }
+            });
+
+            $('#slCS').select2({
+                multiple: true,
+                ajax: {
+                    url: '@Url.Action("GetCSList", "Home")',
+                    dataType: 'json',
+                    data: function (term, page) {
+                        return {
+                            searchTerm: term
+                        };
+                    },
+                    results: function (data, page) {
+                        return { results: data };
+                    }
+                },
+                formatResult: function (item) { return item.text; },
+                formatSelection: function (item) { return item.text; }
+            });
+
+            $('#slLG').select2({
+                multiple: true,
+                ajax: {
+                    url: '@Url.Action("GetLGList", "Home")',
+                    dataType: 'json',
+                    data: function (term, page) {
+                        return {
+                            searchTerm: term
+                        };
+                    },
+                    results: function (data, page) {
+                        return { results: data };
+                    }
+                },
+                formatResult: function (item) { return item.text; },
+                formatSelection: function (item) { return item.text; }
+            });
+
+            $('#slPLN').select2({
+                multiple: true,
+                ajax: {
+                    url: '@Url.Action("GetPLNList", "Home")',
+                    dataType: 'json',
+                    data: function (term, page) {
+                        return {
+                            searchTerm: term
+                        };
+                    },
+                    results: function (data, page) {
+                        return { results: data };
+                    }
+                },
+                formatResult: function (item) { return item.text; },
+                formatSelection: function (item) { return item.text; }
+            });
+        });
+    </script>
+}
+<h3>@ViewBag.Title</h3>
+
+<form class="form-inline">
+    Select Control No. :
+    <select id="selectid" name="selectid" class="input-xlarge">
+        @foreach (var item in ViewBag.ControlNo)
+        {
+            <option data-gc="@item.gpcode" data-yy="@item.year" data-rn="@item.runno">@item.id</option>
+        }
+    </select>
+    <button id="btnSearch" name="btnSearch" type="button" class="btn btn-inverse">Search</button>
+</form>
+
+<form id="formUpdate" class="form-horizontal" style="display:none;">
+    <fieldset>
+        <legend>Form update concern</legend>
+        <div class="control-group">
+            <label class="control-label" for="ctrlno"><strong>Control No. :</strong></label>
+            <div class="controls">
+                <input type="text" id="ctrlno" name="ctrlno" class="input-xlarge" readonly="readonly" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="slPr"><strong>Production :</strong></label>
+            <div class="controls">
+                <input type="text" id="slProd" name="slProd" class="select2 span10" data-validation="required" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="slPr"><strong>Purchase :</strong></label>
+            <div class="controls">
+                <input type="text" id="slPur" name="slPur" class="select2 span10" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="slPr"><strong>Sales/CS :</strong></label>
+            <div class="controls">
+                <input type="text" id="slSale" name="slSale" class="select2 span10" data-validation="required" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="slPr"><strong>Customer Service :</strong></label>
+            <div class="controls">
+                <input type="text" id="slCS" name="slCS" class="select2 span10" data-validation="required" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="slPr"><strong>Logistics Control :</strong></label>
+            <div class="controls">
+                <input type="text" id="slLG" name="slLG" class="select2 span10" data-validation="required" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="slPr"><strong>Planning :</strong></label>
+            <div class="controls">
+                <input type="text" id="slPLN" name="slPLN" class="select2 span10" data-validation="required" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="btnSubmit"></label>
+            <div class="controls">
+                <button id="btnSubmit" name="btnSubmit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </fieldset>
+</form>

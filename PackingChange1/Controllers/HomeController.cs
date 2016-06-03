@@ -3,6 +3,7 @@ using Rotativa;
 using Rotativa.Options;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -110,7 +111,7 @@ namespace PackingChange1.Controllers
         [Chk_Authen]
         public ActionResult MainPCO()
         {
-            ViewBag.Menu = 1;
+            //ViewBag.Menu = 1;
             ViewBag.SelectGroup = from a in dbTNC.tnc_group_master
                                   orderby a.group_name ascending
                                   select a;
@@ -124,7 +125,7 @@ namespace PackingChange1.Controllers
         [Chk_Authen]
         public ActionResult NewPCO()
         {
-            ViewBag.Menu = 2;
+            //ViewBag.Menu = 2;
             ViewBag.SelectPlant = from a in dbPC.tm_plant
                                   where a.active == true
                                   select a;
@@ -133,7 +134,17 @@ namespace PackingChange1.Controllers
             var get_gpcode = (from a in dbPCR.PCR_GCode
                               where a.g_id == org
                               select a.g_code).FirstOrDefault();
-            ViewBag.GCode = get_gpcode;
+
+            if (get_gpcode != null)
+            {
+                ViewBag.GCode = get_gpcode;
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "You not have Group Code. Please contact QA (6715).";
+                return RedirectToAction("MainPCO", "Home");
+            }
+
             var year = DateTime.Now.ToString("yy", new CultureInfo("en-US"));
             ViewBag.Year = year;
             ViewBag.Runno = GetRunNo(get_gpcode, year);
@@ -251,7 +262,7 @@ namespace PackingChange1.Controllers
         [Chk_Authen]
         public ActionResult ClosePCO()
         {
-            ViewBag.Menu = 3;
+            //ViewBag.Menu = 3;
             ViewBag.SelectGroup = from a in dbTNC.tnc_group_master
                                   orderby a.group_name ascending
                                   select a;
@@ -558,7 +569,7 @@ namespace PackingChange1.Controllers
                             }
                             else if (item.status_id == 9 && item.lv_id >= 2)//9 = CS
                             {
-                                ViewBag.PCOForm = "_FormApprove";
+                                ViewBag.PCOForm = "_FormCSApprove";
                             }
                             else if (item.status_id == 12 && item.lv_id == 1)//12 = Planning
                             {
@@ -767,15 +778,22 @@ namespace PackingChange1.Controllers
                 var file = Request.Files["impfile"];
                 if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
                 {
+                    
+                    using (var db = new PackingChangeEntities())//Add Date 2016-02-17 by Monchit.
+                    {
+                        ((IObjectContextAdapter)db).ObjectContext.ExecuteStoreCommand("DELETE FROM td_item_list WHERE gpcode = " + gpcode + " and year = " + year + " and runno = " + runno + "");
+                        db.SaveChanges();
+                    }
+
                     var savedDir = dir.SaveFile(file, "Temp/" + DateTime.Now.ToString("yyyyMM", new CultureInfo("en-US")));
                     var reader = util.ReadExcel(savedDir);
 
                     foreach (var item in reader)
                     {
                         td_item_list itemlist = new td_item_list();
-                        itemlist.gpcode = main.gpcode;
-                        itemlist.year = main.year;
-                        itemlist.runno = main.runno;
+                        itemlist.gpcode = gpcode;
+                        itemlist.year = year;
+                        itemlist.runno = runno;
                         itemlist.item_code = item[0].ToString();
                         itemlist.customer_name = item[1].ToString();
                         dbPC.td_item_list.Add(itemlist);
@@ -972,6 +990,48 @@ namespace PackingChange1.Controllers
                 }
                 UpdateTransaction(gpcode, year, runno, status, ulv, org, action: act, actor: actor, comment: comment);
                 ManageTransaction(gpcode, year, runno, status, ulv, org, null, act, actor, comment);
+
+                return RedirectToAction("MainPCO", "Home");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CSApproveAction(IEnumerable<HttpPostedFileBase> atfiles)
+        {
+            try
+            {
+                string actor = Session["PCO_Auth"].ToString();
+                string gpcode = Request.Form["hdgc"];
+                string year = Request.Form["hdyy"];
+                int runno = int.Parse(Request.Form["hdrn"]);
+                int org = int.Parse(Request.Form["hdorg"]);
+                byte ulv = byte.Parse(Request.Form["hdulv"]);
+                byte status = byte.Parse(Request.Form["hdstt"]);
+                string act = Request.Form["slAction"];
+                string comment = Request.Form["txaCM"];
+
+                if (act == "APV")
+                {
+                    //------------------Insert Attach files--------------------//
+                    UploadFiles(gpcode, year, runno, atfiles, actor);
+                    dbPC.SaveChanges();
+                    UpdateTransaction(gpcode, year, runno, status, ulv, org, action: act, actor: actor, comment: comment);
+                    ManageTransaction(gpcode, year, runno, status, ulv, org, null, act, actor, comment);
+                }
+                else if (act == "REV")
+                {
+                    DeleteTransaction(gpcode, year, runno, status, ulv, org);
+                    UpdateTransaction(gpcode, year, runno, status, 1, org);
+                }
+                else
+                {
+                    UpdateTransaction(gpcode, year, runno, status, ulv, org, action: act, actor: actor, comment: comment);
+                    ManageTransaction(gpcode, year, runno, status, ulv, org, null, act, actor, comment);
+                }
 
                 return RedirectToAction("MainPCO", "Home");
             }
@@ -1327,9 +1387,8 @@ namespace PackingChange1.Controllers
         {
             try
             {
-                var query = (from a in dbPC.V_Tran1
-                            where a.status_id < 100
-                            select a).Distinct();
+                var query = from a in dbPC.V_Tran3
+                            select a;
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -1494,7 +1553,7 @@ namespace PackingChange1.Controllers
                         {
                             get_tnc_org.GetApprover(item, 1);
                             InsertTransaction(gpcode, year, runno, 2, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);//2 is Lv. Mgr.
-                            SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state:dbPC.tm_status.Find(2).status_name);//Send Email to
+                            SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state:dbPC.tm_status.Find(2).status_name);
                         }
                     }
                     else if (status == 2)//QA Review
@@ -1505,7 +1564,7 @@ namespace PackingChange1.Controllers
                             var get_main = dbPC.td_main_data.Find(gpcode, year, runno);
                             if (get_main != null)
                             {
-                                if (get_main.production_type == "Manufacturing")//goto QC
+                                if (get_main.production_type.Contains("Manufacturing"))//goto QC
                                 {
                                     var get_impact = (from a in dbPC.td_impact_plant
                                                       where a.gpcode == gpcode && a.year == year && a.runno == runno
@@ -1530,7 +1589,7 @@ namespace PackingChange1.Controllers
                                         {
                                             get_tnc_org.GetApprover(item, 1);
                                             InsertTransaction(gpcode, year, runno, 5, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
-                                            SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(5).status_name);//Send Email to
+                                            SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(5).status_name);
                                         }
                                     }
                                     else//no Purchase -> Sales/CS
@@ -1539,8 +1598,17 @@ namespace PackingChange1.Controllers
                                         foreach (var item in sale_list)
                                         {
                                             get_tnc_org.GetApprover(item, 1);
-                                            InsertTransaction(gpcode, year, runno, 6, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
-                                            SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(6).status_name);//Send Email to
+
+                                            if (get_tnc_org.OrgId != 0)
+                                            {
+                                                InsertTransaction(gpcode, year, runno, 6, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
+                                                SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(6).status_name);
+                                            }
+                                            else
+                                            {
+                                                InsertTransaction(gpcode, year, runno, 6, 2, item);
+                                                SendEmailCenter(gpcode, year, runno, GetEmail(item,2), state: dbPC.tm_status.Find(6).status_name);
+                                            }
                                         }
                                     }
                                 }
@@ -1557,7 +1625,7 @@ namespace PackingChange1.Controllers
                             {
                                 get_tnc_org.GetApprover(item, 1);
                                 InsertTransaction(gpcode, year, runno, 4, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
-                                SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(4).status_name);//Send Email to
+                                SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(4).status_name);
                             }
                         }
                     }
@@ -1572,17 +1640,26 @@ namespace PackingChange1.Controllers
                                 {
                                     get_tnc_org.GetApprover(item, 1);
                                     InsertTransaction(gpcode, year, runno, 5, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
-                                    SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(5).status_name);//Send Email to
+                                    SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(5).status_name);
                                 }
                             }
-                            else//no Purchase -> Sales/CS
+                            else//no Purchase -> Sales/CS Mgr.
                             {
                                 var sale_list = GetTempConcern(gpcode, year, runno, 3);//3 = Sales/CS
                                 foreach (var item in sale_list)
                                 {
                                     get_tnc_org.GetApprover(item, 1);
-                                    InsertTransaction(gpcode, year, runno, 6, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
-                                    SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(6).status_name);//Send Email to
+
+                                    if (get_tnc_org.OrgId != 0)
+                                    {
+                                        InsertTransaction(gpcode, year, runno, 6, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
+                                        SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(6).status_name);
+                                    }
+                                    else
+                                    {
+                                        InsertTransaction(gpcode, year, runno, 6, 2, item);
+                                        SendEmailCenter(gpcode, year, runno, GetEmail(item, 2), state: dbPC.tm_status.Find(6).status_name);
+                                    }
                                 }
                             }
                         }
@@ -1595,8 +1672,17 @@ namespace PackingChange1.Controllers
                             foreach (var item in sale_list)//goto Sales/CS
                             {
                                 get_tnc_org.GetApprover(item, 1);
-                                InsertTransaction(gpcode, year, runno, 6, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
-                                SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(6).status_name);//Send Email to
+
+                                if (get_tnc_org.OrgId != 0)
+                                {
+                                    InsertTransaction(gpcode, year, runno, 6, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
+                                    SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(6).status_name);
+                                }
+                                else
+                                {
+                                    InsertTransaction(gpcode, year, runno, 6, 2, item);
+                                    SendEmailCenter(gpcode, year, runno, GetEmail(item, 2), state: dbPC.tm_status.Find(6).status_name);
+                                }
                             }
                         }
                     }
@@ -1608,7 +1694,7 @@ namespace PackingChange1.Controllers
                                               where a.gpcode == gpcode && a.year == year && a.runno == runno
                                               select a.plant_code).ToList();
 
-                            if (HaveNeedPack(gpcode, year, runno))
+                            if (HaveNeedPack(gpcode, year, runno))//Have need Packing STD.
                             {
                                 var get_respond = (from a in dbPC.tm_sys_group
                                                    where a.group_type == "QA" && get_impact.Contains(a.plant_code)
@@ -1619,16 +1705,45 @@ namespace PackingChange1.Controllers
                                     SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(7).status_name);
                                 }
                             }
-                            else
+                            else// No need Packing STD.
                             {
-                                var get_respond = (from a in dbPC.tm_sys_group
-                                                   where a.group_type == "PP" && get_impact.Contains(a.plant_code)
-                                                   select a.group_respond).Distinct();
-                                foreach (var item in get_respond)//goto PP Mgr.
+                                var get_main = dbPC.td_main_data.Find(gpcode, year, runno);
+                                if (get_main != null)
                                 {
-                                    //get_tnc_org.GetApprover(item, 1);
-                                    InsertTransaction(gpcode, year, runno, 8, 1, item);
-                                    SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(8).status_name);//Send Email to
+                                    if (get_main.chage_type == "Inspection Data" 
+                                        || get_main.production_type == "Pass Through" 
+                                        || get_main.production_type == "Service Part")
+                                    {
+                                        var cs_list = GetTempConcern(gpcode, year, runno, 4);//4 = CS
+                                        foreach (var item in cs_list)//goto CS
+                                        {
+                                            InsertTransaction(gpcode, year, runno, 9, 1, item);
+                                            SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(9).status_name);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var get_respond = (from a in dbPC.tm_sys_group
+                                                           where a.group_type == "PP" && get_impact.Contains(a.plant_code)
+                                                           select a.group_respond).Distinct();
+                                        if (get_respond != null)
+                                        {
+                                            foreach (var item in get_respond)//goto PP Mgr.
+                                            {
+                                                InsertTransaction(gpcode, year, runno, 8, 1, item);
+                                                SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(8).status_name);
+                                            }
+                                        }
+                                        else//Add 2016-03-03 by Monchit W.
+                                        {
+                                            var cs_list = GetTempConcern(gpcode, year, runno, 4);//4 = CS
+                                            foreach (var item in cs_list)//goto CS
+                                            {
+                                                InsertTransaction(gpcode, year, runno, 9, 1, item);
+                                                SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(9).status_name);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1641,13 +1756,43 @@ namespace PackingChange1.Controllers
                                               where a.gpcode == gpcode && a.year == year && a.runno == runno
                                               select a.plant_code).ToList();
 
-                            var get_respond = (from a in dbPC.tm_sys_group
-                                               where a.group_type == "PP" && get_impact.Contains(a.plant_code)
-                                               select a.group_respond).Distinct();
-                            foreach (var item in get_respond)
+                            var get_main = dbPC.td_main_data.Find(gpcode, year, runno);
+                            if (get_main != null)
                             {
-                                InsertTransaction(gpcode, year, runno, 8, 1, item);
-                                SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(8).status_name);//Send Email to
+                                if (get_main.chage_type == "Inspection Data"
+                                    || get_main.production_type == "Pass Through"
+                                    || get_main.production_type == "Service Part")
+                                {
+                                    var cs_list = GetTempConcern(gpcode, year, runno, 4);//4 = CS
+                                    foreach (var item in cs_list)//goto CS
+                                    {
+                                        InsertTransaction(gpcode, year, runno, 9, 1, item);
+                                        SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(9).status_name);
+                                    }
+                                }
+                                else
+                                {
+                                    var get_respond = (from a in dbPC.tm_sys_group
+                                                       where a.group_type == "PP" && get_impact.Contains(a.plant_code)
+                                                       select a.group_respond).Distinct();
+                                    if (get_respond != null)
+                                    {
+                                        foreach (var item in get_respond)//goto PP Mgr.
+                                        {
+                                            InsertTransaction(gpcode, year, runno, 8, 1, item);
+                                            SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(8).status_name);
+                                        }
+                                    }
+                                    else//Add 2016-03-03 by Monchit W.
+                                    {
+                                        var cs_list = GetTempConcern(gpcode, year, runno, 4);//4 = CS
+                                        foreach (var item in cs_list)//goto CS
+                                        {
+                                            InsertTransaction(gpcode, year, runno, 9, 1, item);
+                                            SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(9).status_name);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -1667,7 +1812,7 @@ namespace PackingChange1.Controllers
                             foreach (var item in cs_list)//goto CS
                             {
                                 InsertTransaction(gpcode, year, runno, 9, 1, item);
-                                SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(9).status_name);//Send Email to
+                                SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(9).status_name);
                             }
                         }
                         //}
@@ -1729,10 +1874,28 @@ namespace PackingChange1.Controllers
                                                   where a.gpcode == gpcode && a.year == year && a.runno == runno
                                                     && a.status_id == 8 && a.lv_id == 1
                                                   select a;
-                                foreach (var item in get_respond)
+                                if (get_respond.Any())
                                 {
-                                    InsertTransaction(gpcode, year, runno, 13, 1, item.org_id, item.plant_code, actor: item.actor);
-                                    SendEmailCenter(gpcode, year, runno, GetEmail(item.actor), state: dbPC.tm_status.Find(13).status_name);
+                                    foreach (var item in get_respond)
+                                    {
+                                        InsertTransaction(gpcode, year, runno, 13, 1, item.org_id, item.plant_code, actor: item.actor);
+                                        SendEmailCenter(gpcode, year, runno, GetEmail(item.actor), state: dbPC.tm_status.Find(13).status_name);
+                                    }
+                                }
+                                else
+                                {
+                                    var get_impact = (from a in dbPC.td_impact_plant
+                                                      where a.gpcode == gpcode && a.year == year && a.runno == runno
+                                                      select a.plant_code).ToList();
+
+                                    var get_qa = (from a in dbPC.tm_sys_group
+                                                  where a.group_type == "QA" && get_impact.Contains(a.plant_code)
+                                                  select a.group_respond).Distinct();
+                                    foreach (var item in get_qa)//goto QA Packing Officer
+                                    {
+                                        InsertTransaction(gpcode, year, runno, 14, 1, item);//1 is Lv. Eng.
+                                        SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(14).status_name);
+                                    }
                                 }
                             }
                         }
@@ -1760,10 +1923,28 @@ namespace PackingChange1.Controllers
                                                   where a.gpcode == gpcode && a.year == year && a.runno == runno
                                                     && a.status_id == 8 && a.lv_id == 1
                                                   select a;
-                                foreach (var item in get_respond)
+                                if (get_respond.Any())
                                 {
-                                    InsertTransaction(gpcode, year, runno, 13, 1, item.org_id, item.plant_code, actor: item.actor);
-                                    SendEmailCenter(gpcode, year, runno, GetEmail(item.actor), state: dbPC.tm_status.Find(13).status_name);
+                                    foreach (var item in get_respond)
+                                    {
+                                        InsertTransaction(gpcode, year, runno, 13, 1, item.org_id, item.plant_code, actor: item.actor);
+                                        SendEmailCenter(gpcode, year, runno, GetEmail(item.actor), state: dbPC.tm_status.Find(13).status_name);
+                                    }
+                                }
+                                else
+                                {
+                                    var get_impact = (from a in dbPC.td_impact_plant
+                                                      where a.gpcode == gpcode && a.year == year && a.runno == runno
+                                                      select a.plant_code).ToList();
+
+                                    var get_qa = (from a in dbPC.tm_sys_group
+                                                  where a.group_type == "QA" && get_impact.Contains(a.plant_code)
+                                                  select a.group_respond).Distinct();
+                                    foreach (var item in get_qa)//goto QA Packing Officer
+                                    {
+                                        InsertTransaction(gpcode, year, runno, 14, 1, item);//1 is Lv. Eng.
+                                        SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(14).status_name);
+                                    }
                                 }
                             }
                         }
@@ -1772,14 +1953,33 @@ namespace PackingChange1.Controllers
                     {
                         if (!HaveOtherWaitAction(gpcode, year, runno, status))
                         {
+                            //goto Prod. Planning
                             var get_respond = from a in dbPC.td_transaction
                                               where a.gpcode == gpcode && a.year == year && a.runno == runno
                                                 && a.status_id == 8 && a.lv_id == 1
                                               select a;
-                            foreach (var item in get_respond)
+                            if (get_respond.Any())
                             {
-                                InsertTransaction(gpcode, year, runno, 13, 1, item.org_id, item.plant_code, actor: item.actor);
-                                SendEmailCenter(gpcode, year, runno, GetEmail(item.actor), state: dbPC.tm_status.Find(13).status_name);
+                                foreach (var item in get_respond)
+                                {
+                                    InsertTransaction(gpcode, year, runno, 13, 1, item.org_id, item.plant_code, actor: item.actor);
+                                    SendEmailCenter(gpcode, year, runno, GetEmail(item.actor), state: dbPC.tm_status.Find(13).status_name);
+                                }
+                            }
+                            else
+                            {
+                                var get_impact = (from a in dbPC.td_impact_plant
+                                                  where a.gpcode == gpcode && a.year == year && a.runno == runno
+                                                  select a.plant_code).ToList();
+
+                                var get_qa = (from a in dbPC.tm_sys_group
+                                              where a.group_type == "QA" && get_impact.Contains(a.plant_code)
+                                              select a.group_respond).Distinct();
+                                foreach (var item in get_qa)//goto QA Packing Officer
+                                {
+                                    InsertTransaction(gpcode, year, runno, 14, 1, item);//1 is Lv. Eng.
+                                    SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(14).status_name);
+                                }
                             }
                         }
                     }
@@ -1838,9 +2038,31 @@ namespace PackingChange1.Controllers
             else if (action == "ISS")//Issue
             {
                 InsertTransaction(gpcode, year, runno, status, lv, org, plant, action, actor);//Issue Tran
-                get_tnc_org.GetApprover(actor);
-                InsertTransaction(gpcode, year, runno, status, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);//Next Tran
-                SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, 0, state: dbPC.tm_status.Find(1).status_name);//Send Email to Mgr.
+                if (lv == 1)
+                {
+                    get_tnc_org.GetApprover(actor);
+                    InsertTransaction(gpcode, year, runno, status, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);//Next Tran
+                    SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, 0, state: dbPC.tm_status.Find(1).status_name);//Send Email to Mgr.
+                }
+                else
+                {
+                    var get_impact = (from a in dbPC.td_impact_plant
+                                      where a.gpcode == gpcode && a.year == year && a.runno == runno
+                                      select a.plant_code).ToList();
+
+                    var get_respond = (from a in dbPC.tm_sys_group
+                                       where a.group_type == "QA" && get_impact.Contains(a.plant_code)
+                                       select a.group_respond).Distinct();
+
+                    var get_status_name = dbPC.tm_status;
+
+                    foreach (var item in get_respond)//goto QA
+                    {
+                        get_tnc_org.GetApprover(item, 1);
+                        InsertTransaction(gpcode, year, runno, 2, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);//2 is Lv. Mgr.
+                        SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(2).status_name);//Send Email to
+                    }
+                }
             }
             else if (action == "UPD")//Updated
             {

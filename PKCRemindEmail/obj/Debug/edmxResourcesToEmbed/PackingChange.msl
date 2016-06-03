@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PackingChangeModelStoreContainer" CdmEntityContainer="PackingChangeEntities">
+    <EntitySetMapping Name="td_main_data">
+      <EntityTypeMapping TypeName="PackingChangeModel.td_main_data">
+        <MappingFragment StoreEntitySet="td_main_data">
+          <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="runno" ColumnName="runno" />
+          <ScalarProperty Name="chage_type" ColumnName="chage_type" />
+          <ScalarProperty Name="change_detail" ColumnName="change_detail" />
+          <ScalarProperty Name="condition_current" ColumnName="condition_current" />
+          <ScalarProperty Name="condition_new" ColumnName="condition_new" />
+          <ScalarProperty Name="reason" ColumnName="reason" />
+          <ScalarProperty Name="expected_dt" ColumnName="expected_dt" />
+          <ScalarProperty Name="request_by" ColumnName="request_by" />
+          <ScalarProperty Name="production_type" ColumnName="production_type" />
+          <ScalarProperty Name="system_update" ColumnName="system_update" />
+          <ScalarProperty Name="issue_group" ColumnName="issue_group" />
+          <ScalarProperty Name="request_date" ColumnName="request_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="td_transaction">
+      <EntityTypeMapping TypeName="PackingChangeModel.td_transaction">
+        <MappingFragment StoreEntitySet="td_transaction">
+          <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="runno" ColumnName="runno" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="lv_id" ColumnName="lv_id" />
+          <ScalarProperty Name="org_id" ColumnName="org_id" />
+          <ScalarProperty Name="plant_code" ColumnName="plant_code" />
+          <ScalarProperty Name="act_id" ColumnName="act_id" />
+          <ScalarProperty Name="actor" ColumnName="actor" />
+          <ScalarProperty Name="act_dt" ColumnName="act_dt" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tm_status">
+      <EntityTypeMapping TypeName="PackingChangeModel.tm_status">
+        <MappingFragment StoreEntitySet="tm_status">
+          <ScalarProperty Name="cross_status" ColumnName="cross_status" />
+          <ScalarProperty Name="lv_max" ColumnName="lv_max" />
+          <ScalarProperty Name="lv_min" ColumnName="lv_min" />
+          <ScalarProperty Name="status_name" ColumnName="status_name" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

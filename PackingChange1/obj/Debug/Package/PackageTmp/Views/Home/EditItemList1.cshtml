@@ -60,11 +60,12 @@
                 {
                 <td><input type="text" class="input-small" name="cs_stock" data-validation="number" value="@item.cs_stock" /></td>
                 <td><select class="span3 cs_repack" name="cs_repack">
-                    <option value="No Need" @if (item.cs_repack == "No Need")
-                                       {<text>selected="selected"</text>}>Shipping permitted without re-pack</option>
-                    <option value="Need" @if(item.cs_repack == "Need")
-                                       {<text>selected="selected"</text>}>Re-pack to new packing condition</option>
-                </select></td>
+                        <option value="No Need" @if (item.cs_repack == "No Need")
+                                           {<text>selected="selected"</text>}>Shipping permitted without re-pack</option>
+                        <option value="Need" @if(item.cs_repack == "Need")
+                                           {<text>selected="selected"</text>}>Re-pack to new packing condition</option>
+                    </select>
+                </td>
                 <td><input type="text" class="datepicker input-small" name="cs_eff_dt" data-validation="required" value="@item.cs_eff_dt.Value.ToString("dd-MM-yyyy")" /></td>
                 <td><input type="text" class="span3" name="cs_lot" value="@item.cs_lot" /></td>
                 <td><select class="span1" name="cs_change">
@@ -78,8 +79,8 @@
                 <td><input type="text" class="input-small" name="cs_stock" /></td>
                 <td><select class="span3 cs_repack" name="cs_repack">
                         <option value="">----</option>
-                        <option value="no">Shipping permitted without re-pack</option>
-                        <option value="new">Re-pack to new packing condition</option>
+                        <option value="No Need">Shipping permitted without re-pack</option>
+                        <option value="Need">Re-pack to new packing condition</option>
                     </select></td>
                 <td><input type="text" class="datepicker input-small" name="cs_eff_dt" /></td>
                 <td><input type="text" class="span3" name="cs_lot" /></td>

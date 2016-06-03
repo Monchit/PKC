@@ -160,6 +160,19 @@
       [V_Tran2].[issue_group] AS [issue_group]
       FROM [dbo].[V_Tran2] AS [V_Tran2]</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="V_Tran3" EntityType="PackingChangeModel.Store.V_Tran3" store:Type="Views" store:Schema="dbo" store:Name="V_Tran3">
+      <DefiningQuery>SELECT 
+      [V_Tran3].[id] AS [id], 
+      [V_Tran3].[gpcode] AS [gpcode], 
+      [V_Tran3].[year] AS [year], 
+      [V_Tran3].[runno] AS [runno], 
+      [V_Tran3].[status_id] AS [status_id], 
+      [V_Tran3].[lv_id] AS [lv_id], 
+      [V_Tran3].[org_id] AS [org_id], 
+      [V_Tran3].[issue_group] AS [issue_group], 
+      [V_Tran3].[change_detail] AS [change_detail]
+      FROM [dbo].[V_Tran3] AS [V_Tran3]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_td_feedback_td_main_data" Association="PackingChangeModel.Store.FK_td_feedback_td_main_data">
       <End Role="td_main_data" EntitySet="td_main_data" />
       <End Role="td_feedback" EntitySet="td_feedback" />
@@ -286,21 +299,24 @@
     <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
     <Property Name="runno" Type="int" Nullable="false" />
     <Property Name="item_code" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="cust_no" Type="nvarchar" MaxLength="50" />
     <Property Name="customer_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="part_no" Type="nvarchar" MaxLength="50" />
+    <Property Name="wc" Type="nvarchar" MaxLength="50" />
     <Property Name="pp_have" Type="nvarchar" MaxLength="10" />
-    <Property Name="pp_lot" Type="nvarchar" MaxLength="100" />
+    <Property Name="pp_lot" Type="nvarchar(max)" />
     <Property Name="pp_qty" Type="int" />
     <Property Name="pp_check" Type="nvarchar" MaxLength="10" />
-    <Property Name="pp_confirm_lot" Type="nvarchar" MaxLength="20" />
+    <Property Name="pp_confirm_lot" Type="nvarchar(max)" />
     <Property Name="pp_eff_prod" Type="date" />
     <Property Name="pp_eff_pln" Type="date" />
     <Property Name="cs_stock" Type="int" />
     <Property Name="cs_repack" Type="nvarchar" MaxLength="50" />
     <Property Name="cs_eff_dt" Type="date" />
-    <Property Name="cs_lot" Type="nvarchar" MaxLength="50" />
+    <Property Name="cs_lot" Type="nvarchar(max)" />
     <Property Name="cs_change" Type="bit" />
     <Property Name="cs_check" Type="nvarchar" MaxLength="10" />
-    <Property Name="pln_item" Type="nvarchar" MaxLength="20" />
+    <Property Name="pln_item" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="td_main_data">
     <Key>
@@ -752,6 +768,29 @@
     <Property Name="lv_id" Type="tinyint" Nullable="false" />
     <Property Name="change_detail" Type="ntext" Nullable="false" />
     <Property Name="issue_group" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.V_Tran3' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="V_Tran3">
+    <Key>
+      <PropertyRef Name="gpcode" />
+      <PropertyRef Name="year" />
+      <PropertyRef Name="runno" />
+      <PropertyRef Name="status_id" />
+      <PropertyRef Name="lv_id" />
+      <PropertyRef Name="issue_group" />
+      <PropertyRef Name="change_detail" />
+    </Key>
+    <Property Name="id" Type="nvarchar" MaxLength="33" />
+    <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+    <Property Name="runno" Type="int" Nullable="false" />
+    <Property Name="status_id" Type="tinyint" Nullable="false" />
+    <Property Name="lv_id" Type="tinyint" Nullable="false" />
+    <Property Name="org_id" Type="int" />
+    <Property Name="issue_group" Type="int" Nullable="false" />
+    <Property Name="change_detail" Type="ntext" Nullable="false" />
   </EntityType>
   <Association Name="FK_td_feedback_td_main_data">
     <End Role="td_main_data" Type="PackingChangeModel.Store.td_main_data" Multiplicity="1">

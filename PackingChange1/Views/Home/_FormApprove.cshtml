@@ -1,4 +1,4 @@
-﻿
+﻿<script src="~/Scripts/form-validator/jquery.form-validator.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $.validate({ form: '#StdApprove' });
@@ -46,7 +46,7 @@
         <input type="hidden" id="hdulv" name="hdulv" value="@ulv" />
         <input type="hidden" id="hdorg" name="hdorg" value="@org" />
         <input type="hidden" id="hdstt" name="hdstt" value="@status" />
-        <button id="btnSubmit" name="btnSubmit" class="btn btn-primary">Submit</button>
+        <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-primary">Submit</button>
       </div>
     </div>
 

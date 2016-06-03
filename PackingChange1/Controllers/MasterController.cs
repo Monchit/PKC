@@ -17,7 +17,6 @@ namespace PackingChange1.Controllers
         [Chk_Authorize_Admin]
         public ActionResult Users()
         {
-            //ViewBag.Menu = 11;
             return View();
         }
 
@@ -118,7 +117,6 @@ namespace PackingChange1.Controllers
         [Chk_Authorize_Admin]
         public ActionResult UserType()
         {
-            //ViewBag.Menu = 12;
             return View();
         }
 
@@ -222,7 +220,7 @@ namespace PackingChange1.Controllers
         [Chk_Authorize_Admin]
         public ActionResult Plant()
         {
-            ViewBag.Menu = 13;
+            //ViewBag.Menu = 13;
             return View();
         }
 
@@ -325,7 +323,7 @@ namespace PackingChange1.Controllers
         [Chk_Authorize_PowerUser]
         public ActionResult Group()
         {
-            ViewBag.Menu = 14;
+            //ViewBag.Menu = 14;
             return View();
         }
 
@@ -432,7 +430,7 @@ namespace PackingChange1.Controllers
         [Chk_Authorize_PowerUser]
         public ActionResult GroupUser()
         {
-            ViewBag.Menu = 15;
+            //ViewBag.Menu = 15;
             return View();
         }
 
@@ -537,7 +535,7 @@ namespace PackingChange1.Controllers
         [Chk_Authorize_Admin]
         public ActionResult ConcernType()
         {
-            ViewBag.Menu = 16;
+            //ViewBag.Menu = 16;
             return View();
         }
 
@@ -641,7 +639,7 @@ namespace PackingChange1.Controllers
         [Chk_Authorize_PowerUser]
         public ActionResult ConcernGroup()
         {
-            ViewBag.Menu = 17;
+            //ViewBag.Menu = 17;
             return View();
         }
 

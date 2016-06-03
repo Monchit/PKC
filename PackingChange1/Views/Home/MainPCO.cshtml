@@ -148,6 +148,14 @@
     });
 </script>
 }
+
+@if (TempData["ErrorMessage"] != null)
+{
+<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    @TempData["ErrorMessage"]</div>
+}
+
 <table class="table table-condensed" style="width:auto;">
     <thead>
         <tr>
@@ -216,7 +224,7 @@
         <!-- Tab Content Containers -->
         <div class="tab-content" id="tabContent">
             <div class="tab-pane" id="_TabMain"></div>
-            <div class="tab-pane" id="_TabItemList"></div>
+            <div class="tab-pane" id="_TabItemList" style="width:1600px; overflow-x:auto;"></div>
             <div class="tab-pane" id="_TabQA"></div>
             <div class="tab-pane" id="_TabConcern"></div>
             <div class="tab-pane" id="_TabSLCS"></div>

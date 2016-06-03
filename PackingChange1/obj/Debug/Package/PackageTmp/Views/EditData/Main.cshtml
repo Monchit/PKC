@@ -75,11 +75,10 @@
     </script>
 }
 
-
 <h3>@ViewBag.Title</h3>
 
 <form class="form-inline">
-    Select Control No.
+    Select Control No. :
     <select id="selectid" class="input-xlarge">
         @foreach (var item in ViewBag.ControlNo)
         {
@@ -161,6 +160,7 @@
                 <option>Manufacturing</option>
                 <option>Service Part</option>
                 <option>Pass Through</option>
+                <option>Manufacturing & Service Part</option>
             </select>
           </div>
         </div>

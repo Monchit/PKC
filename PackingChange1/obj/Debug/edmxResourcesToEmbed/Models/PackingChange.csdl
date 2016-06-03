@@ -100,6 +100,7 @@
     <EntitySet Name="V_Tran1" EntityType="PackingChangeModel.V_Tran1" />
     <EntitySet Name="V_Report" EntityType="PackingChangeModel.V_Report" />
     <EntitySet Name="V_Tran2" EntityType="PackingChangeModel.V_Tran2" />
+    <EntitySet Name="V_Tran3" EntityType="PackingChangeModel.V_Tran3" />
   </EntityContainer>
   <EntityType Name="td_impact_plant">
     <Key>
@@ -779,20 +780,23 @@
     <Property Type="String" Name="item_code" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="customer_name" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="pp_have" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="pp_lot" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="pp_lot" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="pp_qty" />
     <Property Type="String" Name="pp_check" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="pp_confirm_lot" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="pp_confirm_lot" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="DateTime" Name="pp_eff_prod" Precision="0" />
     <Property Type="DateTime" Name="pp_eff_pln" Precision="0" />
     <Property Type="Int32" Name="cs_stock" />
     <Property Type="String" Name="cs_repack" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="DateTime" Name="cs_eff_dt" Precision="0" />
-    <Property Type="String" Name="cs_lot" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="cs_lot" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="Boolean" Name="cs_change" />
     <Property Type="String" Name="cs_check" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="pln_item" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="pln_item" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="td_main_data" Relationship="PackingChangeModel.FK_td_item_list_td_main_data" FromRole="td_item_list" ToRole="td_main_data" />
+    <Property Type="String" Name="cust_no" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="part_no" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="wc" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_td_item_list_td_main_data">
     <End Type="PackingChangeModel.td_main_data" Role="td_main_data" Multiplicity="1">
@@ -890,5 +894,25 @@
     <Property Type="Byte" Name="lv_id" Nullable="false" />
     <Property Type="String" Name="change_detail" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="issue_group" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_Tran3">
+    <Key>
+      <PropertyRef Name="gpcode" />
+      <PropertyRef Name="year" />
+      <PropertyRef Name="runno" />
+      <PropertyRef Name="status_id" />
+      <PropertyRef Name="lv_id" />
+      <PropertyRef Name="issue_group" />
+      <PropertyRef Name="change_detail" />
+    </Key>
+    <Property Type="String" Name="id" MaxLength="33" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="runno" Nullable="false" />
+    <Property Type="Byte" Name="status_id" Nullable="false" />
+    <Property Type="Byte" Name="lv_id" Nullable="false" />
+    <Property Type="Int32" Name="org_id" />
+    <Property Type="Int32" Name="issue_group" Nullable="false" />
+    <Property Type="String" Name="change_detail" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

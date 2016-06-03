@@ -561,7 +561,7 @@
             language: false,
             onSuccess: false,
             onError: false,
-            onElementValidate: false,
+            onElementValidate: false
         });
 
         conf = $.extend(defaultConf, conf || {});

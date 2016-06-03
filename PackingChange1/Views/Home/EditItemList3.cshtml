@@ -45,8 +45,8 @@
                 <th>Item code Change</th>
                 <th>New Item code</th>
                 <th>Confirm Start Job/Lot no.</th>
-                <th>Eff. Date for Production</th>
-                <th>Eff. Date for Planning upload</th>
+                <th>Eff. Date for Production <input type="text" class="datepicker input-small" name="all_eff_prod" /></th>
+                <th>Eff. Date for Planning upload <input type="text" class="datepicker input-small" name="all_eff_pln" /></th>
             </tr>
         </thead>
         <tbody>
@@ -67,7 +67,7 @@
                 <td>@item.pln_item</td>
                 @if (!string.IsNullOrEmpty(item.pp_confirm_lot))
                 {
-                <td><input type="text" class="span3 pp_confirm_lot" name="pp_confirm_lot" value="@item.pp_confirm_lot" /></td>
+                <td><input type="text" class="span3 pp_confirm_lot" name="pp_confirm_lot" value="@item.pp_confirm_lot" maxlength="50" /></td>
                 <td><input type="text" class="datepicker input-small" name="pp_eff_prod" data-validation="required" value="@item.pp_eff_prod.Value.ToString("dd-MM-yyyy")" /></td>
                 <td><input type="text" class="datepicker input-small" name="pp_eff_pln" data-validation="required" value="@item.pp_eff_pln.Value.ToString("dd-MM-yyyy")" /></td>
                 }

@@ -12,7 +12,7 @@
         $.get("@Url.Action("IsManufacturing", "Home")", { gpcode: gpcode, year: year, runno: runno }, function (data) {
             $("#slProd").attr('data-validation', 'required');
             $("#divProd").show();
-            if (data != "Manufacturing") {
+            if (data.indexOf('Manufacturing') == -1) {//Not have Manufacturing
                 $("#slProd").removeAttr('data-validation');
                 $("#divProd").hide();
             }
@@ -239,7 +239,7 @@
                           <input type="hidden" id="hdulv" name="hdulv" value="@ulv" />
                           <input type="hidden" id="hdorg" name="hdorg" value="@org" />
                           <input type="hidden" id="hdstt" name="hdstt" value="@status" />
-                        <button id="btnSubmit" name="btnSubmit" class="btn btn-primary">Submit</button>
+                        <button id="btnSubmit" name="btnSubmit" class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </div>
 
