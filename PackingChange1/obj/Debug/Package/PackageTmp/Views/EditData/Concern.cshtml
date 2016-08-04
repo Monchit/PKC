@@ -6,42 +6,9 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $("#btnSearch").click(function () {
-                $("#formUpdate").slideDown("slow");
-
-                $("#ctrlno").val($("#selectid option:selected").text());
-                //var obj = new Object();
-                var gpcode = $("#selectid option:selected").attr('data-gc');
-                var year = $("#selectid option:selected").attr('data-yy');
-                var runno = $("#selectid option:selected").attr('data-rn');
-
-                $.get('@Url.Action("GetSelectedTemp", "Home")', { gpcode: gpcode, year: year, runno: runno, gtype: 1 }, function (data) {
-                    $("#slProd").select2("data", data);
-                });
-
-                $.get('@Url.Action("GetSelectedTemp", "Home")', { gpcode: gpcode, year: year, runno: runno, gtype: 2 }, function (data) {
-                    $("#slPur").select2("data", data);
-                });
-
-                $.get('@Url.Action("GetSelectedTemp", "Home")', { gpcode: gpcode, year: year, runno: runno, gtype: 3 }, function (data) {
-                    $("#slSale").select2("data", data);
-                });
-
-                $.get('@Url.Action("GetSelectedTemp", "Home")', { gpcode: gpcode, year: year, runno: runno, gtype: 4 }, function (data) {
-                    $("#slCS").select2("data", data);
-                });
-
-                $.get('@Url.Action("GetSelectedTemp", "Home")', { gpcode: gpcode, year: year, runno: runno, gtype: 5 }, function (data) {
-                    $("#slLG").select2("data", data);
-                });
-
-                $.get('@Url.Action("GetSelectedTemp", "Home")', { gpcode: gpcode, year: year, runno: runno, gtype: 6 }, function (data) {
-                    $("#slPLN").select2("data", data);
-                });
-            });
-
             $('#slProd').select2({
                 multiple: true,
+                placeholder: "Select Production",
                 ajax: {
                     url: '@Url.Action("GetProdList", "Home")',
                     dataType: 'json',
@@ -147,6 +114,55 @@
                 formatResult: function (item) { return item.text; },
                 formatSelection: function (item) { return item.text; }
             });
+
+            $("#btnSearch").click(function () {
+                $("#formUpdate").slideDown("slow");
+
+                $("#ctrlno").val($("#selectid option:selected").text());
+                //var obj = new Object();
+                var gpcode = $("#selectid option:selected").attr('data-gc');
+                var year = $("#selectid option:selected").attr('data-yy');
+                var runno = $("#selectid option:selected").attr('data-rn');
+
+                $.get('@Url.Action("GetSelectedTemp", "EditData")', { gpcode: gpcode, year: year, runno: runno, gtype: 1 }, function (data) {
+                    $("#slProd").select2("data", data);
+                });
+
+                $.get('@Url.Action("GetSelectedTemp", "EditData")', { gpcode: gpcode, year: year, runno: runno, gtype: 2 }, function (data) {
+                    $("#slPur").select2("data", data);
+                });
+
+                $.get('@Url.Action("GetSelectedTemp", "EditData")', { gpcode: gpcode, year: year, runno: runno, gtype: 3 }, function (data) {
+                    $("#slSale").select2("data", data);
+                });
+
+                $.get('@Url.Action("GetSelectedTemp", "EditData")', { gpcode: gpcode, year: year, runno: runno, gtype: 4 }, function (data) {
+                    $("#slCS").select2("data", data);
+                });
+
+                $.get('@Url.Action("GetSelectedTemp", "EditData")', { gpcode: gpcode, year: year, runno: runno, gtype: 5 }, function (data) {
+                    $("#slLG").select2("data", data);
+                });
+
+                $.get('@Url.Action("GetSelectedTemp", "EditData")', { gpcode: gpcode, year: year, runno: runno, gtype: 6 }, function (data) {
+                    $("#slPLN").select2("data", data);
+                });
+            });
+
+            $("#btnUpdProd").click(function () {
+                $("#ctrlno").val($("#selectid option:selected").text());
+                var obj = new Object();
+                obj.gpcode = $("#selectid option:selected").attr('data-gc');
+                obj.year = $("#selectid option:selected").attr('data-yy');
+                obj.runno = $("#selectid option:selected").attr('data-rn');
+                obj.congid = 1;
+                obj.congroup = $("#slProd").val();
+
+                $.post("@Url.Action("UpdateConcern","EditData")", obj, function (data) {
+
+                });
+            });
+
         });
     </script>
 }
@@ -163,7 +179,7 @@
     <button id="btnSearch" name="btnSearch" type="button" class="btn btn-inverse">Search</button>
 </form>
 
-<form id="formUpdate" class="form-horizontal" style="display:none;">
+<form id="formUpdate" class="form-horizontal" style="display: none;">
     <fieldset>
         <legend>Form update concern</legend>
         <div class="control-group">
@@ -173,45 +189,51 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="slPr"><strong>Production :</strong></label>
+            <label class="control-label" for="slProd"><strong>Production :</strong></label>
             <div class="controls">
                 <input type="text" id="slProd" name="slProd" class="select2 span10" data-validation="required" />
+                &nbsp;<button id="btnUpdProd" name="btnUpdProd" class="btn btn-primary" type="button">Update</button>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="slPr"><strong>Purchase :</strong></label>
+            <label class="control-label" for="slPur"><strong>Purchase :</strong></label>
             <div class="controls">
                 <input type="text" id="slPur" name="slPur" class="select2 span10" />
+                &nbsp;<button id="btnUpdPur" name="btnUpdPur" class="btn btn-primary" type="button">Update</button>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="slPr"><strong>Sales/CS :</strong></label>
+            <label class="control-label" for="slSale"><strong>Sales/CS :</strong></label>
             <div class="controls">
                 <input type="text" id="slSale" name="slSale" class="select2 span10" data-validation="required" />
+                &nbsp;<button id="btnUpdSale" name="btnUpdSale" class="btn btn-primary" type="button">Update</button>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="slPr"><strong>Customer Service :</strong></label>
+            <label class="control-label" for="slCS"><strong>Customer Service :</strong></label>
             <div class="controls">
                 <input type="text" id="slCS" name="slCS" class="select2 span10" data-validation="required" />
+                &nbsp;<button id="btnUpdCS" name="btnUpdCS" class="btn btn-primary" type="button">Update</button>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="slPr"><strong>Logistics Control :</strong></label>
+            <label class="control-label" for="slLG"><strong>Logistics Control :</strong></label>
             <div class="controls">
                 <input type="text" id="slLG" name="slLG" class="select2 span10" data-validation="required" />
+                &nbsp;<button id="btnUpdLG" name="btnUpdLG" class="btn btn-primary" type="button">Update</button>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="slPr"><strong>Planning :</strong></label>
+            <label class="control-label" for="slPLN"><strong>Planning :</strong></label>
             <div class="controls">
                 <input type="text" id="slPLN" name="slPLN" class="select2 span10" data-validation="required" />
+                &nbsp;<button id="btnUpdPln" name="btnUpdPln" class="btn btn-primary" type="button">Update</button>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="btnSubmit"></label>
             <div class="controls">
-                <button id="btnSubmit" name="btnSubmit" class="btn btn-primary">Update</button>
+                
             </div>
         </div>
     </fieldset>

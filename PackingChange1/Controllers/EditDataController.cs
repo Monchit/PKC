@@ -133,7 +133,10 @@ namespace PackingChange1.Controllers
                              a.year,
                              a.runno,
                              a.item_code,
+                             a.cust_no,
                              a.customer_name,
+                             a.part_no,
+                             a.wc,
                              a.pp_have,
                              a.pp_lot,
                              a.pp_qty,
@@ -245,7 +248,10 @@ namespace PackingChange1.Controllers
                 var item = Request.Form["item_code"];
 
                 var itemlist = dbPC.td_item_list.Find(gpcode, year, runno, item);
+                itemlist.cust_no = Request.Form["cust_no"] != "" ? Request.Form["cust_no"] : null;
                 itemlist.customer_name = Request.Form["customer_name"] != "" ? Request.Form["customer_name"] : null;
+                itemlist.part_no = Request.Form["part_no"] != "" ? Request.Form["part_no"] : null;
+                itemlist.wc = Request.Form["wc"] != "" ? Request.Form["wc"] : null;
                 itemlist.pp_have = Request.Form["pp_have"] != "" ? Request.Form["pp_have"] : null;
                 itemlist.pp_lot = Request.Form["pp_lot"] != "" ? Request.Form["pp_lot"] : null;
                 itemlist.pp_qty = Request.Form["pp_qty"] != "" ? int.Parse(Request.Form["pp_qty"].ToString()) : 0;

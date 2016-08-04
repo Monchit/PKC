@@ -31,10 +31,10 @@
     <br />
     <table class="table table-condensed">
         <tr>
-            <td class="td_title">Control No. : </td>
-            <td>@Html.DisplayFor(m => m.id)</td>
-            <td class="td_title">Request by : </td>
-            <td>@Html.DisplayFor(m => m.request_by)</td>
+            <td class="td_title span2">Control No. : </td>
+            <td class="span4">@Html.DisplayFor(m => m.id)</td>
+            <td class="td_title span2">Request by : </td>
+            <td class="span4">@Html.DisplayFor(m => m.request_by)</td>
         </tr>
         <tr>
             <td class="td_title">Type of change : </td>
@@ -96,9 +96,9 @@
                 <td>@if (item.pp_eff_pln != null) { <text>@item.pp_eff_pln.Value.ToString("dd/MM/yyyy")</text> }</td>
                 <td>@item.cs_stock</td>
                 <td>@item.cs_repack</td>
-                <td>@if (item.cs_eff_dt != null) { <text>@item.cs_eff_dt.Value.ToString("dd/MM/yyyy")</text> }</td>
+                <td>@if (item.cs_eff_dt != null) { <text>@item.cs_eff_dt.ToString("dd/MM/yyyy")</text> }</td>
                 <td>@item.cs_lot</td>
-                <td>@if (item.cs_change != null) { if(item.cs_change.Value){ <text>Yes</text> }else{ <text>No</text> } }</td>
+                <td>@if (item.cs_change != null) { if(item.cs_change){ <text>Yes</text> }else{ <text>No</text> } }</td>
                 <td>@item.pln_item</td>
             </tr>
             }

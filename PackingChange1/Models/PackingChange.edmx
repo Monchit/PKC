@@ -305,7 +305,7 @@
           <Property Name="runno" Type="int" Nullable="false" />
           <Property Name="item_code" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="cust_no" Type="nvarchar" MaxLength="50" />
-          <Property Name="customer_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="customer_name" Type="nvarchar(max)" />
           <Property Name="part_no" Type="nvarchar" MaxLength="50" />
           <Property Name="wc" Type="nvarchar" MaxLength="50" />
           <Property Name="pp_have" Type="nvarchar" MaxLength="10" />
@@ -1843,7 +1843,7 @@
           <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="runno" Nullable="false" />
           <Property Type="String" Name="item_code" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="customer_name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="customer_name" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="pp_have" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="pp_lot" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="pp_qty" />

@@ -300,7 +300,7 @@
     <Property Name="runno" Type="int" Nullable="false" />
     <Property Name="item_code" Type="nvarchar" Nullable="false" MaxLength="20" />
     <Property Name="cust_no" Type="nvarchar" MaxLength="50" />
-    <Property Name="customer_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="customer_name" Type="nvarchar(max)" />
     <Property Name="part_no" Type="nvarchar" MaxLength="50" />
     <Property Name="wc" Type="nvarchar" MaxLength="50" />
     <Property Name="pp_have" Type="nvarchar" MaxLength="10" />

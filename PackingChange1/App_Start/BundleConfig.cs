@@ -87,6 +87,13 @@ namespace PackingChange1
             bundles.Add(new ScriptBundle("~/bundles/highcharts").Include(
                         "~/Scripts/Highcharts-4.0.1/js/highcharts.js",
                         "~/Scripts/Highcharts-4.0.1/js/modules/exporting.js"));
+
+            //Datatables
+            //bundles.Add(new StyleBundle("~/Content/datatables").Include(
+            //            "~/Content/DataTables/css/jquery.dataTables.css"));
+
+            //bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+            //            "~/Scripts/DataTables/jquery.dataTables.js"));
         }
     }
 }

@@ -778,7 +778,7 @@
     <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="runno" Nullable="false" />
     <Property Type="String" Name="item_code" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="customer_name" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="customer_name" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="pp_have" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="pp_lot" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="pp_qty" />

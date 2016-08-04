@@ -25,18 +25,33 @@ namespace PackingChange1.Controllers
 
         //------------------View---------------------//
 
-        public ActionResult Index()
+        public ActionResult Index(string key = null)
         {
-            ViewBag.Message = "";
-            return View();
+            if (key != null)
+            {
+                return Login(key);
+            }
+            else
+            {
+                ViewBag.Message = "";
+                return View();
+            }
         }
 
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Login(string key = null)
         {
-            string username = Request.Form["Username"].ToString();
-            string pass = Request.Form["Password"].ToString();
+            string username = key == null ? Request.Form["Username"].ToString() : "";
+            string pass = key == null ? Request.Form["Password"].ToString() : "";
+
             var chklogin = secure.Login(username, pass, true);//set false to true for Real
+
+            if (key != null)
+            {
+                username = secure.WebCenterDecode(key);
+                chklogin = secure.Login(username, "a", false);
+            }
+            
             if (chklogin != null)
             {
                 Session["PCO_Auth"] = chklogin.emp_code;
@@ -709,7 +724,11 @@ namespace PackingChange1.Controllers
                     itemlist.year = main.year;
                     itemlist.runno = main.runno;
                     itemlist.item_code = item[0].ToString();
-                    itemlist.customer_name = item[1].ToString();
+                    itemlist.cust_no = item[1].ToString();
+                    itemlist.customer_name = item[2].ToString();//2
+                    itemlist.part_no = item[3].ToString();
+                    itemlist.wc = item[4].ToString();
+
                     dbPC.td_item_list.Add(itemlist);
                 }
 
@@ -795,7 +814,10 @@ namespace PackingChange1.Controllers
                         itemlist.year = year;
                         itemlist.runno = runno;
                         itemlist.item_code = item[0].ToString();
-                        itemlist.customer_name = item[1].ToString();
+                        itemlist.cust_no = item[1].ToString();
+                        itemlist.customer_name = item[2].ToString();//2
+                        itemlist.part_no = item[3].ToString();
+                        itemlist.wc = item[4].ToString();
                         dbPC.td_item_list.Add(itemlist);
                     }
                 }
@@ -1144,6 +1166,28 @@ namespace PackingChange1.Controllers
             }
         }
 
+        public ActionResult ToCSMgr(string gpcode, string year, int runno, int org)
+        {
+            try
+            {
+                string actor = Session["PCO_Auth"].ToString();
+                if (HaveOtherWaitCount(gpcode, year, runno, 9, 1) > 1)
+                {
+                    UpdateTransaction(gpcode, year, runno, 9, 1, org, action: "APV", actor: actor);
+                    ManageTransaction(gpcode, year, runno, 9, 1, org, null, "APV", actor);
+                    return RedirectToAction("MainPCO", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("EditItemList1", "Home", new { gpcode = gpcode, year = year, runno = runno, org = org });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public ActionResult CompItem1(string gpcode, string year, int runno, int org)
         {
             try
@@ -1278,16 +1322,18 @@ namespace PackingChange1.Controllers
                 }
                 dbPC.SaveChanges();
 
-                if (HaveOtherWaitCount(gpcode, year, runno, 9, 1) > 1)
-                {
-                    UpdateTransaction(gpcode, year, runno, 9, 1, org, action: "APV", actor: actor);
-                    ManageTransaction(gpcode, year, runno, 9, 1, org, null, "APV", actor);
-                    return RedirectToAction("MainPCO", "Home");
-                }
-                else
-                {
-                    return RedirectToAction("EditItemList1", "Home", new { gpcode = gpcode, year = year, runno = runno, org = org });
-                }
+                return RedirectToAction("EditItemList1", "Home", new { gpcode = gpcode, year = year, runno = runno, org = org });
+
+                //if (HaveOtherWaitCount(gpcode, year, runno, 9, 1) > 1)
+                //{
+                //    UpdateTransaction(gpcode, year, runno, 9, 1, org, action: "APV", actor: actor);
+                //    ManageTransaction(gpcode, year, runno, 9, 1, org, null, "APV", actor);
+                //    return RedirectToAction("MainPCO", "Home");
+                //}
+                //else
+                //{
+                //    return RedirectToAction("EditItemList1", "Home", new { gpcode = gpcode, year = year, runno = runno, org = org });
+                //}
             }
             catch (Exception)
             {
