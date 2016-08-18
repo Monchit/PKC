@@ -1757,8 +1757,7 @@ namespace PackingChange1.Controllers
                                 if (get_main != null)
                                 {
                                     if (get_main.chage_type == "Inspection Data" 
-                                        || get_main.production_type == "Pass Through" 
-                                        || get_main.production_type == "Service Part")
+                                        || (get_main.production_type == "Pass Through" || get_main.production_type == "Service Part"))
                                     {
                                         var cs_list = GetTempConcern(gpcode, year, runno, 4);//4 = CS
                                         foreach (var item in cs_list)//goto CS
