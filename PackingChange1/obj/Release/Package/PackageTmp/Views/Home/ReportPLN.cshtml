@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+@model PackingChange1.Models.V_Tran
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <style type="text/css">
+        .td_title {
+            text-align:right !important;
+            font-weight:600;
+        }
+        .divhead {
+            font-size:1.2em; 
+            font-weight:600;
+            padding: 5px 0px 5px 0px;
+        }
+        .page-breaker {
+            display: block;
+            clear: both;
+            page-break-after: always;
+        }
+    </style>
+    <title>Application for Packing Change</title>
+</head>
+<body>
+    <div style="font-size:1.8em; font-weight:700; text-align:center;">Application for Packing Change</div>
+    <br />
+    <table class="table table-condensed">
+        <tr>
+            <td class="td_title span2">Control No. : </td>
+            <td class="span4">@Html.DisplayFor(m => m.id)</td>
+            <td class="td_title span2">Request by : </td>
+            <td class="span4">@Html.DisplayFor(m => m.request_by)</td>
+        </tr>
+        <tr>
+            <td class="td_title">Type of change : </td>
+            <td>@Html.DisplayFor(m => m.chage_type)</td>
+            <td class="td_title">Production type : </td>
+            <td>@Html.DisplayFor(m => m.production_type)</td>
+        </tr>
+        <tr>
+            <td class="td_title">Change detail : </td>
+            <td>@Html.DisplayFor(m => m.change_detail)</td>
+            <td class="td_title">Current condition : </td>
+            <td>@Html.DisplayFor(m => m.condition_current)</td>
+        </tr>
+        <tr>
+            <td class="td_title">Reason of change : </td>
+            <td>@Html.DisplayFor(m => m.reason)</td>
+            <td class="td_title">New condition : </td>
+            <td>@Html.DisplayFor(m => m.condition_new)</td>
+        </tr>
+        <tr>
+            <td class="td_title">Expected date : </td>
+            <td>@String.Format("{0:dd/MM/yyyy}", Model.expected_dt)</td>
+            <td class="td_title">Impact plant : </td>
+            <td>@ViewBag.ShowImpactPlant</td>
+        </tr>
+    </table>
+
+    <h3>Item Lists of Application for Packing Change</h3>
+    <table class="table table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th style="width:100px;">Item code</th>
+                <th>Customer Name</th>
+                <th>Have</th>
+                <th>Job/Lot no.</th>
+                <th>Q'ty (pcs.)</th>
+                <th>Confirm Start</th>
+                <th>Eff. Date for Prod.</th>
+                <th>Eff. Date for Planning</th>
+                <th>TNC'S Stock (pcs.)</th>
+                <th>RE-PACK</th>
+                <th>Eff. Date for Delivery</th>
+                <th>Job/Lot no.</th>
+                <th>Item code Change</th>
+                <th>New Item code</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.ItemList)
+            {
+            <tr>
+                <td>@item.item_code</td>
+                <td>@item.customer_name</td>
+                <td>@item.pp_have</td>
+                <td>@item.pp_lot</td>
+                <td>@item.pp_qty</td>
+                <td>@item.pp_confirm_lot</td>
+                <td>@if (item.pp_eff_prod != null) { <text>@item.pp_eff_prod.Value.ToString("dd/MM/yyyy")</text> }</td>
+                <td>@if (item.pp_eff_pln != null) { <text>@item.pp_eff_pln.Value.ToString("dd/MM/yyyy")</text> }</td>
+                <td>@item.cs_stock</td>
+                <td>@item.cs_repack</td>
+                <td>@if (item.cs_eff_dt != null) { <text>@item.cs_eff_dt.ToString("dd/MM/yyyy")</text> }</td>
+                <td>@item.cs_lot</td>
+                <td>@if (item.cs_change != null) { if(item.cs_change){ <text>Yes</text> }else{ <text>No</text> } }</td>
+                <td>@item.pln_item</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</body>
+</html>

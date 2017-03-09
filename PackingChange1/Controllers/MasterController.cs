@@ -1006,7 +1006,8 @@ namespace PackingChange1.Controllers
                         s.issue_tel,
                         IssueDate = s.issued_date != null ? s.issued_date.Value.ToString("dd-MM-yyyy") : "",
                         ExpectDate = s.expected_date != null ? s.expected_date.Value.ToString("dd-MM-yyyy") : "",
-                        CompDate = s.completed_date != null ? s.completed_date.Value.ToString("dd-MM-yyyy") : ""
+                        CompDate = s.completed_date != null ? s.completed_date.Value.ToString("dd-MM-yyyy") : "",
+                        s.change_txt
                     });
 
             util.CreateExcel(output.ToList(), "PCRReport");

@@ -1,6 +1,10 @@
 ﻿@{
     ViewBag.Title = "Close";
 }
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/DataTables/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.fixedColumns.min.js"></script>
 <style type="text/css">
     /*fix jTable*/
     span.jtable-goto-page select, span.jtable-page-size-change select {
@@ -240,10 +244,6 @@
             <li><a href="#_TabConcern">Concern</a></li>
             <li><a href="#_TabSLCS">Sales/CS</a></li>
             <li><a href="#_TabPack">QA Packing STD.</a></li>
-            @*<li><a href="#_TabCS">CS</a></li>
-            <li><a href="#_TabLog">Logistics</a></li>
-            <li><a href="#_TabRec">QC Receiving</a></li>
-            <li><a href="#_TabPln">Planning</a></li>*@
             <li><a href="#_TabCls">QA Close</a></li>
             <li><a href="#_TabFB">Feedback</a></li>
         </ul>
@@ -251,15 +251,11 @@
         <!-- Tab Content Containers -->
         <div class="tab-content" id="tabContent">
             <div class="tab-pane" id="_TabMain"></div>
-            <div class="tab-pane" id="_TabItemList" style="width:1600px; overflow-x:auto;"></div>
+            <div class="tab-pane" id="_TabItemList"@* style="width:1600px; overflow-x:auto;"*@></div>
             <div class="tab-pane" id="_TabQA"></div>
             <div class="tab-pane" id="_TabConcern"></div>
             <div class="tab-pane" id="_TabSLCS"></div>
             <div class="tab-pane" id="_TabPack"></div>
-            @*<div class="tab-pane" id="_TabCS"></div>
-            <div class="tab-pane" id="_TabLog"></div>
-            <div class="tab-pane" id="_TabRec"></div>
-            <div class="tab-pane" id="_TabPln"></div>*@
             <div class="tab-pane" id="_TabCls"></div>
             <div class="tab-pane" id="_TabFB"></div>
         </div>

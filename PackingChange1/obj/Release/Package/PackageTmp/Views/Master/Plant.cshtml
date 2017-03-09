@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Plant Management";
+}
+
+<style type="text/css">
+    /*fix jTable*/
+    span.jtable-goto-page select, span.jtable-page-size-change select {
+        height: 25px;
+        width: 60px;
+        padding: 2px 2px;
+        margin-bottom:auto;
+    }
+    div.jtable-main-container table.jtable thead th {
+        text-align: center;
+    }
+    div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jTablePlant').jtable({
+            title: 'Plant Master',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'plant_code', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("PlantList","Master")',
+                deleteAction: '@Url.Action("DeletePlant","Master")',
+                updateAction: '@Url.Action("UpdatePlant","Master")',
+                createAction: '@Url.Action("CreatePlant","Master")'
+            },
+            fields: {
+                plant_code: { title: 'Code', key: true, create: true, edit: false, width: '35%' },
+                plant_name: { title: 'Name', create: true, edit: true, width: '45%' },
+                active: { title: 'Active', create: false, edit: true, width: '20%', options: { '0': 'No', '1': 'Yes' } }
+            }
+        });
+
+        //Load student list from server
+        $('#jTablePlant').jtable('load');
+
+    });
+</script>
+
+<div id="jTablePlant"></div>

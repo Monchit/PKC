@@ -10,3 +10,15 @@ C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRem
 C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\obj\Debug\PKCRemindEmail.csprojResolveAssemblyReference.cache
 C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\obj\Debug\PKCRemindEmail.exe
 C:\Users\monchit.TNC\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\obj\Debug\PKCRemindEmail.pdb
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\bin\Debug\PKCRemindEmail.exe.config
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\bin\Debug\PKCRemindEmail.exe
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\bin\Debug\PKCRemindEmail.pdb
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\bin\Debug\EntityFramework.dll
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\bin\Debug\WebCommonFunction.dll
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\bin\Debug\EPPlus.dll
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\bin\Debug\EntityFramework.xml
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\bin\Debug\WebCommonFunction.pdb
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\bin\Debug\EPPlus.xml
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\obj\Debug\PKCRemindEmail.csprojResolveAssemblyReference.cache
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\obj\Debug\PKCRemindEmail.exe
+C:\Users\monchit\Documents\Visual Studio 2012\Projects\PackingChange1\PKCRemindEmail\obj\Debug\PKCRemindEmail.pdb

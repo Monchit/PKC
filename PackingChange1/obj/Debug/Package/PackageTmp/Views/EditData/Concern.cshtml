@@ -159,7 +159,77 @@
                 obj.congroup = $("#slProd").val();
 
                 $.post("@Url.Action("UpdateConcern","EditData")", obj, function (data) {
+                    alert("Update concern Production Successful.");
+                });
+            });
 
+            $("#btnUpdPur").click(function () {
+                $("#ctrlno").val($("#selectid option:selected").text());
+                var obj = new Object();
+                obj.gpcode = $("#selectid option:selected").attr('data-gc');
+                obj.year = $("#selectid option:selected").attr('data-yy');
+                obj.runno = $("#selectid option:selected").attr('data-rn');
+                obj.congid = 2;
+                obj.congroup = $("#slPur").val();
+
+                $.post("@Url.Action("UpdateConcern","EditData")", obj, function (data) {
+                    alert("Update concern Purchase Successful.");
+                });
+            });
+
+            $("#btnUpdSale").click(function () {
+                $("#ctrlno").val($("#selectid option:selected").text());
+                var obj = new Object();
+                obj.gpcode = $("#selectid option:selected").attr('data-gc');
+                obj.year = $("#selectid option:selected").attr('data-yy');
+                obj.runno = $("#selectid option:selected").attr('data-rn');
+                obj.congid = 3;
+                obj.congroup = $("#slSale").val();
+
+                $.post("@Url.Action("UpdateConcern","EditData")", obj, function (data) {
+                    alert("Update concern Sales/CS Successful.");
+                });
+            });
+
+            $("#btnUpdCS").click(function () {
+                $("#ctrlno").val($("#selectid option:selected").text());
+                var obj = new Object();
+                obj.gpcode = $("#selectid option:selected").attr('data-gc');
+                obj.year = $("#selectid option:selected").attr('data-yy');
+                obj.runno = $("#selectid option:selected").attr('data-rn');
+                obj.congid = 4;
+                obj.congroup = $("#slCS").val();
+
+                $.post("@Url.Action("UpdateConcern","EditData")", obj, function (data) {
+                    alert("Update concern Customer Service Successful.");
+                });
+            });
+
+            $("#btnUpdLG").click(function () {
+                $("#ctrlno").val($("#selectid option:selected").text());
+                var obj = new Object();
+                obj.gpcode = $("#selectid option:selected").attr('data-gc');
+                obj.year = $("#selectid option:selected").attr('data-yy');
+                obj.runno = $("#selectid option:selected").attr('data-rn');
+                obj.congid = 5;
+                obj.congroup = $("#slLG").val();
+
+                $.post("@Url.Action("UpdateConcern","EditData")", obj, function (data) {
+                    alert("Update concern Logistics Control Successful.");
+                });
+            });
+
+            $("#btnUpdPln").click(function () {
+                $("#ctrlno").val($("#selectid option:selected").text());
+                var obj = new Object();
+                obj.gpcode = $("#selectid option:selected").attr('data-gc');
+                obj.year = $("#selectid option:selected").attr('data-yy');
+                obj.runno = $("#selectid option:selected").attr('data-rn');
+                obj.congid = 6;
+                obj.congroup = $("#slPLN").val();
+
+                $.post("@Url.Action("UpdateConcern","EditData")", obj, function (data) {
+                    alert("Update concern Planning Successful.");
                 });
             });
 

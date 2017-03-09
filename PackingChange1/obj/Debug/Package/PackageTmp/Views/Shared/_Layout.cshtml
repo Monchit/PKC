@@ -8,16 +8,16 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/jqueryui-flick")
     @Styles.Render("~/Content/formvalidator")
     @Styles.Render("~/Content/jTable")
     @Styles.Render("~/Content/select2")
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://webexternal/CDN/JS/Html5/html5shiv.min.js"></script>
+     <script src="http://webexternal/CDN/JS/Html5/respond.min.js"></script>
+    <![endif]-->
     <style type="text/css">
     body {
         padding-top: 60px;
@@ -34,9 +34,9 @@
     }
     </style>
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jTable")
     @Scripts.Render("~/bundles/formvalidator")
     @Scripts.Render("~/bundles/select2")

@@ -1,0 +1,103 @@
+﻿@model IEnumerable<PackingChange1.Models.V_ShowConcern>
+<h3>QA Select Concern</h3>
+
+@{
+    var prod = "";
+    var pur = "";
+    var sale = "";
+    var cs = "";
+    var lg = "";
+    var pln = "";
+    foreach (var item in Model)
+    {
+        switch (item.concern_group_id)
+        {
+            case 1: prod += ", " + item.group_name;
+                break;
+            case 2: pur += ", " + item.group_name;
+                break;
+            case 3: sale += ", " + item.group_name;
+                break;
+            case 4: cs += ", " + item.group_name;
+                break;
+            case 5: lg += ", " + item.group_name;
+                break;
+            case 6: pln += ", " + item.group_name;
+                break;
+        }
+    }
+    
+    if(prod != ""){
+        prod = prod.Substring(2);   
+    }
+    if (pur != "")
+    {
+        pur = pur.Substring(2);
+    }
+    if (sale != "")
+    {
+        sale = sale.Substring(2);
+    }
+    if (cs != "")
+    {
+        cs = cs.Substring(2);
+    }
+    if (lg != "")
+    {
+        lg = lg.Substring(2);
+    }
+    if (pln != "")
+    {
+        pln = pln.Substring(2);
+    }
+}
+<table class="table table-hover">
+    <tr>
+        <th style="width:20%;">Production :</th>
+        <td>@{<text>@prod</text>}</td>
+    </tr>
+    <tr>
+        <th>Purchase :</th>
+        <td>@{<text>@pur</text>}</td>
+    </tr>
+    <tr>
+        <th>Sales/CS :</th>
+        <td>@{<text>@sale</text>}</td>
+    </tr>
+    <tr>
+        <th>Customer Service :</th>
+        <td>@{<text>@cs</text>}</td>
+    </tr>
+    <tr>
+        <th>Logistics Control :</th>
+        <td>@{<text>@lg</text>}</td>
+    </tr>
+    <tr>
+        <th>Planning :</th>
+        <td>@{<text>@pln</text>}</td>
+    </tr>
+</table>
+
+<table class="table table-condensed table-bordered">
+    <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Action</th>
+            <th>Comment</th>
+            <th>Date-Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.QATran)
+        {
+        <tr>
+            <td>@item.fname</td>
+            <td>@item.lname</td>
+            <td>@item.action</td>
+            <td>@item.comment</td>
+            <td>@item.act_dt.ToString("dd/MM/yyyy HH:mm")</td>
+        </tr>    
+        }
+    </tbody>
+</table>

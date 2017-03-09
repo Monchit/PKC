@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eadf3f513fbe416d8e97284452c5c8c3" Name="Diagram1" ZoomLevel="102">
+        <EntityTypeShape EntityType="PackingChangeModel.td_impact_plant" Width="1.5" PointX="2.25" PointY="11.25" />
+        <EntityTypeShape EntityType="PackingChangeModel.td_main_data" Width="1.5" PointX="4.125" PointY="8.375" />
+        <EntityTypeShape EntityType="PackingChangeModel.td_tell" Width="1.5" PointX="0.5" PointY="15" />
+        <EntityTypeShape EntityType="PackingChangeModel.td_transaction" Width="1.5" PointX="6" PointY="10.5" />
+        <EntityTypeShape EntityType="PackingChangeModel.tm_action" Width="1.5" PointX="7.875" PointY="11" />
+        <EntityTypeShape EntityType="PackingChangeModel.tm_plant" Width="1.5" PointX="6" PointY="8.375" />
+        <EntityTypeShape EntityType="PackingChangeModel.tm_status" Width="1.5" PointX="7.875" PointY="12.875" />
+        <EntityTypeShape EntityType="PackingChangeModel.tm_sys_group" Width="1.5" PointX="7.875" PointY="8.375" />
+        <EntityTypeShape EntityType="PackingChangeModel.tm_sys_group_user" Width="1.5" PointX="9.625" PointY="8.375" />
+        <EntityTypeShape EntityType="PackingChangeModel.tm_sys_user" Width="1.5" PointX="6" PointY="14.5" />
+        <EntityTypeShape EntityType="PackingChangeModel.tm_sys_utype" Width="1.5" PointX="4.125" PointY="16.125" />
+        <EntityTypeShape EntityType="PackingChangeModel.tm_user_level" Width="1.5" PointX="4.125" PointY="14" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_impact_plant_td_main_data" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_tell_td_main_data" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_transaction_td_main_data" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_transaction_tm_action" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_transaction_tm_status" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_transaction_tm_user_level" />
+        <AssociationConnector Association="PackingChangeModel.FK_tm_sys_group_tm_plant" />
+        <AssociationConnector Association="PackingChangeModel.FK_tm_sys_group_user_tm_sys_group" />
+        <AssociationConnector Association="PackingChangeModel.FK_tm_sys_user_tm_sys_utype" />
+        <EntityTypeShape EntityType="PackingChangeModel.V_Tran" Width="1.5" PointX="0.5" PointY="8.375" />
+        <EntityTypeShape EntityType="PackingChangeModel.tm_concern_group" Width="1.5" PointX="7.875" PointY="15.125" />
+        <EntityTypeShape EntityType="PackingChangeModel.tm_sys_concern_group" Width="1.5" PointX="6" PointY="16.375" />
+        <AssociationConnector Association="PackingChangeModel.FK_tm_concern_group_tm_sys_concern_group" />
+        <EntityTypeShape EntityType="PackingChangeModel.td_temp_concern" Width="1.5" PointX="0.5" PointY="12.75" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_temp_concern_td_main_data" />
+        <EntityTypeShape EntityType="PackingChangeModel.td_files" Width="1.5" PointX="2.25" PointY="8.375" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_files_td_main_data" />
+        <EntityTypeShape EntityType="PackingChangeModel.V_ConcernGroup" Width="1.5" PointX="7.875" PointY="17" />
+        <EntityTypeShape EntityType="PackingChangeModel.V_ShowConcern" Width="1.5" PointX="4.125" PointY="18.25" />
+        <EntityTypeShape EntityType="PackingChangeModel.V_ShowFB" Width="1.5" PointX="9.625" PointY="14.5" />
+        <EntityTypeShape EntityType="PackingChangeModel.V_ShowTran" Width="1.5" PointX="9.625" PointY="10.5" />
+        <EntityTypeShape EntityType="PackingChangeModel.td_salecs" Width="1.5" PointX="9.625" PointY="17.75" />
+        <EntityTypeShape EntityType="PackingChangeModel.tm_init_tag" Width="1.5" PointX="6" PointY="18.125" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_salecs_td_main_data" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_salecs_tm_init_tag" />
+        <EntityTypeShape EntityType="PackingChangeModel.td_pack_std" Width="1.5" PointX="0.5" PointY="18.125" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_pack_std_td_main_data" />
+        <EntityTypeShape EntityType="PackingChangeModel.V_ShowPack" Width="1.5" PointX="2.25" PointY="19.125" />
+        <EntityTypeShape EntityType="PackingChangeModel.td_item_list" Width="1.5" PointX="2.25" PointY="13.5" />
+        <AssociationConnector Association="PackingChangeModel.FK_td_item_list_td_main_data" />
+        <EntityTypeShape EntityType="PackingChangeModel.V_TNC_Group" Width="1.5" PointX="4.125" PointY="20.5" />
+        <EntityTypeShape EntityType="PackingChangeModel.V_Tran1" Width="1.5" PointX="6" PointY="20.125" />
+        <EntityTypeShape EntityType="PackingChangeModel.V_Report" Width="1.5" PointX="7.875" PointY="18.75" />
+        <EntityTypeShape EntityType="PackingChangeModel.V_Tran2" Width="1.5" PointX="9.625" PointY="21.125" />
+        <EntityTypeShape EntityType="PackingChangeModel.V_Tran3" Width="1.5" PointX="0.5" PointY="21.375" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

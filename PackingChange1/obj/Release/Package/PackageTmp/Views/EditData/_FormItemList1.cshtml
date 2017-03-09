@@ -1,0 +1,89 @@
+﻿@model PackingChange1.Models.td_item_list
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Datepicker Setting
+        $(".datepicker").datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+    });
+</script>
+
+<form class="form-horizontal" method="post" action="@Url.Action("UpdateItemList1", "EditData")">
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="item_code">Item Code :</label>
+      <div class="controls">
+        <input id="item_code" name="item_code" type="text" class="input-large" value="@Model.item_code" readonly="true">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="cs_stock">TNC'S Stock (pcs.) :</label>
+      <div class="controls">
+        <input id="cs_stock" name="cs_stock" type="text" class="input-medium" value="@Model.cs_stock">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="cs_repack">Re-Pack :</label>
+      <div class="controls">
+        <select name="cs_repack" class="input-medium">
+            <option value="">----</option>
+            <option @if (Model.cs_repack == "Need") { <text>selected="selected"</text> }>Need</option>
+            <option @if (Model.cs_repack == "No Need") { <text>selected="selected"</text> }>No Need</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="cs_eff_dt">Eff. Date for Delivery :</label>
+      <div class="controls">
+        <input id="cs_eff_dt" name="cs_eff_dt" type="text" class="input-medium datepicker" value="@Model.cs_eff_dt">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="cs_lot">Job/Lot no. :</label>
+      <div class="controls">
+        <input id="cs_lot" name="cs_lot" type="text" class="input-medium" value="@Model.cs_lot">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="cs_change">Change :</label>
+      <div class="controls">
+        @*<input id="cs_change" name="cs_change" type="checkbox" class="input-medium" value="@Model.cs_change">*@
+          <select name="cs_change" class="input-medium">
+            <option value="">----</option>
+            <option value="true" @if (Model.cs_change != null && Model.cs_change.Value)
+                    { <text>selected="selected"</text> }>Yes</option>
+            <option value="false" @if (Model.cs_change != null && !Model.cs_change.Value)
+                    { <text>selected="selected"</text> }>No</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="pln_item">Item :</label>
+      <div class="controls">
+        <input id="pln_item" name="pln_item" type="text" class="input-xlarge" value="@Model.pln_item">
+      </div>
+    </div>
+
+    <!-- Button -->
+    <div class="control-group">
+      <label class="control-label" for="btnUpdate"></label>
+      <div class="controls">
+        <input type="hidden" id="hdgc" name="hdgc" value="@Model.gpcode" />
+        <input type="hidden" id="hdyy" name="hdyy" value="@Model.year" />
+        <input type="hidden" id="hdrn" name="hdrn" value="@Model.runno" />
+        <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+</form>

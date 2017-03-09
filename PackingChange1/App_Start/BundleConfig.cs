@@ -77,23 +77,10 @@ namespace PackingChange1
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(
                         "~/Scripts/select2.js"));
 
-            // multiselect
-            //bundles.Add(new StyleBundle("~/Content/multiselect").Include(
-            //            "~/Scripts/multiselect/css/multi-select.css"));
-            //bundles.Add(new ScriptBundle("~/bundles/multiselect").Include(
-            //            "~/Scripts/multiselect/js/jquery.multi-select.js"));
-
             // Highcharts
             bundles.Add(new ScriptBundle("~/bundles/highcharts").Include(
                         "~/Scripts/Highcharts-4.0.1/js/highcharts.js",
                         "~/Scripts/Highcharts-4.0.1/js/modules/exporting.js"));
-
-            //Datatables
-            //bundles.Add(new StyleBundle("~/Content/datatables").Include(
-            //            "~/Content/DataTables/css/jquery.dataTables.css"));
-
-            //bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
-            //            "~/Scripts/DataTables/jquery.dataTables.js"));
         }
     }
 }

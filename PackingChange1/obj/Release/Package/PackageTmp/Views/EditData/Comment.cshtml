@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Edit Comment";
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //$('#selectid').on('change', function () {
+            //    //alert($(this).find(':selected').attr('data-gc'));
+            //    $("#hdgc").val($(this).find(':selected').attr('data-gc'));
+            //    $("#hdyy").val($(this).find(':selected').attr('data-yy'));
+            //    $("#hdrn").val($(this).find(':selected').attr('data-rn'));
+            //});
+
+            $("#btnSearch").click(function () {
+                var obj = new Object();
+                //obj.gpcode = $("#hdgc").val();
+                //obj.year = $("#hdyy").val();
+                //obj.runno = $("#hdrn").val();
+                obj.gpcode = $("#selectid option:selected").attr('data-gc');
+                obj.year = $("#selectid option:selected").attr('data-yy');
+                obj.runno = $("#selectid option:selected").attr('data-rn');
+                $.get("@Url.Action("GetTran", "EditData")", obj, function (data) {
+                    var items = '<table class="table table-bordered"><thead><tr><th>Name</th><th>Action</th><th>Status</th><th>Level</th><th>Comment</th><th>Edit</th></tr></thead><tbody>';
+                    $.each(data, function (i, tran) {
+                        items += "<tr><td>" + tran.fname +
+                                "</td><td>" + tran.action +
+                                "</td><td>" + tran.status_name +
+                                "</td><td>" + tran.lv_name +
+                                "</td><td>" + tran.comment +
+                                "</td><td><a class='commentEdit' data-gc='" + tran.gpcode + "' data-yy='" + tran.year + "' data-rn='" + tran.runno + "' data-st='" + tran.status_id + "' data-lv='" + tran.lv_id + "' data-org='" + tran.org_id + "' data-pc='" + tran.plant_code + "'><i class='icon-wrench'></i></a>" +
+                                "</td></tr>";
+                    });
+                    items += "</tbody></table>";
+
+                    $('#divTable').html(items);
+                });
+            });
+
+            $('#dialogEdit').dialog({
+                autoOpen: false,
+                width: 300,//'auto',
+                height: 'auto',
+                modal: true,
+                show: { effect: "drop", duration: 500 },
+                hide: { effect: "drop", duration: 500 }
+            });
+
+            $(document).on("click", ".commentEdit", function (e) {
+                e.preventDefault();
+                var obj = new Object();
+                obj.gpcode = $(this).attr('data-gc');
+                obj.year = $(this).attr('data-yy');
+                obj.runno = $(this).attr('data-rn');
+                obj.status = $(this).attr('data-st');
+                obj.lv = $(this).attr('data-lv');
+                obj.org = $(this).attr('data-org');
+                obj.plant = $(this).attr('data-pc');
+                var remote = "@Url.Action("_FormComment", "EditData")";
+                $.get(remote, obj, function (data) {
+                    $("#dialogEdit").html(data);
+                    $("#dialogEdit").dialog("open");
+                    return false;
+                });
+            });
+        });
+    </script>
+}
+
+<h3>@ViewBag.Title</h3>
+
+<form class="form-inline">
+    Select Control No. :
+    <select id="selectid" class="input-xlarge">
+        @foreach (var item in ViewBag.ControlNo)
+        {
+            <option data-gc="@item.gpcode" data-yy="@item.year" data-rn="@item.runno">@item.id</option>
+        }
+    </select>
+    <button id="btnSearch" name="btnSearch" type="button" class="btn btn-inverse">Search</button>
+</form>
+
+@*<input type="hidden" id="hdgc" name="hdgd" />
+<input type="hidden" id="hdyy" name="hdyy" />
+<input type="hidden" id="hdrn" name="hdrn" />*@
+
+<div id="divTable"></div>
+
+<div id="dialogEdit" title="Edit"></div>

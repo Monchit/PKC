@@ -1,0 +1,280 @@
+﻿@{
+    Layout = null;
+}
+@model PackingChange1.Models.V_Tran
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <style type="text/css">
+        .td_title {
+            text-align:right !important;
+            font-weight:600;
+        }
+        .divhead {
+            font-size:1.2em; 
+            font-weight:600;
+            padding: 5px 0px 5px 0px;
+        }
+        /*.watermark {
+            height: 95%;
+            width: 90%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background-repeat: repeat-y;
+            z-index: 9999;
+            opacity: 0.2;
+        }*/
+    </style>
+    <title>Application for Packing Change</title>
+</head>
+<body>
+    @*<div class="watermark" style="background: url('../Images/packing.png');"></div>*@
+    <div style="font-size:1.7em; font-weight:700; text-align:center;">Application for Packing Change</div>
+    <br />
+    <table class="table table-condensed">
+        <tr>
+            <td class="td_title" style="width:150px;">Control No. : </td>
+            <td style="width:240px;">@Html.DisplayFor(m => m.id)</td>
+            <td class="td_title" style="width:175px;">Request by : </td>
+            <td>@Html.DisplayFor(m => m.request_by)</td>
+        </tr>
+        <tr>
+            <td class="td_title">Type of change : </td>
+            <td>@Html.DisplayFor(m => m.chage_type)</td>
+            <td class="td_title">Production type : </td>
+            <td>@Html.DisplayFor(m => m.production_type)</td>
+        </tr>
+        <tr>
+            <td class="td_title">Change detail : </td>
+            <td>@Html.DisplayFor(m => m.change_detail)</td>
+            <td class="td_title">Current condition : </td>
+            <td>@Html.DisplayFor(m => m.condition_current)</td>
+        </tr>
+        <tr>
+            <td class="td_title">Reason of change : </td>
+            <td>@Html.DisplayFor(m => m.reason)</td>
+            <td class="td_title">New condition : </td>
+            <td>@Html.DisplayFor(m => m.condition_new)</td>
+        </tr>
+        <tr>
+            <td class="td_title">Expected date : </td>
+            <td>@String.Format("{0:dd/MM/yyyy}", Model.expected_dt)</td>
+            <td class="td_title">Impact plant : </td>
+            <td>@ViewBag.ShowImpactPlant</td>
+        </tr>
+    </table>
+
+    <!--Issuer Transaction-->
+    <table class="table table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Action</th>
+                <th>Comment</th>
+                <th>Date-Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @ViewBag.IssTran)
+            {
+            <tr>
+                <td>@item.fname</td>
+                <td>@item.lname</td>
+                <td>@item.action</td>
+                <td>@item.comment</td>
+                <td>@item.act_dt.ToString("dd/MM/yyyy HH:mm")</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>QA Review</h4>
+    <table class="table table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Action</th>
+                <th>Comment</th>
+                <th>Date-Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @ViewBag.QATran)
+            {
+            <tr>
+                <td>@item.fname</td>
+                <td>@item.lname</td>
+                <td>@item.action</td>
+                <td>@item.comment</td>
+                <td>@item.act_dt.ToString("dd/MM/yyyy HH:mm")</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Concern Comment</h4>
+    <table class="table table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Action</th>
+                <th>Status</th>
+                <th>Level</th>
+                <th>Comment</th>
+                <th>Date-Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @ViewBag.CCTran)
+            {
+            <tr>
+                <td>@item.fname</td>
+                <td>@item.lname</td>
+                <td>@item.action</td>
+                <td>@item.status_name</td>
+                <td>@item.lv_name</td>
+                <td>@item.comment</td>
+                <td>@item.act_dt.ToString("dd/MM/yyyy HH:mm")</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Sale/CS</h4>
+    <table class="table table-condensed table-striped">
+        <thead>
+            <tr>
+                <th colspan="2">Submit Packing Standard</th>
+                <th>Initial Tag</th>
+            </tr>
+        </thead>
+        @foreach (var item in ViewBag.SLCS)
+        {
+            <tr>
+                <td>@if(item.pack_std_need){ <input type="checkbox" checked /> }else{ <input type="checkbox" /> } NEED</td>
+                <td>Customer: @item.cust_need</td>
+                <td>@item.tm_init_tag.init_tag_name</td>
+            </tr>
+            <tr>
+                <td>@if(item.pack_std_noneed){ <input type="checkbox" checked /> }else{ <input type="checkbox" /> } NO NEED</td>
+                <td>Customer: @item.cust_noneed</td>
+                <td>Frequency: @item.frequency</td>
+            </tr>
+        }
+    </table>
+
+    <!--Sale/CS Transaction-->
+    <table class="table table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Action</th>
+                <th>Comment</th>
+                <th>Date-Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @ViewBag.SLCSTran)
+            {
+            <tr>
+                <td>@item.fname</td>
+                <td>@item.lname</td>
+                <td>@item.action</td>
+                <td>@item.comment</td>
+                <td>@item.act_dt.ToString("dd/MM/yyyy HH:mm")</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Submit Packing Standard</h4>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Customer No.</th>
+                <th>Customer Name</th>
+                <th>Status</th>
+                <th>Upload</th>
+                <th>Submit Date</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Pack)
+            {
+            <tr>
+                <td>@item.series</td>
+                <td>@item.cust_no</td>
+                <td>@item.cust_name</td>
+                <td>@item.status</td>
+                <td><a href="@Url.Content(item.pack_file)" target="_blank"><i class="icon-file"></i></a></td>
+                <td>@item.submit_dt.ToString("dd/MM/yyyy")</td>
+                <td>@item.reason</td>
+            </tr>    
+            }
+        
+        </tbody>
+    </table>
+
+    <!--QA Pack Transaction-->
+    <table class="table table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Action</th>
+                <th>Comment</th>
+                <th>Date-Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @ViewBag.PKTran)
+            {
+            <tr>
+                <td>@item.fname</td>
+                <td>@item.lname</td>
+                <td>@item.action</td>
+                <td>@item.comment</td>
+                <td>@item.act_dt.ToString("dd/MM/yyyy HH:mm")</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>QA Closed</h4>
+    <table class="table table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Action</th>
+                <th>Comment</th>
+                <th>Date-Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @ViewBag.ClsTran)
+            {
+            <tr>
+                <td>@item.fname</td>
+                <td>@item.lname</td>
+                <td>@item.action</td>
+                <td>@item.comment</td>
+                <td>@item.act_dt.ToString("dd/MM/yyyy HH:mm")</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

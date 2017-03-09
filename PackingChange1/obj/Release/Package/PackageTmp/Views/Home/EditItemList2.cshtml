@@ -1,0 +1,86 @@
+﻿@model IEnumerable<PackingChange1.Models.td_item_list>
+@{
+    ViewBag.Title = "Item List (New Item code)";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validate({
+            modules : 'date',
+            form: '#formItemList'
+        });
+
+        //$(".cs_repack").change(function () {
+        //    if ($(this).val() != "") {
+        //        $(this).parent().next().children().attr('data-validation', 'required');
+        //        $(this).parent().prev().children().attr('data-validation', 'number');
+        //        $(this).parent().parent().find("td:last").children().attr('data-validation', 'required');
+        //    } else {
+        //        $(this).parent().next().children().removeAttr('data-validation');
+        //        $(this).parent().prev().children().removeAttr('data-validation');
+        //        $(this).parent().parent().find("td:last").children().removeAttr('data-validation');
+        //    }
+        //});
+
+        //$(".datepicker").datepicker({
+        //    dateFormat: 'dd-mm-yy',
+        //    showOtherMonths: true,
+        //    selectOtherMonths: true
+        //});
+    });
+</script>
+<h3>Item Lists of Application for Packing Change</h3>
+
+<form id="formItemList" name="formItemList" action="@Url.Action("UpdateItemListPLN")" method="post">
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Item code</th>
+                <th>Customer No.</th>
+                <th>Customer Name</th>
+                <th>Part no.</th>
+                <th>WC</th>
+                <th>Have</th>
+                <th>Job/Lot no.</th>
+                <th>Q'ty (pcs.)</th>
+                <th>TNC'S Stock (pcs.)</th>
+                <th>Re-Pack</th>
+                <th>Eff. Date for Delivery</th>
+                <th>Job/Lot no.</th>
+                <th>Item code Change</th>
+                <th>New Item code</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.item_code<input type="hidden" name="hdItem" value="@item.item_code" /></td>
+                <td>@item.cust_no</td>
+                <td>@item.customer_name</td>
+                <td>@item.part_no</td>
+                <td>@item.wc</td>
+                <td>@item.pp_have</td>
+                <td>@item.pp_lot</td>
+                <td>@item.pp_qty</td>
+                <td>@item.cs_stock</td>
+                <td>@item.cs_repack</td>
+                <td>@if (item.cs_eff_dt != null) { <text>@item.cs_eff_dt.Value.ToString("dd/MM/yyyy")</text> }</td>
+                <td>@item.cs_lot</td>
+                <td>@item.cs_change</td>
+                <td>@if (item.cs_change.Value) { <input type="text" class="input-small" name="pln_item" value="@item.pln_item" /> }
+                    else{ <input type="hidden" class="input-small" name="pln_item" /> }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <input type="hidden" id="hdgc" name="hdgc" value="@ViewBag.GCode" />
+    <input type="hidden" id="hdyy" name="hdyy" value="@ViewBag.Year" />
+    <input type="hidden" id="hdrn" name="hdrn" value="@ViewBag.Runno" />
+    <input type="hidden" id="hdorg" name="hdorg" value="@ViewBag.Org" />
+    <input type="submit" id="btnUpd" name="btnUpd" value="Update" class="btn btn-primary" />
+    @if (ViewBag.CompItem != null && ViewBag.CompItem == 0)
+    {<div class="pull-right">@Html.ActionLink("Completed", "CompItem2", new { gpcode = ViewBag.GCode, year = ViewBag.Year, runno = ViewBag.Runno, org = ViewBag.Org }, new { @class = "btn btn-success" })</div>
+    }
+</form>

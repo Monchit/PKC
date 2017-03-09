@@ -1,0 +1,29 @@
+﻿@model IEnumerable<PackingChange1.Models.V_ShowTran>
+<h3>Prod. Planning Comment</h3>
+
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Action</th>
+            <th>Status</th>
+            <th>Comment</th>
+            <th>Date-Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.fname</td>
+            <td>@item.lname</td>
+            <td>@item.action</td>
+            <td>@item.status_name</td>
+            <td>@item.comment</td>
+            <td>@item.act_dt.ToString("dd/MM/yyyy HH:mm")</td>
+        </tr>    
+        }
+        
+    </tbody>
+</table>

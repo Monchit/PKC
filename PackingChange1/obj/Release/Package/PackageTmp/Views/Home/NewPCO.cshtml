@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "New";
+}
+
+@section scripts {
+     <script type="text/javascript">
+         $(document).ready(function () {
+             $.validate({
+                 modules: 'date, file',
+                 form: '#formNew'
+             });
+
+             $("[name='ImpPlant[]']:eq(0)").valAttr('', 'validate_checkbox_group').valAttr('qty', 'min1');
+
+             $(".datepicker").datepicker({
+                 dateFormat: 'dd-mm-yy',
+                 showOtherMonths: true,
+                 selectOtherMonths: true,
+                 showButtonPanel: true,
+                 minDate: new Date()//set minDate is today
+             });
+
+             $("#btnAddFile").click(function () {
+                 $('#divAttach').append($('<div style="padding: 3px 0px 3px 0px;"><input type="file" name="atfiles" class="input-file" /> <button type="button" class="DelFile btn btn-mini btn-danger"><i class="icon-remove icon-white"></i></button></div>'));
+             });
+
+             $(document).on("click", ".DelFile", function () {
+                 $(this).parent().remove();
+                 return false;
+             });
+         });
+     </script>
+}
+<form id="formNew" name="formNew" class="form-horizontal" action="@Url.Action("CreatePCO","Home")" method="post" enctype="multipart/form-data">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Application for Packing Change</legend>
+
+<div class="container-fluid">
+    <!-- Form Left -->
+    <div class="span6">
+        <div class="control-group">
+          <label class="control-label" for="selChangeType">Control no. : </label>
+          <div class="controls">
+            <strong>PKC-@ViewBag.GCode-@ViewBag.Year-<u>@String.Format("{0:000}" ,ViewBag.Runno)</u></strong>
+            <input id="txtGC" name="txtGC" type="hidden" value="@ViewBag.GCode" />
+            <input id="txtYear" name="txtYear" type="hidden" value="@ViewBag.Year" />
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="selChangeType">Type of change : </label>
+          <div class="controls">
+            <select id="selChangeType" name="selChangeType" class="input-xlarge" data-validation="required">
+                <option value="">--Please Select--</option>
+                <option>Packing Condition</option>
+                <option>Inspection Data</option>
+                <option>Packing Condition and Inspection Data</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="txaDetail">Change detail : </label>
+          <div class="controls">                     
+            <textarea id="txaDetail" name="txaDetail" class="input-xlarge" data-validation="required"></textarea>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="txaReason">Reason of change : </label>
+          <div class="controls">                     
+            <textarea id="txaReason" name="txaReason" class="input-xlarge" data-validation="required"></textarea>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="filebutton">Import item list <a href="~/SourceFiles/ItemList_01.xlsx" class="btn btn-mini btn-warning" target="_blank" title="Format Item list"><i class="icon-download-alt icon-white"></i></a> : </label>
+          <div class="controls">
+              <span class="label label-success">Excel</span>
+            <input id="impfile" name="impfile" class="input-file" type="file" data-validation="required extension" data-validation-allowing="xls, xlsx">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="textinput">Expected date : </label>
+          <div class="controls">
+            <input type="text" id="dtpExpectDate" name="dtpExpectDate" readonly="true" class="datepicker input-medium"
+                data-validation="date" data-validation-format="dd-mm-yyyy">
+          </div>
+        </div>
+    </div>
+
+    <!-- Form Right -->
+    <div class="span6">
+        <div class="control-group">
+          <label class="control-label" for="selReqBy">Request by : </label>
+          <div class="controls">
+            <select id="selReqBy" name="selReqBy" class="input-large" data-validation="required">
+                <option value="">--Please Select--</option>
+                <option>Customer</option>
+                <option>Internal</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="selProdType">Production type : </label>
+          <div class="controls">
+            <select id="selProdType" name="selProdType" class="input-large" data-validation="required">
+                <option value="">--Please Select--</option>
+                <option>Manufacturing</option>
+                <option>Service Part</option>
+                <option>Pass Through</option>
+                <option>Manufacturing & Service Part</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="txaCurrent">Current condition : </label>
+          <div class="controls">                     
+            <textarea id="txaCurrent" name="txaCurrent" class="input-xlarge" data-validation="required"></textarea>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="txaNew">New condition : </label>
+          <div class="controls">                     
+            <textarea id="txaNew" name="txaNew" class="input-xlarge" data-validation="required"></textarea>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="filebutton">Attach files <span class="label label-important">PDF</span> <button id="btnAddFile" type="button" class="btn btn-small btn-info"><i class="icon-plus icon-white"></i></button> : </label>
+          <div class="controls" id="divAttach">
+            <div style="padding: 3px 0px 3px 0px;"><input type="file" name="atfiles" class="input-file"></div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label" for="checkboxes">Impact plant : </label>
+            <div class="controls">
+                @foreach (var item in ViewBag.SelectPlant)
+                {
+                <label class="checkbox inline" for="Imp_@item.plant_code">
+                <input type="checkbox" name="ImpPlant[]" id="Imp_@item.plant_code" value="@item.plant_code">
+                @item.plant_name
+                </label>
+                }
+            </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="btnSubmit"></label>
+          <div class="controls">
+            <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-inverse">Submit</button>
+            <button id="btnClear" name="btnClear" type="reset" class="btn">Clear</button>
+          </div>
+        </div>
+    </div>
+</div>
+
+</fieldset>
+</form>

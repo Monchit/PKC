@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PCRModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PCREntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="PCR_GCode" EntityType="PCRModel.PCR_GCode" />
+    <EntitySet Name="PCR_Customer" EntityType="PCRModel.PCR_Customer" />
+    <EntitySet Name="v_pcr_main" EntityType="PCRModel.v_pcr_main" />
+  </EntityContainer>
+  <EntityType Name="PCR_GCode">
+    <Key>
+      <PropertyRef Name="g_id" />
+    </Key>
+    <Property Name="g_id" Type="Int32" Nullable="false" />
+    <Property Name="g_code" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="PCR_Customer">
+    <Key>
+      <PropertyRef Name="cust_no" />
+    </Key>
+    <Property Type="String" Name="cust_no" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="cust_name" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="v_pcr_main">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="pcr_id" />
+      <PropertyRef Name="issuer" />
+    </Key>
+    <Property Type="String" Name="state_name" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="status_name" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="type_name" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="group_name" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="emp_fname" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="emp_lname" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="pcr_id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="issuer" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="issue_group" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="issue_tel" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="issued_date" Precision="0" />
+    <Property Type="DateTime" Name="expected_date" Precision="0" />
+    <Property Type="DateTime" Name="completed_date" Precision="0" />
+    <Property Type="Byte" Name="class_type" />
+    <Property Type="Byte" Name="app_type" />
+    <Property Type="Byte" Name="std_req" />
+    <Property Type="String" Name="std_txt" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="pcr_type" />
+    <Property Type="String" Name="change_txt" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="reason_txt" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="Byte" Name="status_id" />
+    <Property Type="Byte" Name="state_id" />
+    <Property Type="String" Name="item_attach" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="folder_no" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="item_no" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="cust_no" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="issue_dept" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="issue_div" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="email" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

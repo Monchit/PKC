@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Concern Group Management";
+}
+<style type="text/css">
+    /*fix jTable*/
+    span.jtable-goto-page select, span.jtable-page-size-change select {
+        height: 25px;
+        width: 60px;
+        padding: 2px 2px;
+        margin-bottom:auto;
+    }
+    div.jtable-main-container table.jtable thead th {
+        text-align: center;
+    }
+    div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jTableConcernGroup').jtable({
+            title: 'Concern Group Master',
+            paging: true, //Enable paging
+            pageSize: 25, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'concern_group_id', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("ConcernGroupList", "Master")',
+                deleteAction: '@Url.Action("DeleteConcernGroup", "Master")',
+                createAction: '@Url.Action("CreateConcernGroup", "Master")'
+            },
+            fields: {
+                concern_group_id: { title: 'Group Type', key: true, create: true, width: '30%', options: '@Url.Action("GetConcernTypeList", "Master")' },
+                group_id: { title: 'Group', create: true, width: '50%', options: '@Url.Action("GetTNCGroupList", "Master")' },
+                create_dt: { title: 'Date-Time', create: false, width: '20%', type: 'date', displayFormat: 'dd-mm-yy' }
+            }
+        });
+        //Load student list from server
+        $('#jTableConcernGroup').jtable('load');
+
+    });
+</script>
+
+<div id="jTableConcernGroup"></div>

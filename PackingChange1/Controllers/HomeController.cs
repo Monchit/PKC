@@ -1667,11 +1667,46 @@ namespace PackingChange1.Controllers
                         if (!HaveOtherWaitAction(gpcode, year, runno, status))
                         {
                             var prod_list = GetTempConcern(gpcode, year, runno, 1);//1 = Production
-                            foreach (var item in prod_list)//goto Production
+                            if (prod_list.Count != 0)
                             {
-                                get_tnc_org.GetApprover(item, 1);
-                                InsertTransaction(gpcode, year, runno, 4, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
-                                SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(4).status_name);
+                                foreach (var item in prod_list)//goto Production
+                                {
+                                    get_tnc_org.GetApprover(item, 1);
+                                    InsertTransaction(gpcode, year, runno, 4, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
+                                    SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(4).status_name);
+                                }
+                            }
+                            else
+                            {
+                                var pur_list = GetTempConcern(gpcode, year, runno, 2);//2 = Purchase
+                                if (pur_list.Count != 0)//have Purchase -> Purchase
+                                {
+                                    foreach (var item in pur_list)
+                                    {
+                                        get_tnc_org.GetApprover(item, 1);
+                                        InsertTransaction(gpcode, year, runno, 5, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
+                                        SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(5).status_name);
+                                    }
+                                }
+                                else//no Purchase -> Sales/CS Mgr.
+                                {
+                                    var sale_list = GetTempConcern(gpcode, year, runno, 3);//3 = Sales/CS
+                                    foreach (var item in sale_list)
+                                    {
+                                        get_tnc_org.GetApprover(item, 1);
+
+                                        if (get_tnc_org.OrgId != 0)
+                                        {
+                                            InsertTransaction(gpcode, year, runno, 6, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
+                                            SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(6).status_name);
+                                        }
+                                        else
+                                        {
+                                            InsertTransaction(gpcode, year, runno, 6, 2, item);
+                                            SendEmailCenter(gpcode, year, runno, GetEmail(item, 2), state: dbPC.tm_status.Find(6).status_name);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -1953,12 +1988,18 @@ namespace PackingChange1.Controllers
                         {
                             if (get_item > 0)
                             {
+                                //var pln_list = GetTempConcern(gpcode, year, runno, 6);//5 = Planning
+                                //foreach (var item in pln_list)//goto Planning
+                                //{
+                                //    get_tnc_org.GetApprover(item, 1);
+                                //    InsertTransaction(gpcode, year, runno, 12, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
+                                //    SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(12).status_name);
+                                //}
                                 var pln_list = GetTempConcern(gpcode, year, runno, 6);//5 = Planning
                                 foreach (var item in pln_list)//goto Planning
                                 {
-                                    get_tnc_org.GetApprover(item, 1);
-                                    InsertTransaction(gpcode, year, runno, 12, (byte)(get_tnc_org.OrgLevel + 1), get_tnc_org.OrgId, actor: get_tnc_org.ManagerId);
-                                    SendEmailCenter(gpcode, year, runno, get_tnc_org.ManagerEMail, state: dbPC.tm_status.Find(12).status_name);
+                                    InsertTransaction(gpcode, year, runno, 12, 1, item);
+                                    SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(12).status_name);
                                 }
                             }
                             else

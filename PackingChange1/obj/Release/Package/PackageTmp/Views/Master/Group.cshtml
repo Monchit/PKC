@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Group Management";
+}
+<style type="text/css">
+    /*fix jTable*/
+    span.jtable-goto-page select, span.jtable-page-size-change select {
+        height: 25px;
+        width: 60px;
+        padding: 2px 2px;
+        margin-bottom:auto;
+    }
+    div.jtable-main-container table.jtable thead th {
+        text-align: center;
+    }
+    div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jTableGroup').jtable({
+            title: 'Group Master',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'plant_code', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("GroupList","Master")',
+                deleteAction: '@Url.Action("DeleteGroup","Master")',
+                updateAction: '@Url.Action("UpdateGroup","Master")',
+                createAction: '@Url.Action("CreateGroup","Master")'
+            },
+            fields: {
+                sys_group_code: { title: 'Group code', key: true, create: true, edit: false, width: '20%' },
+                sys_group_name: { title: 'Group detail', create: true, edit: true, width: '30%' },
+                group_type: { title: 'Group type', create: true, edit: true, width: '20%', options: ['QA','QC','PP'] },
+                plant_code: { title: 'Plant', create: true, edit: true, width: '30%', options: '@Url.Action("GetPlantList","Master")' }
+            }
+        });
+        //Load student list from server
+        $('#jTableGroup').jtable('load');
+
+    });
+</script>
+
+<div id="jTableGroup"></div>

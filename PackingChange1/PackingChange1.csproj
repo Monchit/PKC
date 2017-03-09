@@ -663,13 +663,25 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PackingChange.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Images\content_img_6.jpg" />
-    <Content Include="Images\earth_background.jpg" />
+    <Content Include="Images\content_img_6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\earth_background.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\image-placeholder-300x200.jpg" />
-    <Content Include="Images\pack1_resize.jpg" />
-    <Content Include="Images\packing.png" />
-    <Content Include="Images\ship.jpg" />
-    <Content Include="Images\ship_resize.jpg" />
+    <Content Include="Images\pack1_resize.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\packing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ship.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ship_resize.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="NuGet.exe" />
     <Content Include="Rotativa\libeay32.dll" />
     <Content Include="Rotativa\libgcc_s_dw2-1.dll" />
@@ -741,6 +753,7 @@
     <Content Include="Scripts\DataTables\responsive.foundation.min.js" />
     <Content Include="Scripts\DataTables\responsive.jqueryui.js" />
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
+    <Content Include="Scripts\html5shiv3.7.3.min.js" />
     <Content Include="Scripts\jquery.freezeheader.js" />
     <Content Include="Scripts\multiselect\img\switch.png" />
     <Content Include="img\glyphicons-halflings-white.png" />
@@ -1016,6 +1029,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\multiselect\js\jquery.multi-select.js" />
     <Content Include="Scripts\multiselect\css\multi-select.css" />
+    <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Select2-locales\select2_locale_ar.js" />
     <Content Include="Scripts\Select2-locales\select2_locale_az.js" />
     <Content Include="Scripts\Select2-locales\select2_locale_bg.js" />

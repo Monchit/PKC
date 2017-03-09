@@ -1,0 +1,26 @@
+﻿@model IEnumerable<PackingChange1.Models.V_ShowFB>
+<h3>Feedback Detail</h3>
+
+<table class="table table-condensed table-bordered">
+    <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Status</th>
+            <th>Comment</th>
+            <th>Date-Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.emp_fname</td>
+            <td>@item.emp_lname</td>
+            <td>@item.status_name</td>
+            <td>@item.comment</td>
+            <td>@item.act_dt.ToString("dd/MM/yyyy HH:mm")</td>
+        </tr>    
+        }
+    </tbody>
+</table>

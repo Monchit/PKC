@@ -1,0 +1,114 @@
+﻿@model PackingChange1.Models.td_item_list
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Datepicker Setting
+        $(".datepicker").datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+    });
+</script>
+
+<form class="form-horizontal" method="post" action="@Url.Action("UpdateItemList", "EditData")">
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="item_code">Item Code :</label>
+      <div class="controls">
+        <input id="item_code" name="item_code" type="text" class="input-large" value="@Model.item_code" readonly="true">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="cust_no">Customer No. :</label>
+      <div class="controls">
+        <input id="cust_no" name="cust_no" type="text" class="input-xlarge" value="@Model.cust_no">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="customer_name">Customer Name :</label>
+      <div class="controls">
+        <input id="customer_name" name="customer_name" type="text" class="input-xlarge" value="@Model.customer_name">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="part_no">Part No. :</label>
+      <div class="controls">
+        <input id="part_no" name="part_no" type="text" class="input-xlarge" value="@Model.part_no">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="wc">WC :</label>
+      <div class="controls">
+        <input id="wc" name="wc" type="text" class="input-xlarge" value="@Model.wc">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="pp_have">Have :</label>
+      <div class="controls">
+          <select name="pp_have" class="input-medium">
+            <option value="">----</option>
+            <option @if (Model.pp_have == "Have") { <text>selected="selected"</text> }>Have</option>
+            <option @if (Model.pp_have == "No Have") { <text>selected="selected"</text> }>No Have</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="pp_lot">Job/Lot no. :</label>
+      <div class="controls">
+        <input id="pp_lot" name="pp_lot" type="text" class="input-xlarge" value="@Model.pp_lot">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="pp_qty">Q'ty (pcs.) :</label>
+      <div class="controls">
+        <input id="pp_qty" name="pp_qty" type="text" class="input-xlarge" value="@Model.pp_qty">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="pp_confirm_lot">Confirm Start :</label>
+      <div class="controls">
+        <input id="pp_confirm_lot" name="pp_confirm_lot" type="text" class="input-xlarge" value="@Model.pp_confirm_lot">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="pp_eff_prod">Eff. Date for Prod. :</label>
+      <div class="controls">
+        <input id="pp_eff_prod" name="pp_eff_prod" type="text" class="input-medium datepicker" value="@Model.pp_eff_prod">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="pp_eff_pln">Eff. Date for Planning :</label>
+      <div class="controls">
+        <input id="pp_eff_pln" name="pp_eff_pln" type="text" class="input-medium datepicker" value="@Model.pp_eff_pln">
+      </div>
+    </div>
+
+    <!-- Button -->
+    <div class="control-group">
+      <label class="control-label" for="btnUpdate"></label>
+      <div class="controls">
+        <input type="hidden" id="hdgc" name="hdgc" value="@Model.gpcode" />
+        <input type="hidden" id="hdyy" name="hdyy" value="@Model.year" />
+        <input type="hidden" id="hdrn" name="hdrn" value="@Model.runno" />
+        <button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+</form>

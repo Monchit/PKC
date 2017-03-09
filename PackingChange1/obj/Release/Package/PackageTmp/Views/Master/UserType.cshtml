@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "User Type Management";
+}
+<style type="text/css">
+    /*fix jTable*/
+    span.jtable-goto-page select, span.jtable-page-size-change select {
+        height: 25px;
+        width: 60px;
+        padding: 2px 2px;
+        margin-bottom:auto;
+    }
+    div.jtable-main-container table.jtable thead th {
+        text-align: center;
+    }
+    div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jTableUserType').jtable({
+            title: 'User Type Master',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'utype_code ASC', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("UserTypeList","Master")',
+                deleteAction: '@Url.Action("DeleteUserType","Master")',
+                updateAction: '@Url.Action("UpdateUserType","Master")',
+                createAction: '@Url.Action("CreateUserType","Master")'
+            },
+            fields: {
+                utype_code: { title: 'Code', key: true, create: true, edit: false, width: '40%' },
+                utype_name: { title: 'User Type Name', create: true, edit: true, width: '40%' },
+                utype_lv: {
+                    title: 'Level', create: true, edit: true, width: '20%',
+                    options: ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+                }
+            }
+        });
+        //Load student list from server
+        $('#jTableUserType').jtable('load');
+    });
+</script>
+
+<div id="jTableUserType"></div>

@@ -1,0 +1,121 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $.validate({ form: '#SaleCS' });
+
+        $("#divText").hide();
+
+        $("#slAction").change(function () {
+            if ($(this).val() == "APV") {
+                $("#divText").show();
+                $("#lbText").text("Comment :");
+                //$("#txaCM").removeAttr('data-validation');
+            } else if ($(this).val() == "REJ") {
+                $("#divText").show();
+                $("#lbText").text("Reason for Reject :");
+                //$("#txaCM").attr('data-validation', 'required');
+            } else {
+                $("#divText").hide();
+            }
+        });
+
+        $('#chkneed').change(function () {
+            if ($(this).is(":checked")) {
+                $("#txtCustNeed").attr('data-validation', 'required');
+            } else {
+                $("#txtCustNeed").removeAttr('data-validation');
+            }
+        });
+
+        $('#chknoneed').change(function () {
+            if ($(this).is(":checked")) {
+                $("#txtCustNo").attr('data-validation', 'required');
+            } else {
+                $("#txtCustNo").removeAttr('data-validation');
+            }
+        });
+
+        $("#slTag").change(function () {
+            if ($(this).val() == "0") {
+                $("#txtFreq").removeAttr('data-validation');
+            } else {
+                $("#txtFreq").attr('data-validation', 'required');
+            }
+        });
+
+    });
+</script>
+<div class="container-fluid">
+    <form id="SaleCS" name="SaleCS" action="@Url.Action("SaleCSAction")" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Submit Packing Standard</legend>
+            <div class="row-fluid">
+                <div class="span6">
+                    <input type="checkbox" id="chkneed" name="chkneed[]" value="1" data-validation="checkbox_group" data-validation-qty="min1" /> NEED
+                    <input type="text" id="txtCustNeed" name="txtCustNeed" class="span11" />
+                </div>
+                <div class="span6">
+                    <input type="checkbox" id="chknoneed" name="chkneed[]" value="0" /> NO NEED
+                    <input type="text" id="txtCustNo" name="txtCustNo" class="span11" />
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Initial Tag</legend>
+            <select id="slTag" name="slTag" class="input-xlarge" data-validation="required">
+                <option value="">-Please Select-</option>
+                <option value="0">NO NEED</option>
+                <option value="1">NEED : CUSTOMER FORMAT</option>
+                <option value="2">NEED : TNC FORMAT</option>
+            </select>
+            Frequency : <input type="text" id="txtFreq" name="txtFreq" class="span6" />
+        </fieldset>
+
+        <fieldset>
+            <legend>Sales/CS Mgr. Review</legend>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label class="control-label" for="slAction">Action :</label>
+                        <div class="controls">
+                            <select id="slAction" name="slAction" class="input-large" data-validation="required">
+                                <option value="">-Please Select-</option>
+                                <option value="APV">Approve</option>
+                                <option value="REJ">Reject</option>
+                            </select>
+                            @{
+                                var gc = ViewData["gpcode"];
+                                var yy = ViewData["year"];
+                                var rn = ViewData["runno"];
+                                var ulv = ViewData["ulv"];
+                                var org = ViewData["org"];
+                                var status = ViewData["status"];
+                            }
+                              <input type="hidden" id="hdgc" name="hdgc" value="@gc" />
+                              <input type="hidden" id="hdyy" name="hdyy" value="@yy" />
+                              <input type="hidden" id="hdrn" name="hdrn" value="@rn" />
+                              <input type="hidden" id="hdulv" name="hdulv" value="@ulv" />
+                              <input type="hidden" id="hdorg" name="hdorg" value="@org" />
+                              <input type="hidden" id="hdstt" name="hdstt" value="@status" />
+                            <button type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group" id="divText">
+                        <label class="control-label" for="txaCM" id="lbText"></label>
+                        <div class="controls">
+                        <textarea rows="4" id="txaCM" name="txaCM" class="input-xlarge" data-validation="required"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                      <label class="control-label" for="uplAtt">Attach files :</label>
+                      <div class="controls">
+                        @Html.Partial("_SectionAtt")
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

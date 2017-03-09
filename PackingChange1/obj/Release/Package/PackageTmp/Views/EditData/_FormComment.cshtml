@@ -1,0 +1,15 @@
+﻿@model PackingChange1.Models.td_transaction
+<form id="formEdit" name="formEdit" method="post" action="@Url.Action("UpdateComment", "EditData")">
+    <label>Comment :</label>
+    <textarea id="txaEditComment" name="txaEditComment" rows="6" style="width:260px;">@Model.comment</textarea>
+
+    <input type="hidden" id="hdgc" name="hdgc" value="@Model.gpcode" />
+    <input type="hidden" id="hdyy" name="hdyy" value="@Model.year" />
+    <input type="hidden" id="hdrn" name="hdrn" value="@Model.runno" />
+    <input type="hidden" id="hdst" name="hdst" value="@Model.status_id" />
+    <input type="hidden" id="hdlv" name="hdlv" value="@Model.lv_id" />
+    <input type="hidden" id="hdorg" name="hdorg" value="@Model.org_id" />
+    <input type="hidden" id="hdpc" name="hdpc" value="@Model.plant_code" />
+
+    <button id="btnUpdate" name="btnUpdate" type="submit" class="btn btn-primary">Update</button>
+</form>
