@@ -56,7 +56,7 @@
                         @if (Session["PCO_Auth"] != null)
                         {
                             @Html.MenuLink("Main", "MainPCO", "Home")
-                            if (Session["PCO_ULv"] != null && Session["PCO_ULv"].ToString() != "4")
+                            if (Session["PCO_ULv"] != null && Session["PCO_ULv"].ToString() != "3" && Session["PCO_ULv"].ToString() != "4")
                             {
                                 @Html.MenuLink("New", "NewPCO", "Home")
                             }

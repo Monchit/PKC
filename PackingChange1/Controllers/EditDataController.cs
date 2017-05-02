@@ -51,6 +51,7 @@ namespace PackingChange1.Controllers
         public ActionResult ItemList()
         {
             ViewBag.ControlNo = from a in dbPC.V_Report
+                                orderby a.id ascending
                                 select a;
             return View();
         }

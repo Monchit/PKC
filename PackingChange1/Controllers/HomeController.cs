@@ -81,19 +81,19 @@ namespace PackingChange1.Controllers
 
                 Session["PCO_UTypeLv"] = chk_sys_user != null ? chk_sys_user.tm_sys_utype.utype_lv : 0;
 
-                var chk_sys_plant = from a in dbPC.tm_sys_group_user
-                                    where a.emp_code == chklogin.emp_code
-                                    select a;
+                //var chk_sys_plant = from a in dbPC.tm_sys_group_user
+                //                    where a.emp_code == chklogin.emp_code
+                //                    select a;
 
-                var plant_respond = "";
-                if (chk_sys_plant.Any())
-                {
-                    foreach (var item in chk_sys_plant)
-                    {
-                        plant_respond += "," + item.tm_sys_group.plant_code;
-                    }
-                    Session["PCO_PlantResp"] = plant_respond.Substring(1);
-                }
+                //var plant_respond = "";
+                //if (chk_sys_plant.Any())
+                //{
+                //    foreach (var item in chk_sys_plant)
+                //    {
+                //        plant_respond += "," + item.tm_sys_group.plant_code;
+                //    }
+                //    Session["PCO_PlantResp"] = plant_respond.Substring(1);
+                //}
 
                 if (Session["Redirect"] != null)
                 {
@@ -119,7 +119,7 @@ namespace PackingChange1.Controllers
             Session.Remove("PCO_UTypeLv");
             Session.Remove("PCO_ULv");
             Session.Remove("PCO_Org");
-            Session.Remove("PCO_PlantResp");
+            //Session.Remove("PCO_PlantResp");
             return RedirectToAction("Index", "Home");
         }
 
@@ -511,6 +511,10 @@ namespace PackingChange1.Controllers
                         {
                             ViewBag.PCOTran = item;
                         }
+                        else if (item.status_id == 2 && (org == 19 || org == 20))
+                        {
+                            ViewBag.PCOTran = item;
+                        }
                         else
                         {
                             if (item.lv_id == 2)
@@ -719,17 +723,20 @@ namespace PackingChange1.Controllers
 
                 foreach (var item in reader)
                 {
-                    td_item_list itemlist = new td_item_list();
-                    itemlist.gpcode = main.gpcode;
-                    itemlist.year = main.year;
-                    itemlist.runno = main.runno;
-                    itemlist.item_code = item[0].ToString();
-                    itemlist.cust_no = item[1].ToString();
-                    itemlist.customer_name = item[2].ToString();//2
-                    itemlist.part_no = item[3].ToString();
-                    itemlist.wc = item[4].ToString();
+                    //if (item != null)
+                    //{
+                        td_item_list itemlist = new td_item_list();
+                        itemlist.gpcode = main.gpcode;
+                        itemlist.year = main.year;
+                        itemlist.runno = main.runno;
+                        itemlist.item_code = item[0].ToString();
+                        itemlist.cust_no = item[1].ToString();
+                        itemlist.customer_name = item[2].ToString();//2
+                        itemlist.part_no = item[3].ToString();
+                        itemlist.wc = item[4].ToString();
 
-                    dbPC.td_item_list.Add(itemlist);
+                        dbPC.td_item_list.Add(itemlist);
+                    //}
                 }
 
                 dbPC.SaveChanges();
