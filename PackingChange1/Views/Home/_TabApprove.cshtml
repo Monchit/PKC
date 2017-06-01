@@ -10,31 +10,38 @@
     var org = ViewBag.PCOTran.org_id;
     string form = ViewBag.PCOForm;
 
-    if (form == "EditPCO")
+    <div class="row-fluid">
+
+    @if (form == "EditPCO")
     {
+        <div class="span9">
         <a href="@Url.Action(form, "Home", new { gpcode = gpcode, year = year, runno = runno })" class="btn btn-warning">Edit</a>
+        </div>
     }
     else if (form == "PackingSTD")
     {
+        <div class="span9">
         <a href="@Url.Action(form, "Home", new { gpcode = gpcode, year = year, runno = runno, org = org })" class="btn btn-warning" target="_blank">Submit Packing Standard</a>
+        </div>
     }
     else if (form.StartsWith("EditItemList"))
     {
+        <div class="span9">
         <a href="@Url.Action(form, "Home", new { gpcode = gpcode, year = year, runno = runno, org = org })" class="btn btn-warning" target="_blank">Update Item List</a>
-        if (form == "EditItemList2")
+        @if (form == "EditItemList2")
         {
             <a href="@Url.Action("PrintPLN", "Home", new { gpcode = gpcode, year = year, runno = runno })" class="btn btn-primary" target="_blank">Print</a>
         }
+        </div>
     }
     else
     {
-        <div class="row-fluid">
-            <div class="span9">
-                @Html.Partial(form, new ViewDataDictionary { { "gpcode", gpcode }, { "year", year }, { "runno", runno }, { "ulv", ulv }, { "org", org }, {"status", status} })
-            </div>
-            <div class="span3">
-                @Html.Partial("_FormFeedback", new ViewDataDictionary { { "gpcode", gpcode }, { "year", year }, { "runno", runno }, { "ulv", ulv }, { "org", org }, { "status", status } })
-            </div>
+        <div class="span9">
+            @Html.Partial(form, new ViewDataDictionary { { "gpcode", gpcode }, { "year", year }, { "runno", runno }, { "ulv", ulv }, { "org", org }, {"status", status} })
         </div>
     }
+<div class="span3">
+                @Html.Partial("_FormFeedback", new ViewDataDictionary { { "gpcode", gpcode }, { "year", year }, { "runno", runno }, { "ulv", ulv }, { "org", org }, { "status", status } })
+            </div>
+    </div>
 }
