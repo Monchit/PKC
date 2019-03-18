@@ -64,6 +64,10 @@
                 $("#spanAdd").hide();
             });
         });
+
+        $('#selCust').change(function (event) {
+            $('#cust_no_name').val($('#selCust option:selected').text());
+        });
     });
 </script>
 
@@ -115,9 +119,10 @@
           <option value="">--Please Select--</option>
           @foreach (var item in ViewBag.SelCust)
           {
-          <option value="@item.cust_no">@item.cust_no - @item.cust_name</option>
+          <option value="@item.cust_no">@item.cust_no [@item.cust_name]</option>
           }
       </select>
+      <input type="hidden" id="cust_no_name" name="cust_no_name" />
   </div>
 </div>
 <!-- File Button --> 
@@ -155,6 +160,21 @@
     <textarea id="txaReason" name="txaReason" class="span6" data-validation="required"></textarea>
   </div>
 </div>
+
+<div class="control-group">
+  <label class="control-label" for="selSale">Sales/CS Incharge :</label>
+  <div class="controls">                     
+    <select id="selSale" name="selSale" class="span3" data-validation="required">
+        <option value="">--Please Select--</option>
+        <option value="19">Quality Assurance 1</option>
+        <option value="20">Quality Assurance 2</option>
+    @foreach (var item in ViewBag.SelSale)
+    {
+        <option value="@item.group_id">@item.group_name</option>
+    }
+    </select>
+  </div>
+</div>
 <!-- Button (Double) -->
 <div class="control-group">
     <label class="control-label" for="btnAdd"></label>
@@ -165,7 +185,7 @@
         <input type="hidden" id="hdorg" name="hdorg" value="@ViewBag.Org" />
         <input type="hidden" id="hdseries" name="hdseries" />
         <span id="spanAdd"><button id="btnAdd" name="btnAdd" class="btn btn-primary">Add</button></span>
-        <span id="spanUpd"><button id="btnUpd" name="btnUpd" class="btn">Update</button></span>
+        <span id="spanUpd"><button id="btnUpd" name="btnUpd" class="btn btn-info">Update</button></span>
         <input type="reset" id="btnReset" name="btnReset" class="btn btn-danger" value="Clear" />
     </div>
 </div>

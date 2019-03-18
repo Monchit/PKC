@@ -27,6 +27,7 @@
 
             $('#slPur').select2({
                 multiple: true,
+                placeholder: "Select Purchase",
                 ajax: {
                     url: '@Url.Action("GetPurList", "Home")',
                     dataType: 'json',
@@ -45,6 +46,7 @@
 
             $('#slSale').select2({
                 multiple: true,
+                placeholder: "Select Sales",
                 ajax: {
                     url: '@Url.Action("GetSaleList", "Home")',
                     dataType: 'json',
@@ -63,6 +65,7 @@
 
             $('#slCS').select2({
                 multiple: true,
+                placeholder: "Select Customer Service",
                 ajax: {
                     url: '@Url.Action("GetCSList", "Home")',
                     dataType: 'json',
@@ -81,6 +84,7 @@
 
             $('#slLG').select2({
                 multiple: true,
+                placeholder: "Select Logistic Control",
                 ajax: {
                     url: '@Url.Action("GetLGList", "Home")',
                     dataType: 'json',
@@ -99,6 +103,7 @@
 
             $('#slPLN').select2({
                 multiple: true,
+                placeholder: "Select Planning",
                 ajax: {
                     url: '@Url.Action("GetPLNList", "Home")',
                     dataType: 'json',

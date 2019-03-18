@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PackingChangeModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PackingChangeEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="v_pack_std_qa_sale" EntityType="PackingChangeModel.v_pack_std_qa_sale" />
+  </EntityContainer>
+  <EntityType Name="v_pack_std_qa_sale">
+    <Key>
+      <PropertyRef Name="gpcode" />
+      <PropertyRef Name="year" />
+      <PropertyRef Name="runno" />
+      <PropertyRef Name="qa" />
+    </Key>
+    <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="runno" Nullable="false" />
+    <Property Type="String" Name="status" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="qa" Nullable="false" />
+    <Property Type="Int32" Name="sale" />
+    <Property Type="String" Name="change_detail" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

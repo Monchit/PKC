@@ -126,7 +126,6 @@ namespace PackingChange1.Controllers
         [Chk_Authen]
         public ActionResult MainPCO()
         {
-            //ViewBag.Menu = 1;
             ViewBag.SelectGroup = from a in dbTNC.tnc_group_master
                                   orderby a.group_name ascending
                                   select a;
@@ -140,7 +139,6 @@ namespace PackingChange1.Controllers
         [Chk_Authen]
         public ActionResult NewPCO()
         {
-            //ViewBag.Menu = 2;
             ViewBag.SelectPlant = from a in dbPC.tm_plant
                                   where a.active == true
                                   select a;
@@ -156,7 +154,7 @@ namespace PackingChange1.Controllers
             }
             else
             {
-                TempData["ErrorMessage"] = "You not have Group Code. Please contact QA (6715).";
+                TempData["ErrorMessage"] = "You not have Group Code. Please contact 6675 (QA BPK), 7444 (QA PTN).";
                 return RedirectToAction("MainPCO", "Home");
             }
 
@@ -208,6 +206,10 @@ namespace PackingChange1.Controllers
 
             ViewBag.SelCust = from a in dbPCR.PCR_Customer
                               orderby a.cust_no
+                              select a;
+
+            ViewBag.SelSale = from a in dbPC.V_ShowConcern
+                              where a.gpcode == gpcode && a.year == year && a.runno == runno && a.concern_group_id == 3
                               select a;
 
             ViewBag.GCode = gpcode;
@@ -277,7 +279,6 @@ namespace PackingChange1.Controllers
         [Chk_Authen]
         public ActionResult ClosePCO()
         {
-            //ViewBag.Menu = 3;
             ViewBag.SelectGroup = from a in dbTNC.tnc_group_master
                                   orderby a.group_name ascending
                                   select a;
@@ -286,7 +287,6 @@ namespace PackingChange1.Controllers
             ViewBag.SelectStatus = from a in dbPC.tm_status
                                    where a.status_id > 99
                                    select a;
-
             return View();
         }
 
@@ -511,10 +511,10 @@ namespace PackingChange1.Controllers
                         {
                             ViewBag.PCOTran = item;
                         }
-                        else if (item.status_id == 2 && (org == 19 || org == 20))
-                        {
-                            ViewBag.PCOTran = item;
-                        }
+                        //else if (item.status_id == 2 && (org == 19 || org == 20))//For QA
+                        //{
+                        //    ViewBag.PCOTran = item;
+                        //}
                         else
                         {
                             if (item.lv_id == 2)
@@ -1810,12 +1810,13 @@ namespace PackingChange1.Controllers
                                     }
                                     else
                                     {
-                                        var get_respond = (from a in dbPC.tm_sys_group
-                                                           where a.group_type == "PP" && get_impact.Contains(a.plant_code)
-                                                           select a.group_respond).Distinct();
-                                        if (get_respond != null)
+                                        var get_respond = from a in dbPC.tm_sys_group
+                                                          where a.group_type == "PP" && get_impact.Contains(a.plant_code)
+                                                          select a.group_respond;
+
+                                        if (get_respond.Count() > 0)
                                         {
-                                            foreach (var item in get_respond)//goto PP Mgr.
+                                            foreach (var item in get_respond)//goto PP Mgr
                                             {
                                                 InsertTransaction(gpcode, year, runno, 8, 1, item);
                                                 SendEmailCenter(gpcode, year, runno, GetEmail(item, 1), state: dbPC.tm_status.Find(8).status_name);
@@ -2111,9 +2112,12 @@ namespace PackingChange1.Controllers
                     }
                     else if (status == 14)//QA Close
                     {
-                        SkipTransaction(gpcode, year, runno);
-                        InsertTransaction(gpcode, year, runno, 100, 0, 0);
-                        SendEmailCenter(gpcode, year, runno, GetEmail(gpcode, year, runno, 0, 0), 3);//Send Email to all
+                        if (!HaveOtherWaitAction(gpcode, year, runno, status))
+                        {
+                            SkipTransaction(gpcode, year, runno);
+                            InsertTransaction(gpcode, year, runno, 100, 0, 0);
+                            SendEmailCenter(gpcode, year, runno, GetEmail(gpcode, year, runno, 0, 0), 3);//Send Email to all
+                        }
                     }
                 }
             }
@@ -2657,16 +2661,23 @@ namespace PackingChange1.Controllers
                                   where a.gpcode == gpcode && a.year == year && a.runno == runno
                                   select a).Count();
 
+                byte pack_no = (byte)(get_series + 1);
+
                 var pack = new td_pack_std();
                 pack.gpcode = gpcode;
                 pack.year = year;
                 pack.runno = runno;
-                pack.series = (byte)(get_series + 1);
+                pack.series = pack_no;
                 pack.cust_no = Request.Form["selCust"];
                 pack.status = Request.Form["selStatus"];
                 pack.submit_dt = ParseToDate(Request.Form["dpSubmit"]);
                 pack.issue_org = org;
                 pack.reason = Request.Form["txaReason"];
+
+                int sendtogroup = int.Parse(Request.Form["selSale"]);
+                var linktofile = "";
+
+                //var linktofile = "<a>" + Request.Form["cust_no_name"] + "</a>";
 
                 string subPath = "~/UploadFiles/" + year + "/" + gpcode + "/" + runno + "/";
                 if (!Directory.Exists(Server.MapPath(subPath)))
@@ -2680,11 +2691,15 @@ namespace PackingChange1.Controllers
                         var path = Path.Combine(Server.MapPath(subPath), fileName);
                         files.SaveAs(path);
                         pack.pack_file = subPath + fileName;
+                        linktofile = "<a href='http://webExternal/PKC" + subPath.Substring(1) + fileName + "'>" + Request.Form["cust_no_name"] + "</a>";
                     }
                 }
 
                 dbPC.td_pack_std.Add(pack);
                 dbPC.SaveChanges();
+
+                SendEmailCenter(gpcode, year, runno, GetEmail(sendtogroup, 3), 6, "No." + pack_no, linktofile);
+
                 //return Json(new { Result = "OK", Record = dbPC.td_pack_std.OrderByDescending(o => o.series).FirstOrDefault() });
                 return RedirectToAction("PackingSTD", "Home", new { gpcode = gpcode, year = year, runno = runno, org = org });
             }
@@ -2811,7 +2826,7 @@ namespace PackingChange1.Controllers
                     string body = "";//For Real
                     //string body = "Mail :" + mailto + "<br />";//For Test
                     string int_link = "http://webExternal/PKC/Home";
-                    //string ext_link = "http://webexternal.nok.co.th/PKC/Home";
+                    string ext_link = "https://webexternal.nok.co.th/PKC/Home";
                     string pkc = "PKC-" + get_doc.gpcode + "-" + get_doc.year + "-" + get_doc.runno.ToString("000");
 
                     if (type == 0)//waiting for process
@@ -2819,7 +2834,7 @@ namespace PackingChange1.Controllers
                         subject = "Packing Change online waiting for process (" + pkc + ")";
                         body += "Dear. All Concern,<br /><br />" +
                             "You have Packing Change No. <b>" + pkc + "</b> waiting for Process at State : " + state + "<br />" +
-                            "<br /><a href='" + int_link + "/MainPCO?id=" + pkc + "'>Packing Change Online</a><br />" +
+                            "<br /><a href='" + int_link + "/MainPCO?id=" + pkc + "'>Internal</a> | <a href='" + ext_link + "/MainPCO?id=" + pkc + "'>External</a><br />" + 
                             "<br /><b>Best Regard.<br />" + "From Packing Change-Admin</b>";
                     }
                     else if (type == 1)//Email Reject
@@ -2830,7 +2845,7 @@ namespace PackingChange1.Controllers
                             "Change content : " + get_doc.change_detail + "<br />" +
                             "Reject by : " + act_name + "<br />" +
                             "Reason : " + content + "<br />" +
-                            "<br /><a href='" + int_link + "/ClosePCO?id=" + pkc + "'>Packing Change Online</a><br />" +
+                            "<br /><a href='" + int_link + "/ClosePCO?id=" + pkc + "'>Internal</a> | <a href='" + ext_link + "/ClosePCO?id=" + pkc + "'>External</a><br />" + 
                             "<br /><b>Best Regard.<br />" + "From Packing Change-Admin</b>";
                     }
                     else if (type == 2)//Email Feedback
@@ -2841,7 +2856,7 @@ namespace PackingChange1.Controllers
                             "Change content : " + get_doc.change_detail + "<br />" +
                             "Feedback by : " + act_name + "<br />" +
                             "Feedback detail : " + content + "<br />" +
-                            "<br /><a href='" + int_link + "/MainPCO?id=" + pkc + "'>Packing Change Online</a><br />" +
+                            "<br /><a href='" + int_link + "/MainPCO?id=" + pkc + "'>Internal</a> | <a href='" + ext_link + "/MainPCO?id=" + pkc + "'>External</a><br />" + 
                             "<br /><b>Best Regard.<br />" + "From Packing Change-Admin</b>";
                     }
                     else if (type == 3)//Email Close
@@ -2850,7 +2865,7 @@ namespace PackingChange1.Controllers
                         body += "Dear. All Concern,<br /><br />" +
                             "Packing Change No. <b>" + pkc + "</b> was Closed as detail below<br />" +
                             "Change content : " + get_doc.change_detail + "<br />" +
-                            "<a href='" + int_link + "/ClosePCO?id=" + pkc + "'>Packing Change Online</a><br />" +
+                            "<a href='" + int_link + "/ClosePCO?id=" + pkc + "'>Internal</a> | <a href='" + ext_link + "/ClosePCO?id=" + pkc + "'>External</a><br />" + 
                             "<br /><b>Best Regard.<br />" + "From Packing Change-Admin</b>";
                     }
                     else if (type == 4)//Email Cancel
@@ -2861,7 +2876,7 @@ namespace PackingChange1.Controllers
                             "Change content : " + get_doc.change_detail + "<br />" +
                             "Cancel by : " + act_name + "<br />" +
                             "Reason : " + content + "<br />" +
-                            "<br /><a href='" + int_link + "/ClosePCO?id=" + pkc + "'>Packing Change Online</a><br />" +
+                            "<br /><a href='" + int_link + "/ClosePCO?id=" + pkc + "'>Internal</a> | <a href='" + ext_link + "/ClosePCO?id=" + pkc + "'>External</a><br />" + 
                             "<br /><b>Best Regard.<br />" + "From Packing Change-Admin</b>";
                     }
                     else if (type == 5)//Email Revise
@@ -2872,12 +2887,23 @@ namespace PackingChange1.Controllers
                             "Change content : " + get_doc.change_detail + "<br />" +
                             "by : " + act_name + "<br />" +
                             "Reason : " + content + "<br />" +
-                            "<br /><a href='" + int_link + "/MainPCO?id=" + pkc + "'>Packing Change Online</a><br />" +
+                            "<br /><a href='" + int_link + "/MainPCO?id=" + pkc + "'>Internal</a> | <a href='" + ext_link + "/MainPCO?id=" + pkc + "'>External</a><br />" + 
+                            "<br /><b>Best Regard.<br />" + "From Packing Change-Admin</b>";
+                    }
+                    else if (type == 6)//Email Add Packing STD
+                    {
+                        subject = "Please Submit Packing std. to" + " Refer to " + pkc;
+                        body += "Dear. All Concern,<br /><br />" +
+                            "Please you submit Packing Standard to Customer.<br />" +
+                            "Packing Change No. : <b>" + pkc + "</b><br />" +
+                            "Change Detail : <b>" + get_doc.change_detail + "</b><br />" +
+                            "Submit Packing Standard : <b>" + content + "</b><br />" +
+                            "Packing Standard for Customer : <b>" + state + "</b><br />" +
                             "<br /><b>Best Regard.<br />" + "From Packing Change-Admin</b>";
                     }
 
                     tnc_util.SendMail(31, "TNCAutoMail-PKC@nok.co.th", mailto, subject, body);//For Real
-                    //tnc_util.SendMail(31, "TNCAutoMail-PKC@nok.co.th", "noppamas@nok.co.th", subject, body);//For Test
+                    //tnc_util.SendMail(31, "TNCAutoMail-PKC@nok.co.th", "monchit@nok.co.th", subject, body);//For Test
                 }
             }
         }

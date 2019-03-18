@@ -7,13 +7,13 @@
 
         var gpcode = $("#hdgc").val();
         var year = $("#hdyy").val();
-        var runno = $("#hdrn").val()
+        var runno = $("#hdrn").val();
 
         $.get("@Url.Action("IsManufacturing", "Home")", { gpcode: gpcode, year: year, runno: runno }, function (data) {
-            $("#slProd").attr('data-validation', 'required');
+            //$("#slProd").attr('data-validation', 'required');
             $("#divProd").show();
             if (data.indexOf('Manufacturing') == -1) {//Not have Manufacturing
-                $("#slProd").removeAttr('data-validation');
+                //$("#slProd").removeAttr('data-validation');
                 $("#divProd").hide();
             }
         });
@@ -175,7 +175,7 @@
                 <div class="control-group" id="divProd">
                     <label class="control-label" for="slProd">Production :</label>
                     <div class="controls">
-                        <input type="text" id="slProd" name="slProd" class="select2 span10" data-validation="required" /><span class="badge badge-important">Required</span>
+                        <input type="text" id="slProd" name="slProd" class="select2 span10" /><span class="badge badge-info">Optional</span>
                     </div>
                 </div>
                 <div class="control-group">

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PackingChangeModelStoreContainer" CdmEntityContainer="PackingChangeEntities">
+    <EntitySetMapping Name="v_pack_std_qa_sale">
+      <EntityTypeMapping TypeName="PackingChangeModel.v_pack_std_qa_sale">
+        <MappingFragment StoreEntitySet="v_pack_std_qa_sale">
+          <ScalarProperty Name="change_detail" ColumnName="change_detail" />
+          <ScalarProperty Name="sale" ColumnName="sale" />
+          <ScalarProperty Name="qa" ColumnName="qa" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="runno" ColumnName="runno" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

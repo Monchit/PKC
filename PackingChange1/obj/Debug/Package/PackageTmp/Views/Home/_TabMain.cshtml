@@ -3,6 +3,9 @@
     .thead {
         font-weight: bold;
     }
+    .newLine {
+        white-space:pre-line;
+    }
 </style>
 
 <div class="row-fluid">
@@ -19,15 +22,15 @@
 </div>
 <div class="row-fluid">
     <div class="span2 text-right"><strong>Change detail : </strong></div>
-    <div class="span4">@Html.DisplayFor(m => m.change_detail)</div>
+    <div class="span4 newLine">@Html.DisplayFor(m => m.change_detail)</div>
     <div class="span2 text-right"><strong>Current condition : </strong></div>
-    <div class="span4">@Html.DisplayFor(m => m.condition_current)</div>
+    <div class="span4 newLine">@Html.DisplayFor(m => m.condition_current)</div>
 </div>
 <div class="row-fluid">
     <div class="span2 text-right"><strong>Reason of change : </strong></div>
-    <div class="span4">@Html.DisplayFor(m => m.reason)</div>
+    <div class="span4 newLine">@Html.DisplayFor(m => m.reason)</div>
     <div class="span2 text-right"><strong>New condition : </strong></div>
-    <div class="span4">@Html.DisplayFor(m => m.condition_new)</div>
+    <div class="span4 newLine">@Html.DisplayFor(m => m.condition_new)</div>
 </div>
 <div class="row-fluid">
     <div class="span2 text-right"><strong>Expected date : </strong></div>
@@ -53,7 +56,7 @@
             <td>@item.fname</td>
             <td>@item.lname</td>
             <td>@item.action</td>
-            <td>@item.comment</td>
+            <td class="newLine">@item.comment</td>
             <td>@item.act_dt.ToString("dd/MM/yyyy HH:mm")</td>
         </tr>    
         }

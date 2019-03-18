@@ -92,8 +92,8 @@
                 <td>@item.pp_lot</td>
                 <td>@item.pp_qty</td>
                 <td>@item.pp_confirm_lot</td>
-                <td>@if (item.pp_eff_prod != null) { <text>@item.pp_eff_prod.Value.ToString("dd/MM/yyyy")</text> }</td>
-                <td>@if (item.pp_eff_pln != null) { <text>@item.pp_eff_pln.Value.ToString("dd/MM/yyyy")</text> }</td>
+                <td>@if (item.pp_eff_prod != null) { <text>@item.pp_eff_prod.ToString("dd/MM/yyyy")</text> }</td>
+                <td>@if (item.pp_eff_pln != null) { <text>@item.pp_eff_pln.ToString("dd/MM/yyyy")</text> }</td>
                 <td>@item.cs_stock</td>
                 <td>@item.cs_repack</td>
                 <td>@if (item.cs_eff_dt != null) { <text>@item.cs_eff_dt.ToString("dd/MM/yyyy")</text> }</td>

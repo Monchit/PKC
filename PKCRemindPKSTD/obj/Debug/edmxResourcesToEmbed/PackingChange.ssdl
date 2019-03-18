@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PackingChangeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PackingChangeModelStoreContainer">
+    <EntitySet Name="v_pack_std_qa_sale" EntityType="PackingChangeModel.Store.v_pack_std_qa_sale" store:Type="Views" store:Schema="dbo" store:Name="v_pack_std_qa_sale">
+      <DefiningQuery>SELECT 
+      [v_pack_std_qa_sale].[gpcode] AS [gpcode], 
+      [v_pack_std_qa_sale].[year] AS [year], 
+      [v_pack_std_qa_sale].[runno] AS [runno], 
+      [v_pack_std_qa_sale].[status] AS [status], 
+      [v_pack_std_qa_sale].[qa] AS [qa], 
+      [v_pack_std_qa_sale].[sale] AS [sale], 
+      [v_pack_std_qa_sale].[change_detail] AS [change_detail]
+      FROM [dbo].[v_pack_std_qa_sale] AS [v_pack_std_qa_sale]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.v_pack_std_qa_sale' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="v_pack_std_qa_sale">
+    <Key>
+      <PropertyRef Name="gpcode" />
+      <PropertyRef Name="year" />
+      <PropertyRef Name="runno" />
+      <PropertyRef Name="qa" />
+    </Key>
+    <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+    <Property Name="runno" Type="int" Nullable="false" />
+    <Property Name="status" Type="nvarchar" MaxLength="20" />
+    <Property Name="qa" Type="int" Nullable="false" />
+    <Property Name="sale" Type="int" />
+    <Property Name="change_detail" Type="ntext" />
+  </EntityType>
+</Schema>

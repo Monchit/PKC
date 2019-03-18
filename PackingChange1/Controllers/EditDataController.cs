@@ -354,13 +354,19 @@ namespace PackingChange1.Controllers
             {
                 if (!string.IsNullOrEmpty(congroup))
                 {
+                    //Delete
+                    ((System.Data.Entity.Infrastructure.IObjectContextAdapter)dbPC)
+                    .ObjectContext.ExecuteStoreCommand("DELETE FROM td_temp_concern WHERE gpcode='" + gpcode + "' and year='" + year
+                                                    + "' and runno='" + runno + "' and concern_group_id='" + congid + "'");
+                    dbPC.SaveChanges();
 
                     int[] groups = congroup.Split(',').Select(s => Convert.ToInt32(s)).ToArray();
                     using (var dbLocal = new PackingChangeEntities())
                     {
+                        //Add
                         foreach (var item in groups)
                         {
-                            var check = dbPC.td_temp_concern.Find(gpcode, year, runno, congid, item);
+                            var check = dbLocal.td_temp_concern.Find(gpcode, year, runno, congid, item);
                             if (check == null)
                             {
                                 var temp = new td_temp_concern();

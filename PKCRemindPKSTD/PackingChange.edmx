@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PackingChangeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="PackingChangeModelStoreContainer">
+          <EntitySet Name="v_pack_std_qa_sale" EntityType="PackingChangeModel.Store.v_pack_std_qa_sale" store:Type="Views" store:Schema="dbo" store:Name="v_pack_std_qa_sale">
+            <DefiningQuery>SELECT 
+      [v_pack_std_qa_sale].[gpcode] AS [gpcode], 
+      [v_pack_std_qa_sale].[year] AS [year], 
+      [v_pack_std_qa_sale].[runno] AS [runno], 
+      [v_pack_std_qa_sale].[status] AS [status], 
+      [v_pack_std_qa_sale].[qa] AS [qa], 
+      [v_pack_std_qa_sale].[sale] AS [sale], 
+      [v_pack_std_qa_sale].[change_detail] AS [change_detail]
+      FROM [dbo].[v_pack_std_qa_sale] AS [v_pack_std_qa_sale]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PackingChange.dbo.v_pack_std_qa_sale' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="v_pack_std_qa_sale">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="qa" />
+          </Key>
+          <Property Name="gpcode" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="year" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="runno" Type="int" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="20" />
+          <Property Name="qa" Type="int" Nullable="false" />
+          <Property Name="sale" Type="int" />
+          <Property Name="change_detail" Type="ntext" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PackingChangeModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PackingChangeEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="v_pack_std_qa_sale" EntityType="PackingChangeModel.v_pack_std_qa_sale" />
+        </EntityContainer>
+        <EntityType Name="v_pack_std_qa_sale">
+          <Key>
+            <PropertyRef Name="gpcode" />
+            <PropertyRef Name="year" />
+            <PropertyRef Name="runno" />
+            <PropertyRef Name="qa" />
+          </Key>
+          <Property Type="String" Name="gpcode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="runno" Nullable="false" />
+          <Property Type="String" Name="status" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="qa" Nullable="false" />
+          <Property Type="Int32" Name="sale" />
+          <Property Type="String" Name="change_detail" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PackingChangeModelStoreContainer" CdmEntityContainer="PackingChangeEntities">
+          <EntitySetMapping Name="v_pack_std_qa_sale">
+            <EntityTypeMapping TypeName="PackingChangeModel.v_pack_std_qa_sale">
+              <MappingFragment StoreEntitySet="v_pack_std_qa_sale">
+                <ScalarProperty Name="change_detail" ColumnName="change_detail" />
+                <ScalarProperty Name="sale" ColumnName="sale" />
+                <ScalarProperty Name="qa" ColumnName="qa" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="runno" ColumnName="runno" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="gpcode" ColumnName="gpcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

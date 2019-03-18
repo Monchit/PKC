@@ -1,0 +1,20 @@
+D:\C_Document\Visual Studio 2012\Projects\PackingChange1\PKCRemindPKSTD\bin\Debug\PKCRemindPKSTD.exe.config
+D:\C_Document\Visual Studio 2012\Projects\PackingChange1\PKCRemindPKSTD\bin\Debug\PKCRemindPKSTD.exe
+D:\C_Document\Visual Studio 2012\Projects\PackingChange1\PKCRemindPKSTD\bin\Debug\PKCRemindPKSTD.pdb
+D:\C_Document\Visual Studio 2012\Projects\PackingChange1\PKCRemindPKSTD\bin\Debug\EntityFramework.dll
+D:\C_Document\Visual Studio 2012\Projects\PackingChange1\PKCRemindPKSTD\bin\Debug\WebCommonFunction.dll
+D:\C_Document\Visual Studio 2012\Projects\PackingChange1\PKCRemindPKSTD\bin\Debug\EntityFramework.xml
+D:\C_Document\Visual Studio 2012\Projects\PackingChange1\PKCRemindPKSTD\bin\Debug\WebCommonFunction.pdb
+D:\C_Document\Visual Studio 2012\Projects\PackingChange1\PKCRemindPKSTD\obj\Debug\PKCRemindPKSTD.csprojResolveAssemblyReference.cache
+D:\C_Document\Visual Studio 2012\Projects\PackingChange1\PKCRemindPKSTD\obj\Debug\PKCRemindPKSTD.exe
+D:\C_Document\Visual Studio 2012\Projects\PackingChange1\PKCRemindPKSTD\obj\Debug\PKCRemindPKSTD.pdb
+D:\ProjectWeb\PackingChange1\PKCRemindPKSTD\bin\Debug\PKCRemindPKSTD.exe.config
+D:\ProjectWeb\PackingChange1\PKCRemindPKSTD\obj\Debug\PKCRemindPKSTD.exe
+D:\ProjectWeb\PackingChange1\PKCRemindPKSTD\obj\Debug\PKCRemindPKSTD.pdb
+D:\ProjectWeb\PackingChange1\PKCRemindPKSTD\bin\Debug\PKCRemindPKSTD.exe
+D:\ProjectWeb\PackingChange1\PKCRemindPKSTD\bin\Debug\PKCRemindPKSTD.pdb
+D:\ProjectWeb\PackingChange1\PKCRemindPKSTD\bin\Debug\EntityFramework.dll
+D:\ProjectWeb\PackingChange1\PKCRemindPKSTD\bin\Debug\WebCommonFunction.dll
+D:\ProjectWeb\PackingChange1\PKCRemindPKSTD\bin\Debug\EntityFramework.xml
+D:\ProjectWeb\PackingChange1\PKCRemindPKSTD\bin\Debug\WebCommonFunction.pdb
+D:\ProjectWeb\PackingChange1\PKCRemindPKSTD\obj\Debug\PKCRemindPKSTD.csprojResolveAssemblyReference.cache
